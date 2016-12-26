@@ -66,8 +66,8 @@ $this->load->view('fixed_files/leilao/header');
 
             endif;
 
-            $sql = "SELECT * FROM leiloes WHERE data_inicio < ? AND data_fim > ? AND status=? LIMIT ".$begsa.",".$maxitens2."";
-            $query =  $this->db->query($sql, array($dataAtualsa,$dataAtualsa,1));
+            $sql = "SELECT * FROM leiloes WHERE data_inicio < ?  AND status=? LIMIT ".$begsa.",".$maxitens2."";
+            $query =  $this->db->query($sql, array($dataAtualsa,1));
 
             $rowcount = $query->num_rows();
 
@@ -221,7 +221,75 @@ $this->load->view('fixed_files/leilao/header');
                             $horap = 11;
                         endif;
 
-                        //parei aqui
+                        $ind = $dds['data_inicio'];
+                        $anoat = substr($ind, 0, 4);
+                        $mesat = substr($ind, 4, 2);
+                        $diaat = substr($ind, 6, 2);
+                        $horaat = substr($ind, 8, 2);
+                        $minutoat = substr($ind, 10, 2);
+                        $segundoat = substr($ind, 12, 2);
+
+                        $centavos =  str_replace (',','',$dds['valor_max']) * 100;
+
+
+                        $segundos_diferenca =  $data_hora_final -  $data_hora_inicial;
+
+                        $valor = $centavos - $segundos_diferenca;
+
+                        $real = $valor;
+
+
+                        if($horaat >= '10' and $horaat <= '23'):
+
+                            $htta = $horaat;
+
+                        else:
+                            $htta = substr($horaat,1,1);
+
+                        endif;
+
+                        if(date('H') >= '10' and date('H') <= '23'):
+
+                            $datehsrt = date('H');
+
+                        else:
+                            $datehsrt = substr(date('H'),1,1);
+
+                        endif;
+
+
+                        $data_hora_inicial = mktime($htta, $minutoat, $segundoat, $mesat, $diaat, $anoat); // 04/12/2015 10:20:00
+                        $data_hora_final = mktime($datehsrt, date('i'), date('s'), date('m'), date('d'), date('Y')); // 04/12/2015 14:45:00
+
+
+                        $segundos_diferenca =  $data_hora_final -  $data_hora_inicial;
+
+                        $valor = $centavos - $segundos_diferenca;
+
+                        $real = $valor;
+
+
+
+
+
+
+
+                        $this->db->from('lances_antecipados');
+                        $this->db->where('id_leilao', $dds['id']);
+                        $this->db->order_by("valor","desc");
+                        $queryas = $this->db->get();
+                        $rowcounts = $queryas->num_rows();
+                        $dateas = $queryas->result_array();
+
+                        if($rowcounts > 0):
+                            $resdate = str_replace ('.','',$dateas[0]['valor']);
+                        else:
+                            $resdate =  str_replace ('.','',$dds['valor_min']) ;
+                        endif;
+
+
+
+                        if($real >= $resdate ):
 
                         ?>
 
@@ -325,18 +393,12 @@ $this->load->view('fixed_files/leilao/header');
                                 <img class="img-responsive img-portfolio img-hover" style="height: 350px;object-fit: cover; object-position: center;width: 100%;max-width: 100%;" src="<?php echo $dds['image'];?>" alt="">
 
                             </a>
-                            <div style="font-size: 15pt;text-decoration: none;float: left;margin-top: -2%;" id="getting-start<?php echo $dds['id'];?>"></div>
+                            <div style="font-size: 15pt;text-decoration: none;float: left;margin-top: -2%;"><b><?php echo $dds['titulo']; ?></b></div>
 
                             <script>
                             </script>
-                            <script type="text/javascript">
-                                $("#getting-start<?php echo $dds['id'];?>")
-                                    .countdown("<?php echo $ano;?>/<?php echo $mes;?>/<?php echo $dia;?> <?php echo $horap?>:<?php echo $minuto?>:<?php echo $segundo?> <?php echo $dsp;?>", function(event) {
-                                        $(this).html(
-                                            event.strftime('<b>Termina em:</b> %D dias %H:%M:%S')
-                                        );
-                                    });
-                            </script><br><b>Preço atual:</b> <span class="text-info"> R$ <span id="time<?php echo $dds['id']?>" onclick="">00</span></span>
+                           <br><b>Preço final por KG:</b> <span class="text-info"> R$ <span><?php echo number_format($dds['valor_min'],2,'.',',');?></span></span> <b>/</b>
+                            <b>Preço atual por KG:</b> <span class="text-info"> R$ <span id="time<?php echo $dds['id']?>" onclick="">00</span></span>
 
                             <br>
 
@@ -412,7 +474,6 @@ $this->load->view('fixed_files/leilao/header');
 					
 					                        $real = $valor;
 
-											
 
 
                             ?>
@@ -514,7 +575,13 @@ $this->load->view('fixed_files/leilao/header');
                         </div>
 
 
-                    <?php }?>
+                    <?php else:
+
+                            $ddpup['status'] = '0';
+                            $this->db->where('id', $dds['id']);
+                            $this->db->update('leiloes', $ddpup);
+
+                        endif; }?>
                 </div>
                 <?php
 
@@ -601,8 +668,8 @@ $this->load->view('fixed_files/leilao/header');
 
                 endif;
 
-                $sql = "SELECT * FROM leiloes WHERE data_inicio > ? AND data_fim > ? AND status=? LIMIT ".$begs.",".$maxitens1."";
-                $query =  $this->db->query($sql, array($dataAtualsa,$dataAtualsa,1));
+                $sql = "SELECT * FROM leiloes WHERE data_inicio > ? AND status=? LIMIT ".$begs.",".$maxitens1."";
+                $query =  $this->db->query($sql, array($dataAtualsa,1));
 
                 $rowcount = $query->num_rows();
 
@@ -984,7 +1051,9 @@ echo ' <h2>Arrematados por mim</h2><br>';
                             <div class="col-xs-6 col-md-3">
                                 <a href="<?php echo $dta['url_payment'];?>" target="_blank" style="text-decoration: none;color: black;" class="thumbnail">
                                     <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $dta['image']; ?>" alt="..."> <h5 style="text-align: center;font-weight: bold;"><?php echo $dta['titulo']; ?></h5>
+                                    <?php if($dta['status'] <> 0):?>
                                     <h5 style="text-align: center;">Arrematado por: <b>R$<?php echo number_format($dta['valor_arrematado'],2,'.',',');?></b></h5>
+                                <?php endif;?>
                                 </a>
 
                             </div>
@@ -1020,7 +1089,16 @@ echo ' <h2>Leilões finalizados</h2><br>';
                             <div class="col-xs-6 col-md-3">
                                 <a href="#" style="text-decoration: none;color: black;" class="thumbnail">
                                     <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $dta['image']; ?>" alt="..."> <h5 style="text-align: center;font-weight: bold;"><?php echo $dta['titulo']; ?></h5>
+                                    <?php if($dta['status'] <> 0):?>
                                     <h5 style="text-align: center;">Arrematado por: <b>R$<?php echo number_format($dta['valor_arrematado'],2,'.',',');?></b></h5>
+                                <?php
+
+                                    else:
+                                    ?>
+                                        <h5 style="text-align: center;">Leilão finalizado</h5>
+                                        <?php
+
+                                    endif;?>
                                 </a>
 
                             </div>

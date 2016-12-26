@@ -231,10 +231,7 @@ if(isset($_SESSION['ID']) and isset($_SESSION['TYPE']) and $_SESSION['TYPE'] == 
                                             $arquivo_tmp = $_FILES['imageed']['tmp_name'];
 
                                           $move = move_uploaded_file( $arquivo_tmp, $destino  );
-                                            $ddpup['nome_cientifico_br'] = $_POST['cnpt'];
-                                            $ddpup['nome_cientifico_en'] = $_POST['cnen'];
-                                            $ddpup['nome_cientifico_fr'] = $_POST['cnfr'];
-                                            $ddpup['nome_cientifico_es'] = $_POST['cnes'];
+
                                             $ddpup['peso_lote'] = $_POST['pesot'];
                                             $ddpup['classificacao'] = $_POST['class'];
                                             $ddpup['peso_individual'] = $_POST['pesoind'];
@@ -255,7 +252,6 @@ if(isset($_SESSION['ID']) and isset($_SESSION['TYPE']) and $_SESSION['TYPE'] == 
                                             $ddpup['type'] = 1;
                                             $ddpup['by'] = $_SESSION['ID'];
                                             $ddpup['data_inicio'] = str_replace('T','',str_replace(':','',str_replace('/','',str_replace('-','',$_POST['inicioleilaoed'])))).'59';
-                                            $ddpup['data_fim'] = str_replace('T','',str_replace(':','',str_replace('/','',str_replace('-','',$_POST['fimleilaoed'])))).'59';
                                             $this->db->insert('leiloes', $ddpup);
                                             redirect('admin/leiloes', 'refresh');
                                         endif;
@@ -293,29 +289,8 @@ if(isset($_SESSION['ID']) and isset($_SESSION['TYPE']) and $_SESSION['TYPE'] == 
                                                 <input required class="form-control" name="titulo" size="60" >
                                             </div><br>
                                           
-                                            <div class="form-group">
-                                                <label>Espécie/Nome ou Nome da Espécie
-</label>
-                                                <input required class="form-control"  name="cnpt" placeholder="Nome Científico - Português" size="66" >
-                                            </div><br>
-  <div style="display:none;">
-                                            <div class="form-group">
-                                                <label>Nome científico - EN</label>
-                                                <input  class="form-control" name="cnen" placeholder="Scientific Name - English" size="66" >
-                                            </div><br>
 
-                                            <div class="form-group">
-                                                <label>Nome científico - ES</label>
-                                                <input  class="form-control" name="cnes" placeholder="
-Nombre científico - Español" size="66" >
-                                            </div><br>
-                                            <div class="form-group">
-                                                <label>Nome científico - FR</label>
-                                                <input  class="form-control" name="cnfr" placeholder="
-Nom scientifique - Français
-" size="66" >
-                                            </div><br>
-                                        </div>
+
 
                                             <div class="form-group">
                                                 <label>Peso Total do Lote em Kg:</label>
@@ -397,11 +372,7 @@ Peso Total do lote
                                                 
                                             </div>
 
-                                            <div class="form-group">
-                                                <label>Fim do leilão</label>
-                                                <input name="fimleilaoed" id="simfimldateed" type="datetime-local"  class="form-control" readyonly>
-                                              
-                                            </div>
+
 
                                             <br>
                                             <button type="submit" class="btn btn-primary">Adidionar leilão</button>
@@ -604,8 +575,25 @@ $ddpup['nome_cientifico_br'] = $dds['nome_cientifico_br'];
                                                                                                 $ddpup['status'] = 1;
                                                                                                 $ddpup['type'] = 1;
                                                                                                 $ddpup['by'] = $dds['by'];
-                                                                                                $ddpup['data_inicio'] = str_replace('T','',str_replace(':','',str_replace('/','',str_replace('-','',$_POST['inicioleilaoed'])))).'59';
-                                                                                                $ddpup['data_fim'] = str_replace('T','',str_replace(':','',str_replace('/','',str_replace('-','',$_POST['fimleilaoed'])))).'59';
+
+                                                                                                $datas = explode(' ',$_POST['inicioleilaoed']);
+
+                                                                                                $mdy_ex =  explode('/',$datas[0]);
+                                                                                                $dia = $mdy_ex[0];
+                                                                                                $mes = $mdy_ex[1];
+                                                                                                $ano = $mdy_ex[2];
+
+                                                                                                $hms = explode(':',$datas[1]);
+
+                                                                                                $hrs = $hms[0];
+                                                                                                $min = $hms[1];
+                                                                                                $sec = $hms[2];
+                               $postdatain = $ano.$mes.$dia.$hrs.$min.$sec;
+
+                                                         $ddpup['data_inicio'] = $postdatain;
+
+
+                                                                                                $ddpup['data_fim'] = '';
                                                                                                 $this->db->where('id', $_POST['leilao']);
                                                                                                 $this->db->insert('leiloes', $ddpup);
 
@@ -631,6 +619,11 @@ $ddpup['nome_cientifico_br'] = $dds['nome_cientifico_br'];
 
                                                                                             endif;
                                                                                             ?>
+
+                                                                                            <script>
+                                                                   $('#simfimldateedss<?php echo $dds['id'];?>').mask('00/00/0000 00:00:00');
+
+                                                                                            </script>
                                                                                             <form role="form" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/leiloes');?>">
 
                                                                                                 <input type="hidden" name="editpen" value="15154">
@@ -707,25 +700,15 @@ Peso Total do lote
                                                                                                 <br><br>
                                                                                                 <div class="form-group">
                                                                                                     <label>Inicio do leilão</label>
-                                                                                                    <input required name="inicioleilaoed" value="<?php
-
-                                                                                                    echo $ddpup['data_inicio'];
-
-                                                                                                    ?>" id="simfimldateed" type="text"  class="form-control">
-                                                                                                    <p class="help-block">Dia e hora do fim do leilão </p>
-                                                                                                </div>
-
-                                                                                                <div class="form-group">
-                                                                                                    <label>Fim do leilão</label>
-                                                                                                    <input required name="fimleilaoed" value="<?php
-
-                                                                                                    echo $datafim;
-
-                                                                                                    ?>" id="simfimldateed" type="datetime-local"  class="form-control">
-                                                                                                    <p class="help-block">Dia e hora do fim do leilão </p>
+                                                                                                    <input required name="inicioleilaoed" id="simfimldateedss" value="<?php echo $dds['data_inicio'];?>" type="text"  class="form-control">
                                                                                                 </div>
 
                                                                                                 <br>
+                                                                                                <?php
+
+
+
+                                                                                                ?>
                                                                                                 <button type="submit" class="btn btn-default">Postar leilão</button>
                                                                                             </form>
                                                                                         </div>
@@ -776,7 +759,6 @@ Peso Total do lote
                                                         <td class="sorting_1">-- --</td>
                                                         <td>-- --</td>
                                                         <td>-- --</td>
-                                                        <td class="center">-- --</td>
                                                         <td class="center">-- --</td>
                                                         <td class="center">-- --</td>
                                                         <td class="center">-- --</td>
@@ -863,6 +845,7 @@ if($rowcount > 0):
         $datainicio = $anoi.'-'.$mesi.'-'.$diai.'T'.$horai.':'.$minutoi.':'.$segundoi;
         $datafim = $anof.'-'.$mesf.'-'.$diaf.'T'.$horaf.':'.$minutof.':'.$segundof;
 
+        $dcin = $diai.'/'.$mesi.'/'.$anoi.' '.$horai.':'.$minutoi.':'.$segundoi;
 
 ?>
 
@@ -1062,7 +1045,7 @@ Peso Total do lote
                                                 <tr id="tableleilao<?php echo $dds['id'];?>" class="gradeA odd" role="row">
                                                     <td class="sorting_1"><?php echo $dds['id'];?></td>
                                                     <td><?php echo $dds['titulo'];?></td>
-                                                            <td><?php echo $dds['data_inicio'];?></td>
+                                                            <td><?php echo $dcin;?></td>
                                                     <td class="center">R$ <?php echo number_format($dds['valor_max'],2,'.',',');?></td>
                                                     <td class="center">R$ <?php echo number_format($dds['valor_min'],2,'.',',');?></td>
                                                     <td class="center">
@@ -1160,7 +1143,7 @@ else:
 
                                                     foreach ($dates1 as $dds){
 
-                                                        $endleilao = $dds['data_fim'];
+                                                        $endleilao = $dds['data_inicio'];
                                                         $anof = substr($endleilao, 0, 4);
                                                         $mesf = substr($endleilao, 4, 2);
                                                         $diaf = substr($endleilao, 6, 2);
@@ -1169,16 +1152,6 @@ else:
                                                         $segundof = substr($endleilao, 12, 2);
 
 
-                                                        $inileilao = $dds['data_inicio'];
-                                                        $anoi = substr($inileilao, 0, 4);
-                                                        $mesi = substr($inileilao, 4, 2);
-                                                        $diai = substr($inileilao, 6, 2);
-                                                        $horai = substr($inileilao, 8, 2);
-                                                        $minutoi = substr($inileilao, 10, 2);
-                                                        $segundoi = substr($inileilao, 12, 2);
-
-                                                        $datainicio = $anoi.'-'.$mesi.'-'.$diai.'T'.$horai.':'.$minutoi.':'.$segundoi;
-                                                        $datafim = $anof.'-'.$mesf.'-'.$diaf.'T'.$horaf.':'.$minutof.':'.$segundof;
 
 
                                                         ?>
@@ -1403,8 +1376,7 @@ Peso Total do lote
                                                         <tr id="tableleilao<?php echo $dds['id'];?>" class="gradeA odd" role="row">
                                                             <td class="sorting_1"><?php echo $dds['id'];?></td>
                                                             <td><?php echo $dds['titulo'];?></td>
-                                                            <td><?php echo $inileilao;?></td>
-                                                            <td class="center">R$ <?php echo number_format($dds['valor_max'],2,'.',',');?></td>
+                                                            <td class="center"><?php echo $diaf.'/'.$mesf.'/'.$anof.' '.$horaf.':'.$minutof.':'.$segundof;?></td>                                                            <td class="center">R$ <?php echo number_format($dds['valor_max'],2,'.',',');?></td>
                                                             <td class="center">R$ <?php echo number_format($dds['valor_min'],2,'.',',');?></td>
                                                             <td class="center">
 
@@ -1462,7 +1434,7 @@ Peso Total do lote
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Exibindo todos os leilões cadastrados
+                                Exibindo todos os leilões finalizados
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -1500,7 +1472,7 @@ Peso Total do lote
 
                                                     foreach ($dates1 as $dds){
 
-                                                        $endleilao = $dds['data_fim'];
+                                                        $endleilao = $dds['data_inicio'];
                                                         $anof = substr($endleilao, 0, 4);
                                                         $mesf = substr($endleilao, 4, 2);
                                                         $diaf = substr($endleilao, 6, 2);
@@ -1509,16 +1481,6 @@ Peso Total do lote
                                                         $segundof = substr($endleilao, 12, 2);
 
 
-                                                        $inileilao = $dds['data_inicio'];
-                                                        $anoi = substr($inileilao, 0, 4);
-                                                        $mesi = substr($inileilao, 4, 2);
-                                                        $diai = substr($inileilao, 6, 2);
-                                                        $horai = substr($inileilao, 8, 2);
-                                                        $minutoi = substr($inileilao, 10, 2);
-                                                        $segundoi = substr($inileilao, 12, 2);
-
-                                                        $datainicio = $anoi.'-'.$mesi.'-'.$diai.'T'.$horai.':'.$minutoi.':'.$segundoi;
-                                                        $datafim = $anof.'-'.$mesf.'-'.$diaf.'T'.$horaf.':'.$minutof.':'.$segundof;
 
 
                                                         ?>
@@ -1714,7 +1676,6 @@ Peso Total do lote
                                                         <tr id="tableleilao<?php echo $dds['id'];?>" class="gradeA odd" role="row">
                                                             <td class="sorting_1"><?php echo $dds['id'];?></td>
                                                             <td><?php echo $dds['titulo'];?></td>
-                                                            <td><?php echo $inileilao;?></td>
                                                             <td class="center"><?php echo $diaf.'/'.$mesf.'/'.$anof.' '.$horaf.':'.$minutof.':'.$segundof;?></td>
                                                             <td class="center">R$ <?php echo number_format($dds['valor_max'],2,'.',',');?></td>
                                                             <td class="center">R$ <?php echo number_format($dds['valor_min'],2,'.',',');?></td>
@@ -1756,12 +1717,6 @@ Peso Total do lote
                                             </table></div></div>
 
 
-                                    <!--<div class="row"><div class="col-sm-6"><div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-6"><div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate"><ul class="pagination"><li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#">Previous</a></li><li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#">1</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">2</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">3</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">4</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">5</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">6</a></li><li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">Next</a></li></ul></div></div></div></div>
-
-                                <div class="well">
-                                    <h4>DataTables Usage Information</h4>
-                                    <p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="https://datatables.net/">https://datatables.net/</a>.</p>
-                                    <a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">View DataTables Documentation</a>   <!-- /.panel-body -->
                                 </div>
                             </div>
 
@@ -1973,6 +1928,7 @@ echo '<span class="text-info">Aguardando pagamento</span>';
                                                         <td class="sorting_1">-- --</td>
                                                         <td>-- --</td>
                                                         <td>-- --</td>
+                                                        <td class="center">-- --</td>
                                                         <td class="center">-- --</td>
                                                         <td class="center">-- --</td>
                                                         <td class="center">-- --</td>

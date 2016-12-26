@@ -2671,8 +2671,8 @@ if($rowcount1as > 0):
 
     endif;
 
-    $sql = "SELECT * FROM leiloes WHERE data_inicio < ? AND data_fim > ? AND status=? LIMIT ".$begsa.",".$maxitens2."";
-    $query =  $this->db->query($sql, array($dataAtualsa,$dataAtualsa,1));
+    $sql = "SELECT * FROM leiloes WHERE data_inicio < ? AND status=? LIMIT ".$begsa.",".$maxitens2."";
+    $query =  $this->db->query($sql, array($dataAtualsa,1));
 
     $rowcount = $query->num_rows();
 
@@ -2829,6 +2829,78 @@ if($rowcount1as > 0):
                     $horap = 11;
                 endif;
 
+                $ind = $dds['data_inicio'];
+                $anoat = substr($ind, 0, 4);
+                $mesat = substr($ind, 4, 2);
+                $diaat = substr($ind, 6, 2);
+                $horaat = substr($ind, 8, 2);
+                $minutoat = substr($ind, 10, 2);
+                $segundoat = substr($ind, 12, 2);
+
+                $centavos =  str_replace (',','',$dds['valor_max']) * 100;
+
+
+                $segundos_diferenca =  $data_hora_final -  $data_hora_inicial;
+
+                $valor = $centavos - $segundos_diferenca;
+
+                $real = $valor;
+
+
+                if($horaat >= '10' and $horaat <= '23'):
+
+                    $htta = $horaat;
+
+                else:
+                    $htta = substr($horaat,1,1);
+
+                endif;
+
+                if(date('H') >= '10' and date('H') <= '23'):
+
+                    $datehsrt = date('H');
+
+                else:
+                    $datehsrt = substr(date('H'),1,1);
+
+                endif;
+
+
+                $data_hora_inicial = mktime($htta, $minutoat, $segundoat, $mesat, $diaat, $anoat); // 04/12/2015 10:20:00
+                $data_hora_final = mktime($datehsrt, date('i'), date('s'), date('m'), date('d'), date('Y')); // 04/12/2015 14:45:00
+
+
+                $segundos_diferenca =  $data_hora_final -  $data_hora_inicial;
+
+                $valor = $centavos - $segundos_diferenca;
+
+                $real = $valor;
+
+
+
+
+
+
+
+                $this->db->from('lances_antecipados');
+                $this->db->where('id_leilao', $dds['id']);
+                $this->db->order_by("valor","desc");
+                $queryas = $this->db->get();
+                $rowcounts = $queryas->num_rows();
+                $dateas = $queryas->result_array();
+
+                if($rowcounts > 0):
+                    $resdate = str_replace ('.','',$dateas[0]['valor']);
+                else:
+                    $resdate =  str_replace ('.','',$dds['valor_min']) ;
+                endif;
+
+
+
+                if($real >= $resdate ):
+
+
+
                 ?>
 
                 <!-- Modal -->
@@ -2955,14 +3027,7 @@ if($rowcount1as > 0):
                     <div style="font-size: 15pt;text-decoration: none;float: left;margin-top: -2%;"><b><?php echo $dds['titulo']; ?></b></div>
                     <script>
                     </script>
-                    <script type="text/javascript">
-                        $("#getting-start<?php echo $dds['id'];?>")
-                            .countdown("<?php echo $ano;?>/<?php echo $mes;?>/<?php echo $dia;?> <?php echo $horap?>:<?php echo $minuto?>:<?php echo $segundo?> <?php echo $dsp;?>", function(event) {
-                                $(this).html(
-                                    event.strftime('<b>Termina em:</b> %D dias %H:%M:%S')
-                                );
-                            });
-                    </script><br><b>Preço final por KG:</b> <span class="text-info"> R$ <span><?php echo number_format($dds['valor_min'],2,'.',',');?></span></span> <b>/</b> 
+                    <br><b>Preço final por KG:</b> <span class="text-info"> R$ <span><?php echo number_format($dds['valor_min'],2,'.',',');?></span></span> <b>/</b>
 					<b>Preço atual por KG:</b> <span class="text-info"> R$ <span id="time<?php echo $dds['id']?>" onclick="">00</span></span>
 
                     <br>
@@ -2979,31 +3044,18 @@ if($rowcount1as > 0):
                     $horaat = substr($ind, 8, 2);
                     $minutoat = substr($ind, 10, 2);
                     $segundoat = substr($ind, 12, 2);
-                    $secc = 59;
-                    $minc = 60;
-                    $horac = 3600;
-                    $diac = 86400;
-                    $mesc = 2419200;
-                    $anoc = 29030400;
-
-                    $segundoats = date('s');
-                    $anoats = date('Y');
-                    $mesats = date('m');
-                    $diaats = date('d') ;
-                    $horaats = date('h');
-                    $minutoats = date('i');
-
-
-                    $valuein = $segundoat  +  $minutoat * $minc + $horaat * $horac + $diaat * $diac + $mesat * $mesc + $anoat * $anoc ;
-
-                    $valueout = $segundoats  + $minutoats * $minc + $horaats * $horac + $diaats * $diac + $mesats * $mesc + $anoats * $anoc ;
-
-
-                    $desconto =  $valueout - $valuein;
 
                     $centavos =  str_replace (',','',$dds['valor_max']) * 100;
 
+                    $data_hora_inicial = mktime($htta, $minutoat, $segundoat, $mesat, $diaat, $anoat); // 04/12/2015 10:20:00
+                    $data_hora_final = mktime($datehsrt, date('i'), date('s'), date('m'), date('d'), date('Y')); // 04/12/2015 14:45:00
 
+
+                    $segundos_diferenca =  $data_hora_final -  $data_hora_inicial;
+
+                    $valor = $centavos - $segundos_diferenca;
+
+                    $real = $valor;
 
 
 					if($horaat >= '10' and $horaat <= '23'):
@@ -3036,7 +3088,6 @@ if($rowcount1as > 0):
 					                        $real = $valor;
 											
 
-											
 											
                    
 
@@ -3160,7 +3211,13 @@ if($rowcount1as > 0):
                 </div>
 
 
-            <?php }?>
+            <?php else:
+
+                    $ddpup['status'] = '0';
+                    $this->db->where('id', $dds['id']);
+                    $this->db->update('leiloes', $ddpup);
+                
+                endif;}?>
         </div>
         <script>
             function arremateFellins(leilao) {
@@ -3416,6 +3473,12 @@ if($rowcount1as > 0):
                         $horap = 11;
                     endif;
 
+
+
+
+
+
+
                     ?>
 
                     <div class="col-md-6 col-sm-8">
@@ -3507,17 +3570,17 @@ if($rowcount1as > 0):
 
                                                                     if (e.keyCode == 13) {
                                                                         var tb = $("#lancepre<?php echo $dds['id'];?>").val();
-																		
-																		 
-                                                                      
+
+
+
                                                                         if(userTp == 1 || userTp == 3){
                                                                             $("#infolance<?php echo $dds['id'];?>").html('Você não tem permissão para participar de leilões.');
                                                                         }
-                                                                        
+
 															if(userTp == 2 || userTp == 5454){
-                                                                            
+
                                                                             $.post("<?php echo base_url('pages/insert');?>",{type:'012',id:'<?php echo $_SESSION['ID']?>',leilao:'<?php echo $dds['id'];?>',valor:tb},function (res) {
-																				
+
 																				$("#infolance<?php echo $dds['id'];?>").html(res);
                                                                                 $("#lancebefore<?php echo $dds['id'];?>").remove();
 
@@ -3525,7 +3588,7 @@ if($rowcount1as > 0):
                                                                         }
 
 
-                                                                    
+
 
                                                                         return false;
                                                                     }
@@ -3536,10 +3599,10 @@ if($rowcount1as > 0):
 
 <script>
 $(document).ready(function(){
- 
+
   $('#money').mask('000.000.000.000.000,00', {reverse: true});
   $('#lancepre<?php echo $dds['id']; ?>').mask("###0.00", {reverse: true});
-  
+
 });
 </script>
                                                             <b class="text-info" style="text-align: center;margin: 0 0 0 20%;" id="infolance<?php echo $dds['id'];?>"></b>
@@ -3614,9 +3677,13 @@ $(document).ready(function(){
 
                     </div>
 
-                <?php }?>
+                <?php
+
+
+                }?>
             </div>
             <?php
+
 
 
             if(!isset($_GET['npg'])):

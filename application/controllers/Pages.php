@@ -565,17 +565,16 @@ $rowcount = $query->num_rows();
                 echo 'O leilão já foi arrematado, tente mais tarde';
 
                 else:
-				
-				
-					$precototal =  $datea[0]['peso_lote'];
+
+
  if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 5454):
                     $this->db->from('leiloes');
                     $this->db->where('id', $_POST['leilao']);
                     $querya = $this->db->get();
                     $datea = $querya->result_array();
-								
-				
-				    $valorepla = str_replace(".","" , $_POST['valor']); 
+
+
+     $valorepla = str_replace(".","" , $_POST['valor']);
 					
 					
 
@@ -591,10 +590,7 @@ $rowcount = $query->num_rows();
 				$precofinal = $przz[0].'.00';
 
 			}
-			
-			
-			
-			
+     echo 11;
 			
                     if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 5454):
                     $this->db->from('leiloes');
@@ -606,8 +602,8 @@ $rowcount = $query->num_rows();
 					
 					//Inicio configuração do pagseguro.
 					
-                    //$data['token'] ='AFC2E379186148B1A2E79B602D53DFA9';
-                    //$data['email'] = 'contatoimporta24h@gmail.com';
+                    $data['token'] ='AFC2E379186148B1A2E79B602D53DFA9';
+                    $data['email'] = 'contatoimporta24h@gmail.com';
                    
 					//Fim configuração do pagseguro.
 
@@ -650,7 +646,7 @@ $rowcount = $query->num_rows();
 
                     $last = $this->db->insert_id();
 					
-					echo 11;
+
 					
 
                     $daten['id_user'] = $_POST['user'];
@@ -744,7 +740,7 @@ endif;
                 endif;
 
      
-                    echo 11;
+
 
                     else:
 echo 'Você não tem permissão para dar lances.';
@@ -781,10 +777,6 @@ $dates = date('YmdHis');
 
             foreach($data as $datase){
 
-			
-			
-			
-			
                     $ind = $datase->data_inicio;
                     $anoat = substr($ind, 0, 4);
                     $mesat = substr($ind, 4, 2);
@@ -807,8 +799,6 @@ $dates = date('YmdHis');
                     $minutoats = date('i');
 
 
-           
-                    $centavos =  $dds['valor_max'] * 100;
 
 
 
@@ -1248,4 +1238,11 @@ endif;
 
                             endif;
 	}
+
+	public function pageviewrequest(){
+
+
+
+
+    }
 }
