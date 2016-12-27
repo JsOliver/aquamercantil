@@ -825,13 +825,7 @@ if($rowcount > 0):
 
     foreach ($dates1 as $dds){
 
-        $endleilao = $dds['data_fim'];
-        $anof = substr($endleilao, 0, 4);
-        $mesf = substr($endleilao, 4, 2);
-        $diaf = substr($endleilao, 6, 2);
-        $horaf = substr($endleilao, 8, 2);
-        $minutof = substr($endleilao, 10, 2);
-        $segundof = substr($endleilao, 12, 2);
+
 
 
         $inileilao = $dds['data_inicio'];
@@ -842,8 +836,7 @@ if($rowcount > 0):
         $minutoi = substr($inileilao, 10, 2);
         $segundoi = substr($inileilao, 12, 2);
 
-        $datainicio = $anoi.'-'.$mesi.'-'.$diai.'T'.$horai.':'.$minutoi.':'.$segundoi;
-        $datafim = $anof.'-'.$mesf.'-'.$diaf.'T'.$horaf.':'.$minutof.':'.$segundof;
+
 
         $dcin = $diai.'/'.$mesi.'/'.$anoi.' '.$horai.':'.$minutoi.':'.$segundoi;
 
@@ -885,6 +878,8 @@ if($rowcount > 0):
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-lg-12">
+
+
                                         <?php
 
                                         if(isset($_POST['edit']) and $_POST['edit'] == 15154):
@@ -922,15 +917,39 @@ if($rowcount > 0):
                                             //$ddpup['image'] = $_GET[''];
                                             $ddpup['valor_min'] = str_replace("," , "" , $_POST['minvalue']);
                                             $ddpup['valor_max'] = str_replace("," , "" , $_POST['maxvalue']);
-                                            $ddpup['data_inicio'] = str_replace('T','',str_replace(':','',str_replace('/','',str_replace('-','',$_POST['inicioleilaoed'])))).'59';
-                                            $ddpup['data_fim'] = str_replace('T','',str_replace(':','',str_replace('/','',str_replace('-','',$_POST['fimleilaoed'])))).'59';
+
+
+
+                                            $datas = explode(' ',$_POST['inicioleilaoed']);
+
+                                            $mdy_ex =  explode('/',$datas[0]);
+                                            $dia = $mdy_ex[0];
+                                            $mes = $mdy_ex[1];
+                                            $ano = $mdy_ex[2];
+
+                                            $hms = explode(':',$datas[1]);
+
+                                            $hrs = $hms[0];
+                                            $min = $hms[1];
+                                            $sec = $hms[2];
+                                            $postdatain = $ano.$mes.$dia.$hrs.$min.$sec;
+
+
+                                            $ddpup['data_inicio'] = $postdatain;
+
                                             $this->db->where('id', $_POST['leilao']);
                                             $this->db->update('leiloes', $ddpup);
 
                                             redirect('admin/leiloes', 'refresh');
 
                                         endif;
-                                        ?>
+                                        ?>   <script>
+                                            jQuery(document).ready(function() {
+
+                                                jQuery('#simfimldateed').mask('00/00/0000 00:00');
+
+                                            });
+                                        </script>
                                         <form role="form" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/leiloes');?>">
 
                                           <input type="hidden" name="edit" value="15154">
@@ -1009,21 +1028,13 @@ Peso Total do lote
                                                 <label>Inicio do leilão</label>
                                                 <input required name="inicioleilaoed" value="<?php
 
-                                                echo $datainicio;
+                                                echo $dcin;
 
-                                                ?>" id="simfimldateed" type="datetime-local"  class="form-control">
+                                                ?>" id="simfimldateed" type="text"  class="form-control">
                                                 <p class="help-block">Dia e hora do fim do leilão </p>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label>Fim do leilão</label>
-                                                <input required name="fimleilaoed" value="<?php
-
-                                                echo $datafim;
-
-                                                ?>" id="simfimldateed" type="datetime-local"  class="form-control">
-                                                <p class="help-block">Dia e hora do fim do leilão </p>
-                                            </div>
+                                         
 
 <br>
                                             <button type="submit" class="btn btn-default">Alterar dados</button>
@@ -1100,12 +1111,14 @@ else:
                     </div>
 
                 </div>
+
+
                 <div role="tabpanel" class="tab-pane" id="profile">
                     <br>
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Exibindo todos os leilões cadastrados
+                                Exibindo todos os leilões disponiveis
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -1134,8 +1147,8 @@ else:
                                                 <tbody>
                                                 <?php
 
-                                                $sql = "SELECT * FROM leiloes WHERE status=? AND data_fim > ? ORDER BY id DESC";
-                                                $query =  $this->db->query($sql, array(1,$dataAtualsa));
+                                                $sql = "SELECT * FROM leiloes WHERE status=? ORDER BY id DESC";
+                                                $query =  $this->db->query($sql, array(1));
 
                                                 $rowcount = $query->num_rows();
                                                 $dates1 = $query->result_array();
@@ -1463,8 +1476,8 @@ Peso Total do lote
                                                 <tbody>
                                                 <?php
 
-                                                $sql = "SELECT * FROM leiloes WHERE data_fim < ? or status!=? ORDER BY id DESC";
-                                                $query =  $this->db->query($sql, array($dataAtualsa,1));
+                                                $sql = "SELECT * FROM leiloes WHERE status!=? ORDER BY id DESC";
+                                                $query =  $this->db->query($sql, array(1));
 
                                                 $rowcount = $query->num_rows();
                                                 $dates1 = $query->result_array();

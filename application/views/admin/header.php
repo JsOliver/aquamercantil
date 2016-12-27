@@ -57,10 +57,11 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.mask.js');?>"></script>
 
+    <!-- Jquery easing -->
+    <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.mask.js');?>"></script>
 </head>
 
 <body>
