@@ -68,6 +68,8 @@
 	
 	$this->db->from('leiloes');
 	$this->db->where('by',$_SESSION['ID']);
+	$this->db->order_by('id','desc');
+	$this->db->limit(3,0);
 	$query = $this->db->get();
 	if($query->num_rows() > 0):
 	
@@ -81,10 +83,21 @@
                             <div class="col-xs-6 col-md-3">
                                 <a target="_blank" style="text-decoration: none;color: black;" class="thumbnail">
                                     <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $dds['image'];?>" alt="...">
-									<h5 style="text-align: center;font-weight: bold;">Vendo 5 toneladas de tilapia 1,5Kg</h5>
+									<h5 style="text-align: center;font-weight: bold;"><?php echo $dds['titulo'];?></h5>
 									
                                 </a>
-                                    <h5 style="text-align: center;"><a onclick="modelnew('<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>',)" class="btn btn-info">Utilizar como modelo</a></h5>
+
+                                <?php
+                                $inileilao = $dds['data_inicio'];
+                                $anoi = substr($inileilao, 0, 4);
+                                $mesi = substr($inileilao, 4, 2);
+                                $diai = substr($inileilao, 6, 2);
+                                $horai = substr($inileilao, 8, 2);
+                                $minutoi = substr($inileilao, 10, 2);
+                                $segundoi = substr($inileilao, 12, 2);
+
+                                ?>
+                                    <h5 style="text-align: center;"><a onclick="modelnew('<?php echo $dds['titulo']; ?>','<?php echo $dds['nome_cientifico_br']; ?>','<?php echo $dds['peso_lote']; ?>','<?php echo $dds['peso_individual']; ?>','<?php echo $dds['classificacao']; ?>','<?php echo $dds['caracteristicas_processamento']; ?>','<?php echo $dds['condicao_pagamento']; ?>','<?php echo $dds['localidade_origem']; ?>','<?php echo $dds['descricao']; ?>','<?php echo $dds['valor_min']; ?>','<?php echo $dds['valor_max']; ?>','<?php echo $diai."/".$mesi."/".$anoi; ?>','<?php echo $horai.":".$minutoi; ?>')" class="btn btn-info">Utilizar como modelo</a></h5>
 
                             </div>
                         
@@ -94,9 +107,21 @@
 	
 	<script>
 function modelnew(titulo,especie,pesotd,pesoind,classificacao,caracteristicap,caracteristicae,condicaopg,localidade,descricao,valormin,valormax,inicioleilao,horainicio){
-	
-	
-	
+    document.getElementById("titulolei").value = titulo;
+    document.getElementById("especie").value = especie;
+    document.getElementById("pesot").value = pesotd;
+    document.getElementById("pesoind").value = pesoind;
+    document.getElementById("caracteremba").value = caracteristicae;
+    document.getElementById("condicoespaga").value = condicaopg;
+    document.getElementById("localidadeorigem").value = localidade;
+    document.getElementById("descriptiontext").text = descricao;
+    document.getElementById("minvalue").value = valormin;
+    document.getElementById("maxvalue").value = valormax;
+    document.getElementById("simfimldateed").value = inicioleilao;
+    document.getElementById("horainicio").value = horainicio;
+
+    $("#deleteaccount").modal('show')
+
 }
 	</script>
                          
@@ -118,6 +143,7 @@ $query = $this->db->select('leiloes.*, acesso_leilao.*')
     ->from('leiloes')
     ->join('acesso_leilao', 'leiloes.id = acesso_leilao.id_leilao', 'inner')
     ->where('acesso_leilao.id_user', $_SESSION['ID'])
+    ->order_by('acesso_leilao.id_acesso', 'desc')
     ->get();
 
 $rowcount = $query->num_rows();
@@ -288,6 +314,7 @@ if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 5454):
 
         $move = move_uploaded_file( $arquivo_tmp, $destino  );
  
+        $ddpup['nome_cientifico_br'] = $_POST['cnpt'];
         $ddpup['peso_lote'] = $_POST['pesot'];
         $ddpup['classificacao'] = $_POST['class'];
         $ddpup['peso_individual'] = $_POST['pesoind'];
@@ -377,14 +404,14 @@ if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 5454):
                     <input type="hidden" name="insert" value="15154">
                     <div class="form-group">
                         <label>Titulo</label>
-                        <input required="required" class="form-control" name="titulo" size="60" >
+                        <input required="required" class="form-control" name="titulo" id="titulolei" size="60" >
                     </div><br>
                    
                     <div class="form-group">
                         <label>Espécie/Nome ou Nome da Espécie
 
 </label>
-                        <input required="required" class="form-control"  name="cnpt" placeholder="Espécie/Nome ou Nome da Espécie
+                        <input required="required" class="form-control" id="especie"  name="cnpt" placeholder="Espécie/Nome ou Nome da Espécie
 " size="66" >
                     </div><br>
  <div style="display:none;">
@@ -501,23 +528,23 @@ Peso Total do lote
 
                     <div class="form-group">
                         <label>Caracteristicas da embalagem</label>
-                        <input required="required"  name="ccemb" class="form-control" placeholder="Caracteristicas da embalagem:" size="66" >
+                        <input required="required"  name="ccemb" class="form-control" id="caracteremba" placeholder="Caracteristicas da embalagem:" size="66" >
                     </div><br>
 
                     <div class="form-group">
                         <label>Condições de pagamento:</label>
-                        <input required="required" name="cntpay" class="form-control" placeholder="Condições de pagamento:" size="66" >
+                        <input required="required" name="cntpay" class="form-control" id="condicoespaga" placeholder="Condições de pagamento:" size="66" >
                     </div><br>
 
     <div class="form-group">
                         <label>Localidade de origem:</label>
-                        <input required="required" name="lcco" class="form-control" placeholder="Localidade de origem:" size="66" >
+                        <input required="required" name="lcco" class="form-control" id="localidadeorigem" placeholder="Localidade de origem:" size="66" >
                     </div><br>
 
                    
                     <div class="form-group">
                         <label>Descrição</label>
-                        <textarea  class="form-control" name="descricao" rows="5"></textarea>
+                        <textarea  class="form-control" name="descricao" rows="5"  id="descriptiontext"></textarea>
                     </div><br>
 					
 				
