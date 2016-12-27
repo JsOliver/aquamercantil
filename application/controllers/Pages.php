@@ -1239,10 +1239,10 @@ endif;
                             endif;
 	}
 
-	public function acesso(){
+	public function pageviewrequest(){
 
 
-$this->load->view('ajax/acesso');
+
 
     }
 }
