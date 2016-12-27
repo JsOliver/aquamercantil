@@ -49,6 +49,15 @@ $this->load->view('fixed_files/leilao/header');
     }
         </script>
 
+        <script type="text/javascript">
+
+        function acesso(leilao,user) {
+             $.post("<?php echo base_url('pages/acesso');?>",{type:'acesso',id_leilao:leilao,id_user:user});
+        }
+                     
+        </script>
+
+
         <!-- Page Content -->
         <div class="container">
             <?php
@@ -945,7 +954,7 @@ $this->load->view('fixed_files/leilao/header');
                                         });
                                 </script>
 
-                                <a href="#" data-toggle="modal" data-target="#next<?php echo $dds['id'];?>" class="btn btn-info" style="float: right;margin-top: -2.5%;">
+                                <a onclick="acesso(<?php echo $dds['id'];?>,<?php echo $_SESSION['ID'];?>);" href="#" data-toggle="modal" data-target="#next<?php echo $dds['id'];?>" class="btn btn-info" style="float: right;margin-top: -2.5%;">
                                     <?php if($dds['type'] == 1):
                                         echo 'Lance antecipado';
 
