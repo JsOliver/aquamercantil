@@ -70,14 +70,14 @@
 	<div class="row">
 	
 	<?php 
-	
-	$this->db->from('leiloes');
-	$this->db->where('by',$_SESSION['ID']);
-	$query = $this->db->get();
-	if($query->num_rows() > 0):
+    
+    $this->db->from('leiloes');
+    $this->db->where('by',$_SESSION['ID']);
+    $query = $this->db->get();
+    if($query->num_rows() > 0):
 	
 	$fetch = $query->result_array();
-	foreach($fetch as $dds){
+	foreach($fetch as $acesso){
 
 	?>
 	
@@ -85,11 +85,11 @@
 
                             <div class="col-xs-6 col-md-3">
                                 <a target="_blank" style="text-decoration: none;color: black;" class="thumbnail">
-                                    <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $dds['image'];?>" alt="...">
-									<h5 style="text-align: center;font-weight: bold;">Vendo 5 toneladas de tilapia 1,5Kg</h5>
+                                    <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $acesso['image'];?>" alt="...">
+									<h5 style="text-align: center;font-weight: bold;"><?php echo $acesso['titulo'];?></h5>
 									
                                 </a>
-                                    <h5 style="text-align: center;"><a onclick="modelnew('<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>',)" class="btn btn-info">Utilizar como modelo</a></h5>
+                                    <h5 style="text-align: center;"><a onclick="modelnew('<?php echo acesso['titulo']; ?>','<?php echo acesso['especie']; ?>','<?php echo acesso['pesotd']; ?>','<?php echo acesso['pesoind']; ?>','<?php echo acesso['classificacao']; ?>','<?php echo acesso['caracteristicap']; ?>','<?php echo acesso['caracteristicae']; ?>','<?php echo acesso['condicaopg']; ?>','<?php echo acesso['localidade']; ?>','<?php echo acesso['descricao']; ?>','<?php echo acesso['valormin']; ?>','<?php echo acesso['valormax']; ?>','<?php echo acesso['valormax']; ?>', '<?php echo acesso['inicioleilao']; ?>', '<?php echo acesso['horainicio']; ?>')" class="btn btn-info">Ver detalhes</a></h5>
 
                             </div>
                         
@@ -117,14 +117,16 @@ function modelnew(titulo,especie,pesotd,pesoind,classificacao,caracteristicap,ca
 
 	<div class="row">
 <?php 
-	
-	$this->db->from('leiloes');
-	$this->db->where('by',$_SESSION['ID']);
-	$query = $this->db->get();
-	if($query->num_rows() > 0):
+
+    $this->db->from('leiloes l');
+    $this->db->join('acesso_leilao a', 'a.id_leilao = l.id', 'left');
+    $this->db->where('a.id_user',$_SESSION['ID']);
+    $query = $this->db->get();
+    if($query->num_rows() > 0):
+
 	
 	$fetch = $query->result_array();
-	foreach($fetch as $dds){
+	foreach($fetch as $acesso){
 
 	?>
 	
@@ -132,11 +134,11 @@ function modelnew(titulo,especie,pesotd,pesoind,classificacao,caracteristicap,ca
 
                             <div class="col-xs-6 col-md-3">
                                 <a target="_blank" style="text-decoration: none;color: black;" class="thumbnail">
-                                    <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $dds['image'];?>" alt="...">
-									<h5 style="text-align: center;font-weight: bold;">Vendo 5 toneladas de tilapia 1,5Kg</h5>
-									
+                                    <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $acesso['image'];?>" alt="...">
+                                    <h5 style="text-align: center;font-weight: bold;"><?php echo $acesso['titulo'];?></h5>
+                                    
                                 </a>
-                                    <h5 style="text-align: center;"><a onclick="modelnew('<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>',)" class="btn btn-info">Utilizar como modelo</a></h5>
+                                    <h5 style="text-align: center;"><a onclick="modelnew('<?php echo acesso['titulo']; ?>','<?php echo acesso['especie']; ?>','<?php echo acesso['pesotd']; ?>','<?php echo acesso['pesoind']; ?>','<?php echo acesso['classificacao']; ?>','<?php echo acesso['caracteristicap']; ?>','<?php echo acesso['caracteristicae']; ?>','<?php echo acesso['condicaopg']; ?>','<?php echo acesso['localidade']; ?>','<?php echo acesso['descricao']; ?>','<?php echo acesso['valormin']; ?>','<?php echo acesso['valormax']; ?>','<?php echo acesso['valormax']; ?>', '<?php echo acesso['inicioleilao']; ?>', '<?php echo acesso['horainicio']; ?>')" class="btn btn-info">Ver detalhes</a></h5>
 
                             </div>
                         
