@@ -102,7 +102,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 <!-- js placed at the end of the document so the pages load faster -->
-<script src="<?php echo base_url('assets/');?>js/jquery-2.1.4.min.js"></script>
 <script src="<?php echo base_url('assets/');?>js/bootstrap.min.js"></script>
 
 <!-- Jquery easing -->
@@ -114,8 +113,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- mailchimp - ajax form -->
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.ajaxchimp.js');?>"></script>
 
-<!-- Jquery easing -->
-<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.mask.js');?>"></script>
+
 
 <!--common script for all pages-->
 <script src="<?php echo base_url('assets/js/jquery.app.js');?>"></script>

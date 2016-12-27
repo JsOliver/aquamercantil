@@ -825,6 +825,7 @@ Peso Total do lote
                                                 <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 40px;">Valor final</th>
 
                                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 40px;">Adicionado por</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 40px;">Situação</th>
 
                                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 40px;">Ações</th>
 
@@ -1076,6 +1077,33 @@ Peso Total do lote
                                                             else:
                                                                 echo '<a href="'.base_url('admin/clientes?q=').$dds['by'].'&uniqueid=1"><b class="text-warning">Usuario '.$dds['by'].'</b></a>';
 
+
+                                                        endif;
+                                                        ?>
+
+                                                    </td>
+
+                                                    <td class="center">
+
+                                                        <?php
+                                                        if($dds['status'] == 2555):
+
+                                                            echo '<a href="'.base_url('admin/clientes?q=').$dds['by'].'&uniqueid=1"><b class="text-success">Arrematado</b></a>';
+
+                                                        endif;
+                                                        ?>
+                                                        <?php
+                                                        if($dds['status'] == 1):
+
+                                                            echo '<b class="text-info">Disponivel</b>';
+
+                                                        endif;
+                                                        ?>
+
+                                                        <?php
+                                                        if($dds['status'] == 0):
+
+                                                            echo '<b class="text-danger">Finalizado</b>';
 
                                                         endif;
                                                         ?>

@@ -97,7 +97,7 @@
                                 $segundoi = substr($inileilao, 12, 2);
 
                                 ?>
-                                    <h5 style="text-align: center;"><a onclick="modelnew('<?php echo $dds['titulo']; ?>','<?php echo $dds['nome_cientifico_br']; ?>','<?php echo $dds['peso_lote']; ?>','<?php echo $dds['peso_individual']; ?>','<?php echo $dds['classificacao']; ?>','<?php echo $dds['caracteristicas_processamento']; ?>','<?php echo $dds['condicao_pagamento']; ?>','<?php echo $dds['localidade_origem']; ?>','<?php echo $dds['descricao']; ?>','<?php echo $dds['valor_min']; ?>','<?php echo $dds['valor_max']; ?>','<?php echo $diai."/".$mesi."/".$anoi; ?>','<?php echo $horai.":".$minutoi; ?>')" class="btn btn-info">Utilizar como modelo</a></h5>
+                                    <h5 style="text-align: center;"><a onclick="modelnew('<?php echo $dds['titulo']; ?>','<?php echo $dds['nome_cientifico_br']; ?>','<?php echo $dds['peso_lote']; ?>','<?php echo $dds['peso_individual']; ?>','<?php echo $dds['condicao_pagamento']; ?>','<?php echo $dds['localidade_origem']; ?>','<?php echo $dds['descricao']; ?>','<?php echo $dds['valor_min']; ?>','<?php echo $dds['valor_max']; ?>','<?php echo $diai."/".$mesi."/".$anoi; ?>','<?php echo $horai.":".$minutoi; ?>','<?php echo $dds['caracteristicas_embalagem'];?>')" class="btn btn-info">Utilizar como modelo</a></h5>
 
                             </div>
                         
@@ -106,7 +106,7 @@
 	
 	
 	<script>
-function modelnew(titulo,especie,pesotd,pesoind,classificacao,caracteristicap,caracteristicae,condicaopg,localidade,descricao,valormin,valormax,inicioleilao,horainicio){
+function modelnew(titulo,especie,pesotd,pesoind,condicaopg,localidade,descricao,valormin,valormax,inicioleilao,horainicio,caracteristicae){
     document.getElementById("titulolei").value = titulo;
     document.getElementById("especie").value = especie;
     document.getElementById("pesot").value = pesotd;
@@ -114,7 +114,7 @@ function modelnew(titulo,especie,pesotd,pesoind,classificacao,caracteristicap,ca
     document.getElementById("caracteremba").value = caracteristicae;
     document.getElementById("condicoespaga").value = condicaopg;
     document.getElementById("localidadeorigem").value = localidade;
-    document.getElementById("descriptiontext").text = descricao;
+    document.getElementById("descriptiontext").innerHTML=descricao;
     document.getElementById("minvalue").value = valormin;
     document.getElementById("maxvalue").value = valormax;
     document.getElementById("simfimldateed").value = inicioleilao;

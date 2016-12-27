@@ -213,8 +213,8 @@ endif;
             <div class="row">
                 <div class="col-md-6 col-sm-7">
                     <div class="home-wrapper home-wrapper-alt p-0">
-                        <h1 class="h1 font-light text-white w-full" style="text-shadow: 1px 1px 5px #000000; color:white;">QUEM SOMOS</h1>
-                        <h4 class="text-light w-full" style="text-shadow: 1px 1px 5px #000000; color:white;">Somos a primeira empresa especializada na comercialização de pescados POR LEILÃO REVERSO OU LEILÃO DIGITAL no Brasil. 
+                        <h1 class="h1 font-light w-full" style="text-shadow: 1px 1px 5px #ffffff; color:#141f3d;">QUEM SOMOS</h1>
+                        <h4 class="text-light w-full" style="text-shadow: 1px 1px 5px #ffffff;  color:#141f3d;">Somos a primeira empresa especializada na comercialização de pescados POR LEILÃO REVERSO OU LEILÃO DIGITAL no Brasil.
                             COM BASE no sistema adotado pela Cooperativa de Produtores de Flores de Holambra OU VEILING® HOLAMBRA criamos a Aquamercantil. 
                             Uma ferramenta para facilitar o comércio de pescados e aproximar o seu produtor do mercado.
 </h4>
@@ -2630,9 +2630,9 @@ endif;
                 <div class="row">
                     <div class="col-sm-12 text-center">
                         <div class="home-wrapper home-wrapper-alt p-1">
-                            <h1 class="text-white" style="text-shadow: 1px 1px 5px #000000; color:black;">QUEM SOMOS</h1>
-                            <h4 class="text-light" style="text-shadow: 1px 1px 5px #000000; color:white;">Somos a primeira empresa especializada na comercialização de pescados no Brasil. Baseados no sistema adotado pela cooperativa de Holambra criamos a Aquamercantil. Uma ferramenta para facilitar o comércio de pescados e aproximar o produtor do mercado.</h4>
-                            <a href="<?php echo base_url('quem-somos');?>" class="btn btn-white-bordered" >Ver mais</a>
+                            <h1 class="" style=" color:#141f3d;">QUEM SOMOS</h1>
+                            <h4 class="text-light" style="text-shadow: 1px 1px 5px #ffffff; color:#141f3d;">Somos a primeira empresa especializada na comercialização de pescados no Brasil. Baseados no sistema adotado pela cooperativa de Holambra criamos a Aquamercantil. Uma ferramenta para facilitar o comércio de pescados e aproximar o produtor do mercado.</h4>
+                            <a href="<?php echo base_url('quem-somos');?>" class="btn btn-white-bordered" style="color:rgba(20, 31, 61, 0.84); ">Ver mais</a>
 
                         </div>
                     </div>
@@ -3144,7 +3144,9 @@ if($rowcount1as > 0):
 
                                 $("#time<?php echo $dds['id']?>").html('<?php echo number_format($resdate,2,'.',',');?>');
 								$("#arrematebts").remove();
-								
+                                $.get( "<?php echo base_url('pages/cron');?>", { Ctype: "1515443" } );
+
+
                             }
 
                         }
@@ -3319,8 +3321,8 @@ if($rowcount1as > 0):
 
         endif;
 
-        $sql = "SELECT * FROM leiloes WHERE data_inicio > ? AND data_fim > ? AND status=? LIMIT ".$begs.",".$maxitens1."";
-        $query =  $this->db->query($sql, array($dataAtualsa,$dataAtualsa,1));
+        $sql = "SELECT * FROM leiloes WHERE data_inicio > ?  AND status=? LIMIT ".$begs.",".$maxitens1."";
+        $query =  $this->db->query($sql, array($dataAtualsa,1));
 
         $rowcount = $query->num_rows();
 
@@ -3532,7 +3534,7 @@ if($rowcount1as > 0):
                                                          Localidade de origem: <b><?php echo $dds['localidade_origem']; ?></b><br>
                                                          Produtor: <b><?php echo $dds['produtor_name']; ?></b><br><br>
                                                             Valor inicial: <b>R$<?php echo number_format($dds['valor_max'],2,'.',',');?></b>&nbsp;&nbsp;&nbsp;Valor final: <b>R$<?php echo number_format($dds['valor_min'],2,'.',',');?></b>   <br><br> Data do inicio: <b><?php echo $diai.'/'.$mesi.'/'.$anoi.' '.$horai.':'.$minutoi.':'.$segundoi;?></b>&nbsp;&nbsp;
-                                                            Data do fim: <b><?php echo $dia.'/'.$mes.'/'.$ano.' '.$hora.':'.$minuto.':'.$segundo;?></b><br><br>
+
                                                             <?php
                                                             if(!empty($dds['descricao'])):
                                                                 ?>  <?php echo $dds['descricao'];?>
@@ -3600,11 +3602,15 @@ if($rowcount1as > 0):
 <script>
 $(document).ready(function(){
 
-  $('#money').mask('000.000.000.000.000,00', {reverse: true});
-  $('#lancepre<?php echo $dds['id']; ?>').mask("###0.00", {reverse: true});
+  $('#lancepre<?php echo $dds['id']; ?>').mask("###0.00");
 
 });
 </script>
+                                                            
+                                                            <script>
+                                                                $('.money2').mask("#.##0,00", {reverse: true});
+
+                                                            </script>
                                                             <b class="text-info" style="text-align: center;margin: 0 0 0 20%;" id="infolance<?php echo $dds['id'];?>"></b>
 
                                                             <div class="input-group" id="lancebefore<?php echo $dds['id'];?>">

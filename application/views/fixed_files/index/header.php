@@ -67,7 +67,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         ga('send', 'pageview');
 
     </script>
+    <script src="<?php echo base_url('assets/');?>js/jquery-2.1.4.min.js"></script>
 
+    <!-- Jquery easing -->
+    <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.mask.js');?>"></script>
 </head>
 
 

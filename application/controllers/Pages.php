@@ -766,7 +766,9 @@ echo 'Você não tem permissão para dar lances.';
         $query = $this->db->select('lances_antecipados.*, leiloes.*')
             ->from('lances_antecipados')
             ->join('leiloes', 'lances_antecipados.id_leilao = leiloes.id', 'inner')
-            ->where('leiloes.status', 1)->get();
+            ->where('leiloes.status', 1)
+            ->or_where('leiloes.status', 0)
+            ->get();
 
         $rowcount = $query->num_rows();
         $data = $query->result();
@@ -833,8 +835,23 @@ $dates = date('YmdHis');
                     $valor = $centavos - $segundos_diferenca;
 					
 					                        $real = $valor;
-			
-		
+
+                $valorepla = str_replace(".","" , $datase->valor);
+
+
+
+                $result =  $valorepla * $datase->peso_lote / 100;
+
+                $przz = explode('.',$result);
+
+                if(!empty($przz[1])){
+
+                    $precofinal = $przz[0].'.'.$przz[1].'0';
+
+                }else{
+                    $precofinal = $przz[0].'.00';
+
+                }
 
 
                 if (str_replace(".","",$datase->valor) > $real):
@@ -865,7 +882,7 @@ $dates = date('YmdHis');
                         $data['itemId1'] = $datase->id_leilao;
                         $data['itemQuantity1'] = '1';
                         $data['itemDescription1'] = ''.$datea[0]['titulo'].'';
-                        $data['itemAmount1'] = "".number_format($datase->valor,2,'.',',')."";
+                        $data['itemAmount1'] = "".$precofinal."";
                         $data['reference'] = "li".$datase->id_leilao."";
 
                         $url = 'https://ws.pagseguro.uol.com.br/v2/checkout';
@@ -887,7 +904,7 @@ $dates = date('YmdHis');
 
                         $dados['id_user'] = $datase->id_usuario;
                         $dados['id_leilao'] = $datase->id_leilao;
-                        $dados['valor'] =$datase->valor;
+                        $dados['valor'] = $precofinal;
                         $dados['status_payment'] = '1';
                         $dados['status_ticket'] = '1';
                         $dados['pre_approve'] = $xml -> code;
@@ -909,7 +926,7 @@ $dates = date('YmdHis');
                         $datenv['id_user'] = $datase->id_usuario;
                         $datenv['id_notify'] = $lastn;
                         $this->db->insert('notify_read', $datenv);
-                        $dataup['valor_arrematado'] = $datase->valor;
+                        $dataup['valor_arrematado'] = $precofinal;
 
                         $dataup['status'] = '2555';
                         $this->db->where('id', $datase->id_leilao);
@@ -967,7 +984,7 @@ else:
                     $pre_approve = $dateasa['pre_approve'];
                     $transaction_codeas = $dateasa['transation_code'];
 
-
+if(!empty($transaction_codeas)):
                     $transationId = $transacId;
                     $id_leilao = $transacId;
                     $id_user = $user;
@@ -1019,9 +1036,9 @@ endif;
                     endif;
 
                     endif;
-                else:
 
 
+                endif;
 
                 endif;
 
@@ -1201,7 +1218,9 @@ endif;
        $dado['doc_anexo3'] = $result[0]['doc_anexo3'];
        $dado['doc_anexo4'] = $result[0]['doc_anexo4'];
 
-
+             $user = $this->db->insert('users',$dado);
+             $this->db->where('id', $_POST['id']);
+             $this->db->delete('pre_approval');
 
 
 		 //Inicia o processo de configuração para o envio do email
@@ -1209,7 +1228,7 @@ endif;
         $config['wordwrap'] = TRUE; // define se haverá quebra de palavra no texto
         $config['validate'] = TRUE; // define se haverá validação dos endereços de email
 		            $config['mailtype'] = 'html';
-										$this->load->library('email');               
+										$this->load->library('email');
 
 
            // Define remetente e destinatário
@@ -1223,9 +1242,7 @@ endif;
             
            if($this->email->send()):
 			   
-                           $user = $this->db->insert('users',$dado);
-                                $this->db->where('id', $_POST['id']);
-                                $this->db->delete('pre_approval');
+
 		   
 		   echo '1';
 			else:
