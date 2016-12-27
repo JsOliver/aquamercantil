@@ -1262,4 +1262,69 @@ endif;
 $this->load->view('ajax/acesso');
 
     }
+
+    public function preco(){
+
+        if(isset($_POST['type']) and $_POST['type'] == '1515400'):
+            $this->db->from('leiloes');
+            $this->db->where('id', $_POST['leilao']);
+            $quera = $this->db->get();
+            $rowcount2 = $quera->num_rows();
+            $datea2 = $quera->result_array();
+if($rowcount2 > 0):
+
+    $this->db->from('lances_antecipados');
+    $this->db->where('id_leilao', $_POST['leilao']);
+    $this->db->order_by("valor","desc");
+    $querya = $this->db->get();
+    $rowcount = $querya->num_rows();
+    $datea = $querya->result_array();
+
+    if($rowcount > 0):
+        $resdate = str_replace (',','',$datea[0]['valor']);
+    else:
+
+        $resdate = $datea2[0]['valor_min'];
+
+    endif;
+
+    echo $resdate;
+else:
+
+
+    echo '0.00';
+
+
+
+
+
+
+            endif;
+
+
+
+            endif;
+
+    }
+
+    public function statuslei(){
+        if(isset($_POST['type']) and $_POST['type'] == '1515400'):
+            $this->db->from('leiloes');
+            $this->db->where('id', $_POST['leilao']);
+            $this->db->where('status',1);
+            $quera = $this->db->get();
+            $rowcount2 = $quera->num_rows();
+
+            if($rowcount2 == 1):
+echo 0;
+
+            else:
+               echo 11;
+
+        endif;
+
+            endif;
+    }
+
+
 }

@@ -24,7 +24,13 @@ if(isset($_POST['type']) and $_POST['type'] == '154477025'):
 endif;
 
 ?>
+<script type="text/javascript">
 
+    function acesso(leilao,user) {
+        $.post("<?php echo base_url('pages/acesso');?>",{type:'acesso',id_leilao:leilao,id_user:user});
+    }
+
+</script>
 <div class="modal fade" id="contrato" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -162,7 +168,7 @@ endif;
         //window.location.reload();
     }
 </script>
-
+<?php if(isset($_SESSION['ID']) and $_SESSION['TYPE'] == 2  or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):?>
 <script>
     function arremate(leilao,user) {
 
@@ -193,6 +199,7 @@ endif;
     }
         </script>
 
+<?php endif;?>
 
 
 
@@ -2920,6 +2927,8 @@ if($rowcount1as > 0):
                         </div>
                     </div>
                 </div>
+
+                    <?php if(isset($_SESSION['ID']) and $_SESSION['TYPE'] == 2  or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):?>
                 <div class="modal fade" id="cotacao<?php echo $dds['id'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -2936,6 +2945,8 @@ if($rowcount1as > 0):
                         </div>
                     </div>
                 </div>
+                    <?php endif;?>
+                    
                 <div class="col-md-5 col-sm-5">
                     <div class="modal fade" id="nextasa<?php echo $dds['id'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
@@ -3026,8 +3037,27 @@ if($rowcount1as > 0):
 
                     <div style="font-size: 15pt;text-decoration: none;float: left;margin-top: -2%;"><b><?php echo $dds['titulo']; ?></b></div>
                     <script>
+
+
+                        var recursiva<?php echo $dds['id'];?> =  window.setInterval(function() {
+
+                            $.post("<?php echo base_url('pages/preco');?>",{type:'1515400',leilao:'<?php echo $dds['id'];?>',valor_min:'<?php echo $dds['valor_min'];?>'},function (res) {
+                                if(res){
+
+                                    $("#precofinal<?php echo $dds['id']; ?>").html(res);
+
+                                }else{
+                                    $("#precofinal<?php echo $dds['id']; ?>").html('0.00');
+
+                                }
+                            });
+
+                        }, 1000);
+
+                        recursiva<?php echo $dds['id'];?>();
+
                     </script>
-                    <br><b>Preço final por KG:</b> <span class="text-info"> R$ <span><?php echo number_format($dds['valor_min'],2,'.',',');?></span></span> <b>/</b>
+                    <br><b>Preço final por KG:</b> <span class="text-info"> R$ <span id="precofinal<?php echo $dds['id']; ?>">0.00</span></span> <b>/</b>
 					<b>Preço atual por KG:</b> <span class="text-info"> R$ <span id="time<?php echo $dds['id']?>" onclick="">00</span></span>
 
                     <br>
@@ -3182,24 +3212,36 @@ if($rowcount1as > 0):
 
 
 
+                        <?php
+                            if($dds['by'] <> $_SESSION['ID'] or $_SESSION['TYPE'] == 5454):
+
+
+                            if(isset($_SESSION['ID']) and $_SESSION['TYPE'] == 2  or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):?>
 
 
                             <a <?php
                             if(isset($_SESSION['ID'])):
 
+                                
+
                                 echo 'onclick="arremate('.$dds["id"].','.$_SESSION["ID"].');"';
+
                                 else:
 
                                     echo 'data-toggle="modal" data-target="#login"';
                                     endif;
                             ?>
-                                  class="btn btn-success" id="arrematebts" style="float: right;margin-top: -4.5%;margin-right: 1%;margin-left: 1%;">Arrematar
+                                  class="btn btn-success" id="arrematebts" style="float: right;margin-top: -4.5%;margin-right: 1%;margin-left: 1%;">
+                                
+                                Arrematar
                     </a>
 
-                        <?php endif;?>
+                        <?php  endif;?>
+                        <?php  endif;?>
+                        <?php  endif;?>
 </span>
 
-                    <a href="#" onclick="" data-toggle="modal" data-target="#nextasa<?php echo $dds['id'];?>" class="btn btn-info" style="float: right;margin-top: -4.5%;">
+                    <a href="#" onclick="acesso(<?php echo $dds['id'];?>,<?php echo $_SESSION['ID'];?>);" data-toggle="modal" data-target="#nextasa<?php echo $dds['id'];?>" class="btn btn-info" style="float: right;margin-top: -4.5%;">
                         <?php if($dds['type'] == 1):
                             echo 'Ver detalhes';
                         else:
@@ -3221,6 +3263,10 @@ if($rowcount1as > 0):
                 
                 endif;}?>
         </div>
+    <?php
+
+
+    if(isset($_SESSION['ID']) and $dds['by'] <> $_SESSION['ID'] and $_SESSION['TYPE'] == 2  or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):?>
         <script>
             function arremateFellins(leilao) {
 
@@ -3228,6 +3274,8 @@ if($rowcount1as > 0):
 
             }
         </script>
+        
+        <?php endif;?>
 
         <?php
 
@@ -3542,7 +3590,8 @@ if($rowcount1as > 0):
 
 
                                                             <br>
-
+                    <?php if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
+                        ?>
 
 
                                                         </span>
@@ -3622,6 +3671,7 @@ $(document).ready(function(){
 
                                                         endif;
                                                         endif;
+                                                        endif;
 
 
                                                         ?>
@@ -3662,12 +3712,13 @@ $(document).ready(function(){
                     if(!isset($_SESSION['ID'])):
                         echo 'onclick="loguser();"';
                         ?>
-                        <?php else: echo 'data-toggle="modal" data-target="#next'.$dds['id'].'"'; endif;?> class="btn btn-info" style="float: right;margin-top: -2.5%;">
+                        <?php else: echo 'onclick="acesso('.$dds['id'].','.$_SESSION['ID'].');" data-toggle="modal" data-target="#next'.$dds['id'].'"'; endif;?> class="btn btn-info" style="float: right;margin-top: -2.5%;">
                             <?php
                             if(!isset($_SESSION['ID'])):
                                 echo 'Participar';
 
-                            elseif($dds['type'] == 1):
+                            elseif(isset($_SESSION['ID']) and $_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
+                                
                                 echo 'Lance antecipado';
 
 

@@ -5,7 +5,8 @@ $this->load->view('fixed_files/leilao/header');
 
 ?>
 
-
+<?php if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
+?>
 <script>
     function cota(action,leilao) {
         $.post("<?php echo base_url('home');?>",{type:154477025,action:action,leilao:leilao},function (res) {});
@@ -19,6 +20,9 @@ $this->load->view('fixed_files/leilao/header');
     }
 </script>
 
+<?php endif;?>
+<?php if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
+?>
 <script>
     function arremate(leilao,user) {
 
@@ -48,7 +52,7 @@ $this->load->view('fixed_files/leilao/header');
 
     }
         </script>
-
+<?php endif;?>
         <script type="text/javascript">
 
         function acesso(leilao,user) {
@@ -302,7 +306,8 @@ $this->load->view('fixed_files/leilao/header');
 
                         ?>
 
-
+<?php if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
+                            ?>
                         <!-- Modal -->
                         <div class="modal fade" id="lotewin<?php echo $dds['id'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
@@ -320,6 +325,10 @@ $this->load->view('fixed_files/leilao/header');
                                 </div>
                             </div>
                         </div>
+
+                            <?php endif;?>
+                            <?php if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
+                            ?>
                         <div class="modal fade" id="cotacao<?php echo $dds['id'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -336,6 +345,8 @@ $this->load->view('fixed_files/leilao/header');
                                 </div>
                             </div>
                         </div>
+
+                            <?php endif;?>
                         <div class="col-md-6 col-sm-6">
                             <div class="modal fade" id="nextasa<?php echo $dds['id'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
@@ -405,8 +416,61 @@ $this->load->view('fixed_files/leilao/header');
                             <div style="font-size: 15pt;text-decoration: none;float: left;margin-top: -2%;"><b><?php echo $dds['titulo']; ?></b></div>
 
                             <script>
+
+
+ var recursiva<?php echo $dds['id'];?> =  window.setInterval(function() {
+
+                                    $.post("<?php echo base_url('pages/preco');?>",{type:'1515400',leilao:'<?php echo $dds['id'];?>',valor_min:'<?php echo $dds['valor_min'];?>'},function (res) {
+                                        if(res){
+
+                                            $("#precofinal<?php echo $dds['id']; ?>").html(res);
+
+                                        }else{
+                                            $("#precofinal<?php echo $dds['id']; ?>").html('0.00');
+
+                                        }
+                                    });
+
+                                }, 1000);
+
+ recursiva<?php echo $dds['id'];?>();
+
                             </script>
-                           <br><b>Preço final por KG:</b> <span class="text-info"> R$ <span><?php echo number_format($dds['valor_min'],2,'.',',');?></span></span> <b>/</b>
+
+
+
+
+                            <script>
+
+
+                                var statusrecur<?php echo $dds['id'];?> =  window.setInterval(function() {
+
+                                    $.post("<?php echo base_url('pages/statuslei');?>",{type:'1515400',leilao:'<?php echo $dds['id'];?>'},function (res) {
+                                        if(res == 11){
+
+                                            $('#arrematebts<?php echo $dds['id']; ?>').removeClass('btn-success');
+                                            $('#arrematebts<?php echo $dds['id']; ?>').addClass('btn-warning');
+                                            $("#arrematebts<?php echo $dds['id']; ?>").html('Finalizado');
+                                        }
+                                        if(res == 0){
+                                            $('#arrematebts<?php echo $dds['id']; ?>').removeClass('btn-warning');
+                                            $('#arrematebts<?php echo $dds['id']; ?>').addClass('btn-success');
+                                            $("#arrematebts<?php echo $dds['id']; ?>").html('Arrematar');
+                                            $('#arrematebts<?php echo $dds['id']; ?>').attr('onclick','arremate(<?php echo $dds['id'];?>,<?php echo $_SESSION['ID'];?>);');
+
+
+                                        }
+                                    });
+
+                                }, 1000);
+
+                                statusrecur<?php echo $dds['id'];?>();
+
+                            </script>
+
+
+
+                           <br><b>Preço final por KG:</b> <span class="text-info"> R$ <span id="precofinal<?php echo $dds['id'];?>">0.00</span></span> <b>/</b>
                             <b>Preço atual por KG:</b> <span class="text-info"> R$ <span id="time<?php echo $dds['id']?>" onclick="">00</span></span>
 
                             <br>
@@ -536,7 +600,7 @@ $this->load->view('fixed_files/leilao/header');
                                     } else {
 
                                         $("#time<?php echo $dds['id']?>").html('<?php echo number_format($resdate,2,'.',',');?>');
-																		$("#arrematebts").remove();
+																		$("#arrematebts<?php echo $dds['id'];?>").remove();
 
                                     }
 
@@ -562,15 +626,22 @@ $this->load->view('fixed_files/leilao/header');
 
                             <?php
                         else:
-
+                            if($dds['by'] <> $_SESSION['ID'] or $_SESSION['TYPE'] == 5454):
+if( $_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
                             ?>
-                            <a  onclick="arremate(<?php echo $dds['id'];?>,<?php echo $_SESSION['ID'];?>);"  class="btn btn-success" style="float: right;margin-top: -4.5%;margin-right: 1%;margin-left: 1%;" id="arrematebts" >Arrematar
+                            <a  onclick="arremate(<?php echo $dds['id'];?>,<?php echo $_SESSION['ID'];?>);"  class="btn btn-success" style="float: right;margin-top: -4.5%;margin-right: 1%;margin-left: 1%;" id="arrematebts<?php echo $dds['id']; ?>" >Arrematar
                     </a>
+
+                    <?php
+                    endif;
+                    ?>
+
+                        <?php endif;?>
 
                         <?php endif;?>
 </span>
 
-                            <a href="#" onclick="" data-toggle="modal" data-target="#nextasa<?php echo $dds['id'];?>" class="btn btn-info" style="float: right;margin-top: -4.5%;">
+                            <a href="#" onclick="acesso(<?php echo $dds['id'];?>,<?php echo $_SESSION['ID'];?>)" data-toggle="modal" data-target="#nextasa<?php echo $dds['id'];?>" class="btn btn-info" style="float: right;margin-top: -4.5%;">
                                 <?php if($dds['type'] == 1):
                                     echo 'Ver detalhes';
                                 else:
@@ -875,8 +946,9 @@ $this->load->view('fixed_files/leilao/header');
 
 
                                                         </span><br>
-<?php echo $dds['valor_min'];?>
-                                                                </p><br>
+                            <?php if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
+?>
+                            </p><br>
                                                                 <?php
                                                                 $this->db->from('lances_antecipados');
                                                                 $this->db->where('id_usuario',$_SESSION['ID']);
@@ -924,7 +996,7 @@ $this->load->view('fixed_files/leilao/header');
 
                                                                     <div class="input-group" id="lancebefore<?php echo $dds['id'];?>">
                                                                         <span class="input-group-addon">R$</span> <input onkeypress="return runScript<?php echo $dds['id'];?>(event)" class="form-control" placeholder="Meu lance" id="lancepre<?php echo $dds['id'];?>" aria-label="Amount (to the nearest dollar)"> <span class="input-group-addon">.00</span> </div>
-                                                                    <br><?php endif;?>
+                                                                    <br><?php endif;?><?php endif;?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -955,7 +1027,7 @@ $this->load->view('fixed_files/leilao/header');
                                 </script>
 
                                 <a onclick="acesso(<?php echo $dds['id'];?>,<?php echo $_SESSION['ID'];?>);" href="#" data-toggle="modal" data-target="#next<?php echo $dds['id'];?>" class="btn btn-info" style="float: right;margin-top: -2.5%;">
-                                    <?php if($dds['type'] == 1):
+                                    <?php if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
                                         echo 'Lance antecipado';
 
                                     else:

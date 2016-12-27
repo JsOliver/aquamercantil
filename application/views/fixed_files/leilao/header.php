@@ -69,7 +69,6 @@
 	$this->db->from('leiloes');
 	$this->db->where('by',$_SESSION['ID']);
 	$this->db->order_by('id','desc');
-	$this->db->limit(3,0);
 	$query = $this->db->get();
 	if($query->num_rows() > 0):
 	
@@ -97,7 +96,7 @@
                                 $segundoi = substr($inileilao, 12, 2);
 
                                 ?>
-                                    <h5 style="text-align: center;"><a onclick="modelnew('<?php echo $dds['titulo']; ?>','<?php echo $dds['nome_cientifico_br']; ?>','<?php echo $dds['peso_lote']; ?>','<?php echo $dds['peso_individual']; ?>','<?php echo $dds['condicao_pagamento']; ?>','<?php echo $dds['localidade_origem']; ?>','<?php echo $dds['descricao']; ?>','<?php echo $dds['valor_min']; ?>','<?php echo $dds['valor_max']; ?>','<?php echo $diai."/".$mesi."/".$anoi; ?>','<?php echo $horai.":".$minutoi; ?>','<?php echo $dds['caracteristicas_embalagem'];?>')" class="btn btn-info">Utilizar como modelo</a></h5>
+                                    <h5 style="text-align: center;"><a onclick="modelnew('<?php echo $dds['titulo']; ?>','<?php echo $dds['nome_cientifico_br']; ?>','<?php echo $dds['peso_lote']; ?>','<?php echo $dds['peso_individual']; ?>','<?php echo $dds['condicao_pagamento']; ?>','<?php echo $dds['localidade_origem']; ?>','<?php echo strip_tags($dds['descricao']); ?>','<?php echo $dds['valor_min']; ?>','<?php echo $dds['valor_max']; ?>','<?php echo $diai."/".$mesi."/".$anoi; ?>','<?php echo $horai.":".$minutoi; ?>','<?php echo $dds['caracteristicas_embalagem'];?>')" class="btn btn-info">Utilizar como modelo</a></h5>
 
                             </div>
                         
@@ -117,8 +116,8 @@ function modelnew(titulo,especie,pesotd,pesoind,condicaopg,localidade,descricao,
     document.getElementById("descriptiontext").innerHTML=descricao;
     document.getElementById("minvalue").value = valormin;
     document.getElementById("maxvalue").value = valormax;
-    document.getElementById("simfimldateed").value = inicioleilao;
-    document.getElementById("horainicio").value = horainicio;
+    //document.getElementById("simfimldateed").value = inicioleilao;
+    //document.getElementById("horainicio").value = horainicio;
 
     $("#deleteaccount").modal('show')
 
@@ -144,6 +143,7 @@ $query = $this->db->select('leiloes.*, acesso_leilao.*')
     ->join('acesso_leilao', 'leiloes.id = acesso_leilao.id_leilao', 'inner')
     ->where('acesso_leilao.id_user', $_SESSION['ID'])
     ->order_by('acesso_leilao.id_acesso', 'desc')
+    ->limit(12, 0)
     ->get();
 
 $rowcount = $query->num_rows();
@@ -159,10 +159,25 @@ $data = $query->result();
 	
 	
 
-                            <div class="col-xs-6 col-md-3">
+                            <div class="col-xs-6 col-md-2">
                                 <a target="_blank" style="text-decoration: none;color: black;" class="thumbnail">
                                     <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $dds->image;?>" alt="...">
 									<h5 style="text-align: center;font-weight: bold;"><?php echo $dds->titulo;?></h5>
+
+                                    <?php
+                                    if($dds->status == 1):
+                                    echo ' <h6 style="text-align: center;font-weight: bold;" class="text-info">Disponivel</h6>';
+                                    endif;
+                                    if($dds->status == 0):
+                                    echo ' <h6 style="text-align: center;font-weight: bold;" class="text-info">Finalizado</h6>';
+                                    endif;
+                                    if($dds->status == 2555 and $dds->by == $_SESSION['ID']):
+                                    echo ' <h6 style="text-align: center;font-weight: bold;" class="text-success">Arrematado</h6>';
+                                    endif;
+                                    if($dds->status == 2555 and $dds->by <> $_SESSION['ID']):
+                                    echo ' <h6 style="text-align: center;font-weight: bold;" class="text-success">Arrematado</h6>';
+                                    endif;
+                                    ?>
 									
                                 </a>
 
@@ -298,7 +313,7 @@ endif;
 </div>
 
 <?php
-if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 5454):
+if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
 ?>
     <?php
 
@@ -645,7 +660,7 @@ Aqua Mercantil            </a>
                 </li>
                     <?php
 @session_start();
-if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 5454):
+ if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
 
 ?>
                 <?php

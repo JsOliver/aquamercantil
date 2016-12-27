@@ -672,7 +672,14 @@ Peso Total do lote
 
                                                                                                 <div class="form-group">
                                                                                                     <label>Característica de processamento:</label>
-                                                                                                    <input required name="cpp" class="form-control" value="<?php echo $dds['caracteristicas_processamento'];?>" placeholder="Característica de processamento:" size="66" >
+                                                                                                    <input required name="cpp" class="form-control" value="<?php
+
+      if($dds['caracteristicas_processamento'] == null):
+          echo '-- --';
+          else:
+          echo $dds['caracteristicas_processamento'];
+              endif;
+                                                                                                    ;?>" placeholder="Característica de processamento:" size="66" >
                                                                                                 </div><br>
 
                                                                                                 <div class="form-group">
@@ -786,12 +793,6 @@ Peso Total do lote
                                             </table></div></div>
 
 
-                                    <!--<div class="row"><div class="col-sm-6"><div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-6"><div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate"><ul class="pagination"><li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#">Previous</a></li><li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#">1</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">2</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">3</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">4</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">5</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">6</a></li><li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">Next</a></li></ul></div></div></div></div>
-
-                                <div class="well">
-                                    <h4>DataTables Usage Information</h4>
-                                    <p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="https://datatables.net/">https://datatables.net/</a>.</p>
-                                    <a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">View DataTables Documentation</a>   <!-- /.panel-body -->
                                 </div>
                             </div>
 
@@ -1496,8 +1497,8 @@ Peso Total do lote
                                                 <tbody>
                                                 <?php
 
-                                                $sql = "SELECT * FROM leiloes WHERE status!=? ORDER BY id DESC";
-                                                $query =  $this->db->query($sql, array(1));
+                                                $sql = "SELECT * FROM leiloes WHERE status=?  ORDER BY id DESC";
+                                                $query =  $this->db->query($sql, array(0));
 
                                                 $rowcount = $query->num_rows();
                                                 $dates1 = $query->result_array();
