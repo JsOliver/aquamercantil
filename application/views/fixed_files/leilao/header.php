@@ -323,9 +323,20 @@ if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 5454):
         $this->db->insert('notify_read', $datenv);
         redirect('leiloes', 'refresh');
     endif;
-    ?>
+    ?>	<script>
+    jQuery(document).ready(function() {
+        jQuery('#maxvalue').mask("###0.00", {reverse: true});
+        jQuery('#minvalue').mask("###0.00", {reverse: true});
+        jQuery('#simfimldateed').mask('00/00/0000');
+        jQuery('#horainicio').mask('00:00');
+        jQuery('#despescas').mask('00/00/0000');
+        jQuery('#pesot').mask('000000000000');
+        jQuery('#pesoind').mask('00000');
+    });
+</script>
 
-<div class="modal fade" id="deleteaccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal fade" id="deleteaccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -350,7 +361,7 @@ if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 5454):
                                 <br>
                                 <div class="form-group">
                                     <label>Previsão de Despesca ou Entrega</label>
-                                    <input  name="despescas" id="despescas" type="date" >
+                                    <input  name="despescas" id="despescas" placeholder="00/00/0000" type="text" >
                                 </div><br>
                             </div>
                             <div role="tabpanel" class="tab-pane active" id="imediato">
@@ -385,13 +396,13 @@ if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 5454):
 
                     <div class="form-group">
                         <label>Peso Total do lote por kg:</label>
-                        <input required="required" class="form-control" name="pesot" placeholder="
+                        <input required="required" class="form-control" name="pesot" id="pesot" placeholder="
 Peso Total do lote
 " size="66" >
 
 <div class="form-group">
                         <label>Peso individual po kg:</label>
-                        <input required="required" name="pesoind" class="form-control" placeholder="Peso individual:" size="66" >
+                        <input required="required" name="pesoind" id="pesoind" class="form-control" placeholder="Peso individual:" size="66" >
                     </div><br>
                     </div><br>
 
@@ -476,14 +487,6 @@ Peso Total do lote
                             })
                     </script>
 					
-			<script>
-			jQuery(document).ready(function() {
-    jQuery('#maxvalue').mask("###0.00", {reverse: true});
-    jQuery('#minvalue').mask("###0.00", {reverse: true});
-    jQuery('#simfimldateed').mask('00/00/0000');
-    jQuery('#horainicio').mask('00:00');
-});
-			</script>
 
                     <div class="form-group">
                         <label>Característica de processamento:</label>
