@@ -516,7 +516,56 @@ $rowcount = $query->num_rows();
 
        }else
        {
-           echo 'Email ou senha incorretos.';
+
+           $this->db->from('users');
+           $this->db->where('email', @$dadosForm['emaillog']);
+           $query2 = $this->db->get();
+
+           $rowcount2 = $query2->num_rows();
+
+           $data2 = $query2->result_array();
+           if($rowcount2 > 0):
+
+               echo '
+               
+               <script>
+               function recover() {
+                   
+                  $("#recovercampo").html("Aguarde.");
+
+                   $.post("'.base_url('pages/recovery').'",{email:"'.@$dadosForm['emaillog'].'"},function(res) {
+                   
+                   if(res){
+                     if(res == 11){
+                         $("#recovercampo").html("Nova senha enviada por email com sucesso.");
+
+                     }else 
+                         {
+                         alert(res);
+                           $("#recovercampo").html("<span>Erro ao recuperar senha.</span>");
+ 
+                         }
+                         }else
+                         {
+                         $("#recovercampo").html("<span>Erro ao recuperar senha.</span>");
+
+                         }
+                         
+                   });
+                   
+
+               }
+               
+               </script>
+               ';
+               echo '<br>Senha incorreta<br><a href="#" onclick="recover();" id="recovercampo">Recuperar senha.</a>';
+
+           else:
+                   echo '<br>Email não encontrado.';
+
+           endif;
+
+
 
 
 
@@ -524,6 +573,41 @@ $rowcount = $query->num_rows();
 
 
        }
+
+
+    }
+
+    public function recovery()
+    {
+
+        $newpass =  rand().date('Y');
+
+        $dataup['pass'] = hash('whirlpool',md5(sha1($newpass)));
+        $this->db->where('email', $_POST['email']);
+        $this->db->update('users',$dataup);
+
+        //Inicia o processo de configuração para o envio do email
+        $config['protocol'] = 'mail'; // define o protocolo utilizado
+        $config['wordwrap'] = TRUE; // define se haverá quebra de palavra no texto
+        $config['validate'] = TRUE; // define se haverá validação dos endereços de email
+        $config['mailtype'] = 'html';
+
+
+        // Define remetente e destinatário
+        $this->email->from('contato@aquamercantil.com.br', 'Item arrematado'); // Remetente
+        $this->email->to($_POST['email'],'Recuperação de senha'); // Destinatário
+
+        $this->email->subject('Aqua Mercantil - Recuperação de senha.');
+        $this->email->message('Sua nova senha e:
+        '.$newpass.'.');
+
+        
+        if($this->email->send()):
+            echo 11;
+        else:
+            echo 0;
+        endif;
+
 
 
     }
@@ -546,11 +630,11 @@ $rowcount = $query->num_rows();
     public function ajax()
     {
 
+
         if(isset($_POST['type']) and $_POST['type'] == '2125'):
-		
-		
-		
-		
+
+
+
             $dataAtualsa = date('YmdHis');
             $this->db->from('arremates');
             $this->db->where('id_leilao', $_POST['leilao']);
@@ -566,50 +650,50 @@ $rowcount = $query->num_rows();
 
                 else:
 
+                    if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
 
- if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 5454):
-                    $this->db->from('leiloes');
+                        echo '11';
+
+                        $this->db->from('leiloes');
                     $this->db->where('id', $_POST['leilao']);
                     $querya = $this->db->get();
                     $datea = $querya->result_array();
-
 
      $valorepla = str_replace(".","" , $_POST['valor']);
-					
-					
 
-								$result =  $valorepla * $datea[0]['peso_lote'] / 100;
 
-			$przz = explode('.',$result);
-			
-			if(!empty($przz[1])){
-				
-				$precofinal = $przz[0].'.'.$przz[1].'0';
-				
-			}else{
-				$precofinal = $przz[0].'.00';
 
-			}
-     echo 11;
-			
-                    if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 5454):
+                                $result =  $valorepla * $datea[0]['peso_lote'] / 100;
+
+            $przz = explode('.',$result);
+
+            if(!empty($przz[1])){
+
+                $precofinal = $przz[0].'.'.$przz[1].'0';
+
+            }else{
+                $precofinal = $przz[0].'.00';
+
+            }
+
+                    if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
                     $this->db->from('leiloes');
                     $this->db->where('id', $_POST['leilao']);
                     $querya = $this->db->get();
                     $datea = $querya->result_array();
 
 
-					
-					//Inicio configuração do pagseguro.
-					
+
+                    //Inicio configuração do pagseguro.
+
                     $data['token'] ='AFC2E379186148B1A2E79B602D53DFA9';
                     $data['email'] = 'contatoimporta24h@gmail.com';
-                   
-					//Fim configuração do pagseguro.
+
+                    //Fim configuração do pagseguro.
 
 
 
-				   $data['currency'] = 'BRL';
+                   $data['currency'] = 'BRL';
                     $data['itemId1'] = $_POST['leilao'];
                     $data['itemQuantity1'] = '1';
                     $data['itemDescription1'] = ''.$datea[0]['titulo'].'';
@@ -645,9 +729,9 @@ $rowcount = $query->num_rows();
                     $this->db->insert('arremates', $dados);
 
                     $last = $this->db->insert_id();
-					
 
-					
+
+
 
                     $daten['id_user'] = $_POST['user'];
                     $daten['titulo'] = '<b>'.$datea[0]['titulo'].'</b> arrematado.';
@@ -666,12 +750,13 @@ $rowcount = $query->num_rows();
                     $this->db->where('id', $_POST['leilao']);
                     $this->db->update('leiloes', $dataup);
 
-			
-		 //Inicia o processo de configuração para o envio do email
+
+
+         //Inicia o processo de configuração para o envio do email
         $config['protocol'] = 'mail'; // define o protocolo utilizado
         $config['wordwrap'] = TRUE; // define se haverá quebra de palavra no texto
         $config['validate'] = TRUE; // define se haverá validação dos endereços de email
-		            $config['mailtype'] = 'html';
+                    $config['mailtype'] = 'html';
 
            // Define remetente e destinatário
             $this->email->from('contato@aquamercantil.com.br', 'Item arrematado'); // Remetente
@@ -679,57 +764,57 @@ $rowcount = $query->num_rows();
 
            $this->email->subject('Um novo item foi arrematado no Aqua Mercantil.');
  $this->email->message('Um novo lote foi arrematado no Aqua Mercantil, verifique as informações no painel do administrador');
-            
+
             if($this->email->send()):
-			
-			// Define remetente e destinatário
+
+            // Define remetente e destinatário
             $this->email->from('contato@aquamercantil.com.br', 'Item arrematado'); // Remetente
             $this->email->to('cristovao.amarante@aquamercantil.com.br','Aviso de  arremate'); // Destinatário
 
            $this->email->subject('Um novo item foi arrematado no Aqua Mercantil.');
  $this->email->message('Um novo lote foi arrematado no Aqua Mercantil, verifique as informações no painel do administrador');
-	          
 
 
 
-			if($this->email->send()):
+
+            if($this->email->send()):
 // Define remetente e destinatário
             $this->email->from('contato@aquamercantil.com.br', 'Item arrematado'); // Remetente
             $this->email->to('luizvilaca@aquamercantil.com.br','Aviso de  arremate'); // Destinatário
 
            $this->email->subject('Um novo item foi arrematado no Aqua Mercantil.');
  $this->email->message('Um novo lote foi arrematado no Aqua Mercantil, verifique as informações no painel do administrador');
-	          
 
 
 
-			if($this->email->send()):
+
+            if($this->email->send()):
 // Define remetente e destinatário
             $this->email->from('contato@aquamercantil.com.br','Item arrematado'); // Remetente
             $this->email->to('ricardo@aquamercantil.com.br','Aviso de  arremate'); // Destinatário
 
            $this->email->subject('Um novo item foi arrematado no Aqua Mercantil.');
  $this->email->message('Um novo lote foi arrematado no Aqua Mercantil, verifique as informações no painel do administrador');
-			          
 
 
 
-			if($this->email->send()):
-						                $data['errorLog'] = 'Mensagem enviada com sucesso.';
 
-						
+            if($this->email->send()):
+                                        $data['errorLog'] = 'Mensagem enviada com sucesso.';
+
+
 else:
 
                 $data['errorLog'] = 'Erro ao enviar mensagem, tente mais tarde.';
 
 endif;
-						
+
 else:
 
                 $data['errorLog'] = 'Erro ao enviar mensagem, tente mais tarde.';
 
 endif;
-						
+
 else:
 
                 $data['errorLog'] = 'Erro ao enviar mensagem, tente mais tarde.';
@@ -739,7 +824,7 @@ endif;
                 $data['errorLog'] = 'Erro ao enviar mensagem, tente mais tarde.';
                 endif;
 
-     
+
 
 
                     else:
@@ -754,8 +839,8 @@ echo 'Você não tem permissão para dar lances.';
 
         endif;
         endif;
-		
-		
+
+
 
     }
 

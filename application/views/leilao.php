@@ -28,25 +28,24 @@ $this->load->view('fixed_files/leilao/header');
 
 
         $("#reportErros").html('Processando...');
-
+        $("#cotacao"+leilao+"").modal("show");
         $("#timeCount"+leilao+"").remove();
         var valor = document.getElementById('time'+leilao+'').textContent;
 
         $.post("<?php echo base_url('pages/ajax');?>",{type:2125,leilao:leilao,user:user,valor:valor},function (resp) {
+            if(resp){
+                $("#cotacao"+leilao+"").modal("hide");
 
-            if(resp == 11){
+                $("#reportErros").html(resp);
 
 
-                $("#cotacao"+leilao+"").modal("show");
-
-
-                $("#modalArremate"+leilao+"").modal("hide");
 
             }else
             {
-                $("#reportErros").html(resp);
 
             }
+
+
 
         });
 

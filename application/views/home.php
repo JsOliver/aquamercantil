@@ -169,35 +169,32 @@ endif;
     }
 </script>
 <?php if(isset($_SESSION['ID']) and $_SESSION['TYPE'] == 2  or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):?>
-<script>
-    function arremate(leilao,user) {
+    <script>
+        function arremate(leilao,user) {
 
 
-        $("#reportErros").html('Processando...');
+            $("#reportErros").html('Processando...');
+            $("#cotacao"+leilao+"").modal("show");
+            $("#timeCount"+leilao+"").remove();
+            var valor = document.getElementById('time'+leilao+'').textContent;
 
-        $("#timeCount"+leilao+"").remove();
-        var valor = document.getElementById('time'+leilao+'').textContent;
+            $.post("<?php echo base_url('pages/ajax');?>",{type:2125,leilao:leilao,user:user,valor:valor},function (resp) {
+                if(resp){
+                    $("#cotacao"+leilao+"").modal("hide");
 
-        $.post("<?php echo base_url('pages/ajax');?>",{type:2125,leilao:leilao,user:user,valor:valor},function (resp) {
-
-            if(resp == 11){
-
-
-                $("#cotacao"+leilao+"").modal("show");
+                    $("#reportErros").html(resp);
 
 
-                $("#modalArremate"+leilao+"").modal("hide");
 
-            }else
-            {
-                $("#reportErros").html(resp);
+                }else
+                {
 
-            }
+                }
 
-        });
+            });
 
-    }
-        </script>
+        }
+    </script>
 
 <?php endif;?>
 
@@ -3057,6 +3054,34 @@ if($rowcount1as > 0):
                         recursiva<?php echo $dds['id'];?>();
 
                     </script>
+
+                    <script>
+
+
+                        var statusrecur<?php echo $dds['id'];?> =  window.setInterval(function() {
+
+                            $.post("<?php echo base_url('pages/statuslei');?>",{type:'1515400',leilao:'<?php echo $dds['id'];?>'},function (res) {
+                                if(res == 11){
+
+                                    $('#arrematebts<?php echo $dds['id']; ?>').removeClass('btn-success');
+                                    $('#arrematebts<?php echo $dds['id']; ?>').addClass('btn-warning');
+                                    $("#arrematebts<?php echo $dds['id']; ?>").html('Finalizado');
+                                }
+                                if(res == 0){
+                                    $('#arrematebts<?php echo $dds['id']; ?>').removeClass('btn-warning');
+                                    $('#arrematebts<?php echo $dds['id']; ?>').addClass('btn-success');
+                                    $("#arrematebts<?php echo $dds['id']; ?>").html('Arrematar');
+                                    $('#arrematebts<?php echo $dds['id']; ?>').attr('onclick','arremate(<?php echo $dds['id'];?>,<?php echo $_SESSION['ID'];?>);');
+
+
+                                }
+                            });
+
+                        }, 1000);
+
+                        statusrecur<?php echo $dds['id'];?>();
+
+                    </script>
                     <br><b>Preço final por KG:</b> <span class="text-info"> R$ <span id="precofinal<?php echo $dds['id']; ?>">0.00</span></span> <b>/</b>
 					<b>Preço atual por KG:</b> <span class="text-info"> R$ <span id="time<?php echo $dds['id']?>" onclick="">00</span></span>
 
@@ -3231,7 +3256,7 @@ if($rowcount1as > 0):
                                     echo 'data-toggle="modal" data-target="#login"';
                                     endif;
                             ?>
-                                  class="btn btn-success" id="arrematebts" style="float: right;margin-top: -4.5%;margin-right: 1%;margin-left: 1%;">
+                                  class="btn btn-success" id="arrematebts<?php echo $dds['id'];?>" style="float: right;margin-top: -4.5%;margin-right: 1%;margin-left: 1%;">
                                 
                                 Arrematar
                     </a>
