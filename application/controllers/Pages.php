@@ -833,7 +833,28 @@ $dates = date('YmdHis');
                     $valor = $centavos - $segundos_diferenca;
 					
 					                        $real = $valor;
-			
+
+
+
+                $valorepla = str_replace(".","" , $datase->valor);
+
+
+
+                $result =  $valorepla * $datase->peso_lote / 100;
+
+                $przz = explode('.',$result);
+
+                if(!empty($przz[1])){
+
+                    $precofinal = $przz[0].'.'.$przz[1].'0';
+
+                }else{
+                    $precofinal = $przz[0].'.00';
+
+                }
+
+
+
 		
 
 
@@ -865,7 +886,7 @@ $dates = date('YmdHis');
                         $data['itemId1'] = $datase->id_leilao;
                         $data['itemQuantity1'] = '1';
                         $data['itemDescription1'] = ''.$datea[0]['titulo'].'';
-                        $data['itemAmount1'] = "".number_format($datase->valor,2,'.',',')."";
+                        $data['itemAmount1'] = "".$precofinal."";
                         $data['reference'] = "li".$datase->id_leilao."";
 
                         $url = 'https://ws.pagseguro.uol.com.br/v2/checkout';
@@ -909,7 +930,7 @@ $dates = date('YmdHis');
                         $datenv['id_user'] = $datase->id_usuario;
                         $datenv['id_notify'] = $lastn;
                         $this->db->insert('notify_read', $datenv);
-                        $dataup['valor_arrematado'] = $datase->valor;
+                        $dataup['valor_arrematado'] = $precofinal;
 
                         $dataup['status'] = '2555';
                         $this->db->where('id', $datase->id_leilao);
@@ -1239,10 +1260,9 @@ endif;
                             endif;
 	}
 
-	public function pageviewrequest(){
+	public function acesso(){
 
-
-
+        $this->load->view('ajax/acesso');
 
     }
 }
