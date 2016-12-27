@@ -251,7 +251,23 @@ if(isset($_SESSION['ID']) and isset($_SESSION['TYPE']) and $_SESSION['TYPE'] == 
                                             $ddpup['status'] = 1;
                                             $ddpup['type'] = 1;
                                             $ddpup['by'] = $_SESSION['ID'];
-                                            $ddpup['data_inicio'] = str_replace('T','',str_replace(':','',str_replace('/','',str_replace('-','',$_POST['inicioleilaoed'])))).'59';
+
+                                            $datas = explode(' ',$_POST['inicioleilaoed']);
+
+                                            $mdy_ex =  explode('/',$datas[0]);
+                                            $dia = $mdy_ex[0];
+                                            $mes = $mdy_ex[1];
+                                            $ano = $mdy_ex[2];
+
+                                            $hms = explode(':',$datas[1]);
+
+                                            $hrs = $hms[0];
+                                            $min = $hms[1];
+                                            $sec = $hms[2];
+                                            $postdatain = $ano.$mes.$dia.$hrs.$min.$sec;
+
+
+                                            $ddpup['data_inicio'] = $postdatain;
                                             $this->db->insert('leiloes', $ddpup);
                                             redirect('admin/leiloes', 'refresh');
                                         endif;
@@ -274,7 +290,7 @@ if(isset($_SESSION['ID']) and isset($_SESSION['TYPE']) and $_SESSION['TYPE'] == 
                                                         <br>
                                                         <div class="form-group">
                                                             <label>Previsão de Despesca ou Entrega</label>
-                                                            <input  name="despescas" id="despescas" type="date" >
+                                                            <input  name="despescas" id="datainput" type="text" placeholder="00/00/0000" >
                                                         </div><br>
                                                     </div>
                                                     <div role="tabpanel" class="tab-pane active" id="imediato">
@@ -294,13 +310,13 @@ if(isset($_SESSION['ID']) and isset($_SESSION['TYPE']) and $_SESSION['TYPE'] == 
 
                                             <div class="form-group">
                                                 <label>Peso Total do Lote em Kg:</label>
-                                                <input required class="form-control" name="pesot" placeholder="
+                                                <input required class="form-control" name="pesot" id="maxkinput" placeholder="
 Peso Total do lote
 " size="66" >
                                             </div><br>
 <div class="form-group">
                                                 <label>Peso Médio Individual em Kg:</label>
-                                                <input required name="pesoind" class="form-control" placeholder="Peso individual:" size="66" >
+                                                <input required name="pesoind" id="minkinput" class="form-control" placeholder="Peso individual:" size="66" >
                                             </div><br>
 
                                              <div class="form-group">
@@ -353,11 +369,11 @@ Peso Total do lote
                                             </div><br><br>
                                             <div class="form-group">
                                                 <label>Valor Máximo por Kg </label>
-                                                <input required class="form-control" name="maxvalue" size="66"  >
+                                                <input required class="form-control" placeholder="0.00" id="maxvalue" name="maxvalue" size="66"  >
                                             </div><br><br>
                                             <div class="form-group">
                                                 <label>Valor minimo por kg</label>
-                                                <input required class="form-control" name="minvalue" size="66"  >
+                                                <input required class="form-control" placeholder="0.00" id="minvalue" name="minvalue" size="66"  >
 
                                             </div><br><br>
                                             
@@ -368,7 +384,7 @@ Peso Total do lote
                                             <br><br>
                                             <div class="form-group">
                                                 <label>Inicio do leilão</label>
-                                                <input required name="inicioleilaoed" id="simfimldateed" type="datetime-local"  class="form-control">
+                                                <input required name="inicioleilaoed" placeholder="00/00/0000 00:00:00" id="datatimeinput" type="text"  class="form-control">
                                                 
                                             </div>
 
@@ -638,7 +654,7 @@ $ddpup['nome_cientifico_br'] = $dds['nome_cientifico_br'];
 
                                                                                                 <div class="form-group">
                                                                                                     <label>Peso Total do lote:</label>
-                                                                                                    <input required class="form-control" value="<?php echo $dds['peso_lote'];?>" name="pesot" placeholder="
+                                                                                                    <input required class="form-control" value="<?php echo $dds['peso_lote'];?>" id="maxkinput" name="pesot" placeholder="
 Peso Total do lote
 " size="66" >
                                                                                                 </div><br>
@@ -646,12 +662,12 @@ Peso Total do lote
 
                                                                                                 <div class="form-group">
                                                                                                     <label>Classificação:</label>
-                                                                                                    <input required name="class" class="form-control" value="<?php echo $dds['classificacao'];?>" placeholder="Classificação: " size="66" >
+                                                                                                    <input required name="class" class="form-control" value="<?php echo $dds['classificacao'];?>"  placeholder="Classificação: " size="66" >
                                                                                                 </div><br>
 
                                                                                                 <div class="form-group">
                                                                                                     <label>Peso individual:</label>
-                                                                                                    <input required name="pesoind" class="form-control" value="<?php echo $dds['peso_individual'];?>" placeholder="Peso individual:" size="66" >
+                                                                                                    <input required name="pesoind" class="form-control" value="<?php echo $dds['peso_individual'];?>" id="minkinput" placeholder="Peso individual:" size="66" >
                                                                                                 </div><br>
 
                                                                                                 <div class="form-group">
@@ -700,7 +716,7 @@ Peso Total do lote
                                                                                                 <br><br>
                                                                                                 <div class="form-group">
                                                                                                     <label>Inicio do leilão</label>
-                                                                                                    <input required name="inicioleilaoed" id="simfimldateedss" value="<?php echo $dds['data_inicio'];?>" type="text"  class="form-control">
+                                                                                                    <input required name="inicioleilaoed" id="datatimeinput" value="<?php echo $dds['data_inicio'];?>" type="text"  class="form-control">
                                                                                                 </div>
 
                                                                                                 <br>
@@ -825,13 +841,7 @@ if($rowcount > 0):
 
     foreach ($dates1 as $dds){
 
-        $endleilao = $dds['data_fim'];
-        $anof = substr($endleilao, 0, 4);
-        $mesf = substr($endleilao, 4, 2);
-        $diaf = substr($endleilao, 6, 2);
-        $horaf = substr($endleilao, 8, 2);
-        $minutof = substr($endleilao, 10, 2);
-        $segundof = substr($endleilao, 12, 2);
+
 
 
         $inileilao = $dds['data_inicio'];
@@ -842,8 +852,7 @@ if($rowcount > 0):
         $minutoi = substr($inileilao, 10, 2);
         $segundoi = substr($inileilao, 12, 2);
 
-        $datainicio = $anoi.'-'.$mesi.'-'.$diai.'T'.$horai.':'.$minutoi.':'.$segundoi;
-        $datafim = $anof.'-'.$mesf.'-'.$diaf.'T'.$horaf.':'.$minutof.':'.$segundof;
+
 
         $dcin = $diai.'/'.$mesi.'/'.$anoi.' '.$horai.':'.$minutoi.':'.$segundoi;
 
@@ -885,6 +894,8 @@ if($rowcount > 0):
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-lg-12">
+
+
                                         <?php
 
                                         if(isset($_POST['edit']) and $_POST['edit'] == 15154):
@@ -922,8 +933,26 @@ if($rowcount > 0):
                                             //$ddpup['image'] = $_GET[''];
                                             $ddpup['valor_min'] = str_replace("," , "" , $_POST['minvalue']);
                                             $ddpup['valor_max'] = str_replace("," , "" , $_POST['maxvalue']);
-                                            $ddpup['data_inicio'] = str_replace('T','',str_replace(':','',str_replace('/','',str_replace('-','',$_POST['inicioleilaoed'])))).'59';
-                                            $ddpup['data_fim'] = str_replace('T','',str_replace(':','',str_replace('/','',str_replace('-','',$_POST['fimleilaoed'])))).'59';
+
+
+
+                                            $datas = explode(' ',$_POST['inicioleilaoed']);
+
+                                            $mdy_ex =  explode('/',$datas[0]);
+                                            $dia = $mdy_ex[0];
+                                            $mes = $mdy_ex[1];
+                                            $ano = $mdy_ex[2];
+
+                                            $hms = explode(':',$datas[1]);
+
+                                            $hrs = $hms[0];
+                                            $min = $hms[1];
+                                            $sec = $hms[2];
+                                            $postdatain = $ano.$mes.$dia.$hrs.$min.$sec;
+
+
+                                            $ddpup['data_inicio'] = $postdatain;
+
                                             $this->db->where('id', $_POST['leilao']);
                                             $this->db->update('leiloes', $ddpup);
 
@@ -941,7 +970,7 @@ if($rowcount > 0):
                                             </div><br>
                                             <br>
                                             <div style="display:none;">
-                                            
+
                                             </div>
 
                                             <div class="form-group">
@@ -1007,23 +1036,15 @@ Peso Total do lote
                                             <br><br>
                                             <div class="form-group">
                                                 <label>Inicio do leilão</label>
-                                                <input required name="inicioleilaoed" value="<?php
+                                                <input required id="datatimeinput" name="inicioleilaoed" value="<?php
 
-                                                echo $datainicio;
+                                                echo $dcin;
 
-                                                ?>" id="simfimldateed" type="datetime-local"  class="form-control">
+                                                ?>"  type="text"  class="form-control">
                                                 <p class="help-block">Dia e hora do fim do leilão </p>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label>Fim do leilão</label>
-                                                <input required name="fimleilaoed" value="<?php
 
-                                                echo $datafim;
-
-                                                ?>" id="simfimldateed" type="datetime-local"  class="form-control">
-                                                <p class="help-block">Dia e hora do fim do leilão </p>
-                                            </div>
 
 <br>
                                             <button type="submit" class="btn btn-default">Alterar dados</button>
@@ -1100,12 +1121,14 @@ else:
                     </div>
 
                 </div>
+
+
                 <div role="tabpanel" class="tab-pane" id="profile">
                     <br>
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Exibindo todos os leilões cadastrados
+                                Exibindo todos os leilões disponiveis
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -1134,8 +1157,8 @@ else:
                                                 <tbody>
                                                 <?php
 
-                                                $sql = "SELECT * FROM leiloes WHERE status=? AND data_fim > ? ORDER BY id DESC";
-                                                $query =  $this->db->query($sql, array(1,$dataAtualsa));
+                                                $sql = "SELECT * FROM leiloes WHERE status=? ORDER BY id DESC";
+                                                $query =  $this->db->query($sql, array(1));
 
                                                 $rowcount = $query->num_rows();
                                                 $dates1 = $query->result_array();
@@ -1228,8 +1251,22 @@ else:
                                                                                                 //$ddpup['image'] = $_GET[''];
                                                                                                 $ddpup['valor_min'] = $_POST['minvalue'];
                                                                                                 $ddpup['valor_max'] = $_POST['maxvalue'];
-                                                                                                $ddpup['data_inicio'] = str_replace('T','',str_replace(':','',str_replace('/','',str_replace('-','',$_POST['inicioleilaoed'])))).'59';
-                                                                                                $ddpup['data_fim'] = str_replace('T','',str_replace(':','',str_replace('/','',str_replace('-','',$_POST['fimleilaoed'])))).'59';
+
+                                                                                                $datas = explode(' ',$_POST['inicioleilaoed']);
+
+                                                                                                $mdy_ex =  explode('/',$datas[0]);
+                                                                                                $dia = $mdy_ex[0];
+                                                                                                $mes = $mdy_ex[1];
+                                                                                                $ano = $mdy_ex[2];
+
+                                                                                                $hms = explode(':',$datas[1]);
+
+                                                                                                $hrs = $hms[0];
+                                                                                                $min = $hms[1];
+                                                                                                $sec = $hms[2];
+                                                                                                $postdatain = $ano.$mes.$dia.$hrs.$min.$sec;
+                                                                                                $ddpup['data_inicio'] = $postdatain;
+
                                                                                                 $this->db->where('id', $_POST['leilao']);
                                                                                                 $this->db->update('leiloes', $ddpup);
 
@@ -1245,7 +1282,7 @@ else:
                                                                                                     <label>Titulo</label>
                                                                                                     <input required class="form-control" name="titulo" size="60" value="<?php echo $dds['titulo']; ?>" >
                                                                                                     <br>
-                                                                                               
+
                                                                                                     <div class="form-group">
                                                                                                         <label>Nome científico</label>
                                                                                                         <input required class="form-control"  name="cnpt" placeholder="Nome Científico - Português" value="<?php echo $dds['nome_cientifico_br'];?>" size="66" >
@@ -1329,7 +1366,7 @@ Peso Total do lote
                                                                                                     <input required class="form-control" name="minvalue" size="66" value="<?php echo $dds['valor_min'];?>" >
 
                                                                                                 </div><br><br>
-                                                                                                
+
                                                                                                 <div class="form-group">
                                                                                                     <label>Imagem</label><br>
                                                                                                     <img src="<?php echo base_url($dds['image']);?>" style="width: 120px;object-fit: cover; object-position: center;"><br>
@@ -1463,8 +1500,8 @@ Peso Total do lote
                                                 <tbody>
                                                 <?php
 
-                                                $sql = "SELECT * FROM leiloes WHERE data_fim < ? or status!=? ORDER BY id DESC";
-                                                $query =  $this->db->query($sql, array($dataAtualsa,1));
+                                                $sql = "SELECT * FROM leiloes WHERE status!=? ORDER BY id DESC";
+                                                $query =  $this->db->query($sql, array(1));
 
                                                 $rowcount = $query->num_rows();
                                                 $dates1 = $query->result_array();

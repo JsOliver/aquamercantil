@@ -2,9 +2,7 @@
 ?>
 </div>
 <!-- jQuery -->
-<script src="http://www.aquamercantil.com.br/assets/js/jquery-2.1.4.min.js"></script>
 <script src="http://www.aquamercantil.com.br/assets/js/bootstrap.min.js"></script>
-<script src="<?php echo base_url('assets/admin/');?>vendor/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="<?php echo base_url('assets/admin/');?>vendor/bootstrap/js/bootstrap.min.js"></script>
