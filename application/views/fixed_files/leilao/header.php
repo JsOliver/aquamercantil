@@ -111,15 +111,23 @@ function modelnew(titulo,especie,pesotd,pesoind,classificacao,caracteristicap,ca
 		<div class="container">
 
 	<div class="row">
-<?php 
+<?php
+
+
+$query = $this->db->select('leiloes.*, acesso_leilao.*')
+    ->from('leiloes')
+    ->join('acesso_leilao', 'leiloes.id = acesso_leilao.id_leilao', 'inner')
+    ->where('acesso_leilao.id_user', $_SESSION['ID'])
+    ->get();
+
+$rowcount = $query->num_rows();
+$data = $query->result();
+
+
+	if($rowcount > 0):
 	
-	$this->db->from('leiloes');
-	$this->db->where('by',$_SESSION['ID']);
-	$query = $this->db->get();
-	if($query->num_rows() > 0):
-	
-	$fetch = $query->result_array();
-	foreach($fetch as $dds){
+
+	foreach($data as $dds){
 
 	?>
 	
@@ -127,11 +135,11 @@ function modelnew(titulo,especie,pesotd,pesoind,classificacao,caracteristicap,ca
 
                             <div class="col-xs-6 col-md-3">
                                 <a target="_blank" style="text-decoration: none;color: black;" class="thumbnail">
-                                    <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $dds['image'];?>" alt="...">
-									<h5 style="text-align: center;font-weight: bold;">Vendo 5 toneladas de tilapia 1,5Kg</h5>
+                                    <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $dds->image;?>" alt="...">
+									<h5 style="text-align: center;font-weight: bold;"><?php echo $dds->titulo;?></h5>
 									
                                 </a>
-                                    <h5 style="text-align: center;"><a onclick="modelnew('<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>','<?php //echo dds['']; ?>',)" class="btn btn-info">Utilizar como modelo</a></h5>
+
 
                             </div>
                         
