@@ -67,11 +67,29 @@
         jQuery(document).ready(function() {
 
             jQuery('#datatimeinput').mask('00/00/0000 00:00:00');
+            jQuery('#datatimeinput2').mask('00/00/0000 00:00:00');
+            jQuery('#datatimeinput3').mask('00/00/0000 00:00:00');
+            jQuery('#datatimeinput4').mask('00/00/0000 00:00:00');
             jQuery('#datainput').mask('00/00/0000');
+            jQuery('#datainput2').mask('00/00/0000');
+            jQuery('#datainput3').mask('00/00/0000');
+            jQuery('#datainput4').mask('00/00/0000');
             jQuery('#minkinput').mask('000000');
+            jQuery('#minkinput2').mask('000000');
+            jQuery('#minkinput3').mask('000000');
+            jQuery('#minkinput4').mask('000000');
             jQuery('#maxkinput').mask('00000000000');
+            jQuery('#maxkinput2').mask('00000000000');
+            jQuery('#maxkinput3').mask('00000000000');
+            jQuery('#maxkinput4').mask('00000000000');
             jQuery('#maxvalue').mask("###0.00", {reverse: true});
             jQuery('#minvalue').mask("###0.00", {reverse: true});
+            jQuery('#maxvalue2').mask("###0.00", {reverse: true});
+            jQuery('#minvalue2').mask("###0.00", {reverse: true});
+            jQuery('#maxvalue3').mask("###0.00", {reverse: true});
+            jQuery('#minvalue3').mask("###0.00", {reverse: true});
+            jQuery('#maxvalue4').mask("###0.00", {reverse: true});
+            jQuery('#minvalue4').mask("###0.00", {reverse: true});
 
         });
     </script>

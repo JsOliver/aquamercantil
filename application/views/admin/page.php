@@ -654,7 +654,7 @@ $ddpup['nome_cientifico_br'] = $dds['nome_cientifico_br'];
 
                                                                                                 <div class="form-group">
                                                                                                     <label>Peso Total do lote:</label>
-                                                                                                    <input required class="form-control" value="<?php echo $dds['peso_lote'];?>" id="maxkinput" name="pesot" placeholder="
+                                                                                                    <input required class="form-control" value="<?php echo $dds['peso_lote'];?>" id="maxkinput4" name="pesot" placeholder="
 Peso Total do lote
 " size="66" >
                                                                                                 </div><br>
@@ -667,7 +667,7 @@ Peso Total do lote
 
                                                                                                 <div class="form-group">
                                                                                                     <label>Peso individual:</label>
-                                                                                                    <input required name="pesoind" class="form-control" value="<?php echo $dds['peso_individual'];?>" id="minkinput" placeholder="Peso individual:" size="66" >
+                                                                                                    <input required name="pesoind" class="form-control" value="<?php echo $dds['peso_individual'];?>" id="minkinput4" placeholder="Peso individual:" size="66" >
                                                                                                 </div><br>
 
                                                                                                 <div class="form-group">
@@ -701,12 +701,12 @@ Peso Total do lote
                                                                                                 </div><br><br>
                                                                                                 <div class="form-group">
                                                                                                     <label>Valor minimo</label>
-                                                                                                    <input required class="form-control" name="minvalue" size="66" value="<?php echo $dds['valor_min'];?>" >
+                                                                                                    <input required class="form-control" id="minvalue4" name="minvalue" size="66" value="<?php echo $dds['valor_min'];?>" >
 
                                                                                                 </div><br><br>
                                                                                                 <div class="form-group">
                                                                                                     <label>Valor maximo</label>
-                                                                                                    <input required class="form-control" name="maxvalue" size="66" value="<?php echo $dds['valor_max'];?>" >
+                                                                                                    <input required class="form-control" id="maxvalue4" name="maxvalue" size="66" value="<?php echo $dds['valor_max'];?>" >
                                                                                                 </div><br><br>
                                                                                                 <div class="form-group">
                                                                                                     <label>Imagem</label><br>
@@ -716,7 +716,7 @@ Peso Total do lote
                                                                                                 <br><br>
                                                                                                 <div class="form-group">
                                                                                                     <label>Inicio do leilão</label>
-                                                                                                    <input required name="inicioleilaoed" id="datatimeinput" value="<?php echo $dds['data_inicio'];?>" type="text"  class="form-control">
+                                                                                                    <input required name="inicioleilaoed" id="datatimeinput4" value="<?php echo $dds['data_inicio'];?>" type="text"  class="form-control">
                                                                                                 </div>
 
                                                                                                 <br>
@@ -969,13 +969,11 @@ if($rowcount > 0):
                                                 <input required class="form-control" name="titulo" size="60" value="<?php echo $dds['titulo']; ?>" >
                                             </div><br>
                                             <br>
-                                            <div style="display:none;">
 
-                                            </div>
 
                                             <div class="form-group">
                                                 <label>Peso Total do lote:</label>
-                                                <input required class="form-control" value="<?php echo $dds['peso_lote'];?>" name="pesot" placeholder="
+                                                <input required class="form-control" id="maxkinput2" value="<?php echo $dds['peso_lote'];?>" name="pesot" placeholder="
 Peso Total do lote
 " size="66" >
                                             </div><br>
@@ -988,7 +986,7 @@ Peso Total do lote
 
                                             <div class="form-group">
                                                 <label>Peso individual:</label>
-                                                <input required name="pesoind" class="form-control" value="<?php echo $dds['peso_individual'];?>" placeholder="Peso individual:" size="66" >
+                                                <input required name="pesoind" id="minkinput2" class="form-control" value="<?php echo $dds['peso_individual'];?>" placeholder="Peso individual:" size="66" >
                                             </div><br>
 
                                             <div class="form-group">
@@ -1021,12 +1019,12 @@ Peso Total do lote
                                             </div><br><br>
                                             <div class="form-group">
                                                 <label>Valor minimo</label>
-                                                <input required class="form-control" name="minvalue" size="66" value="<?php echo $dds['valor_min'];?>" >
+                                                <input required class="form-control" id="minvalue2" name="minvalue" size="66" value="<?php echo $dds['valor_min'];?>" >
 
                                             </div><br><br>
                                             <div class="form-group">
                                                 <label>Valor maximo</label>
-                                                <input required class="form-control" name="maxvalue" size="66" value="<?php echo $dds['valor_max'];?>" >
+                                                <input required class="form-control" id="maxvalue2" name="maxvalue" size="66" value="<?php echo $dds['valor_max'];?>" >
                                             </div><br><br>
                                             <div class="form-group">
                                                 <label>Imagem</label><br>
@@ -1036,7 +1034,7 @@ Peso Total do lote
                                             <br><br>
                                             <div class="form-group">
                                                 <label>Inicio do leilão</label>
-                                                <input required id="datatimeinput" name="inicioleilaoed" value="<?php
+                                                <input required id="datatimeinput2" name="inicioleilaoed" value="<?php
 
                                                 echo $dcin;
 
@@ -1274,6 +1272,8 @@ else:
 
                                                                                             endif;
                                                                                             ?>
+
+
                                                                                             <form role="form" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/leiloes');?>">
 
                                                                                                 <input type="hidden" name="edit" value="15154">
@@ -1281,92 +1281,65 @@ else:
                                                                                                 <div class="form-group">
                                                                                                     <label>Titulo</label>
                                                                                                     <input required class="form-control" name="titulo" size="60" value="<?php echo $dds['titulo']; ?>" >
-                                                                                                    <br>
+                                                                                                </div><br>
+                                                                                                <br>
 
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Nome científico</label>
-                                                                                                        <input required class="form-control"  name="cnpt" placeholder="Nome Científico - Português" value="<?php echo $dds['nome_cientifico_br'];?>" size="66" >
-                                                                                                    </div><br>
 
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Nome científico - EN</label>
-                                                                                                        <input required class="form-control" value="<?php echo $dds['nome_cientifico_en'];?>" name="cnen" placeholder="
-Scientific Name - English" size="66" >
-                                                                                                    </div><br>
-
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Nome científico - ES</label>
-                                                                                                        <input required class="form-control" value="<?php echo $dds['nome_cientifico_es'];?>" name="cnes" placeholder="
-Nombre científico - Español" size="66" >
-                                                                                                    </div><br>
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Nome científico - FR</label>
-                                                                                                        <input required class="form-control" value="<?php echo $dds['nome_cientifico_fr'];?>"  name="cnfr" placeholder="
-Nom scientifique - Français
-" size="66" >
-                                                                                                    </div><br>
-                                                                                                </div>
-
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Peso Total do Lote em Kg:</label>
-                                                                                                        <input required class="form-control" value="<?php echo $dds['peso_lote'];?>" name="pesot" placeholder="
+                                                                                                <div class="form-group">
+                                                                                                    <label>Peso Total do lote:</label>
+                                                                                                    <input required class="form-control" id="maxkinput3" value="<?php echo $dds['peso_lote'];?>" name="pesot" placeholder="
 Peso Total do lote
 " size="66" >
-                                                                                                    </div><br>
-
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Peso Médio Individual em Kg </label>
-                                                                                                        <input required name="pesoind" class="form-control" value="<?php echo $dds['peso_individual'];?>" placeholder="Peso individual:" size="66" >
-                                                                                                    </div><br>
+                                                                                                </div><br>
 
 
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Classificação:</label>
-                                                                                                        <input required name="class" class="form-control" value="<?php echo $dds['classificacao'];?>" placeholder="Classificação: " size="66" >
-                                                                                                    </div><br>
+                                                                                                <div class="form-group">
+                                                                                                    <label>Classificação:</label>
+                                                                                                    <input required name="class" class="form-control" value="<?php echo $dds['classificacao'];?>" placeholder="Classificação: " size="66" >
+                                                                                                </div><br>
 
+                                                                                                <div class="form-group">
+                                                                                                    <label>Peso individual:</label>
+                                                                                                    <input required name="pesoind" id="minkinput3" class="form-control" value="<?php echo $dds['peso_individual'];?>" placeholder="Peso individual:" size="66" >
+                                                                                                </div><br>
 
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Característica de processamento:</label>
-                                                                                                        <input required name="cpp" class="form-control" value="<?php echo $dds['caracteristicas_processamento'];?>" placeholder="Característica de processamento:" size="66" >
-                                                                                                    </div><br>
+                                                                                                <div class="form-group">
+                                                                                                    <label>Característica de processamento:</label>
+                                                                                                    <input required name="cpp" class="form-control" value="<?php echo $dds['caracteristicas_processamento'];?>" placeholder="Característica de processamento:" size="66" >
+                                                                                                </div><br>
 
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Caracteristicas da embalagem</label>
-                                                                                                        <input required name="ccemb" class="form-control" value="<?php echo $dds['caracteristicas_embalagem'];?>" placeholder="Caracteristicas da embalagem:" size="66" >
-                                                                                                    </div><br>
+                                                                                                <div class="form-group">
+                                                                                                    <label>Caracteristicas da embalagem</label>
+                                                                                                    <input required name="ccemb" class="form-control" value="<?php echo $dds['caracteristicas_embalagem'];?>" placeholder="Caracteristicas da embalagem:" size="66" >
+                                                                                                </div><br>
 
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Condições de pagamento:</label>
-                                                                                                        <input required name="cntpay" class="form-control" value="<?php echo $dds['condicao_pagamento'];?>" placeholder="Condições de pagamento:" size="66" >
-                                                                                                    </div><br>
+                                                                                                <div class="form-group">
+                                                                                                    <label>Condições de pagamento:</label>
+                                                                                                    <input required name="cntpay" class="form-control" value="<?php echo $dds['condicao_pagamento'];?>" placeholder="Condições de pagamento:" size="66" >
+                                                                                                </div><br>
 
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Localidade de origem:</label>
-                                                                                                        <input required name="lcco" class="form-control" value="<?php echo $dds['localidade_origem'];?>" placeholder="Localidade de origem:" size="66" >
-                                                                                                    </div><br>
-                                                                                                </div><br><br>
-                                                                                                <div style="display:none;">
+                                                                                                <div class="form-group">
+                                                                                                    <label>Localidade de origem:</label>
+                                                                                                    <input required name="lcco" class="form-control" value="<?php echo $dds['localidade_origem'];?>" placeholder="Localidade de origem:" size="66" >
+                                                                                                </div><br>
+
                                                                                                 <div class="form-group">
                                                                                                     <label>Breve descrição</label>
                                                                                                     <input required class="form-control" name="brevedescricao" size="66" value="<?php echo $dds['titulo']; ?>" >
                                                                                                 </div><br><br>
-                                                                                            </div>
                                                                                                 <div class="form-group">
                                                                                                     <label>Descrição</label>
                                                                                                     <textarea  class="form-control" name="descricao" rows="5"><?php echo $dds['descricao'];?></textarea>
                                                                                                 </div><br><br>
-
                                                                                                 <div class="form-group">
-                                                                                                    <label>Valor Máximo por Kg </label>
-                                                                                                    <input required class="form-control" name="maxvalue" size="66" value="<?php echo $dds['valor_max'];?>" >
+                                                                                                    <label>Valor minimo</label>
+                                                                                                    <input required class="form-control" id="minvalue3" name="minvalue" size="66" value="<?php echo $dds['valor_min'];?>" >
+
                                                                                                 </div><br><br>
                                                                                                 <div class="form-group">
-                                                                                                    <label>Valor minimo por kg</label>
-                                                                                                    <input required class="form-control" name="minvalue" size="66" value="<?php echo $dds['valor_min'];?>" >
-
+                                                                                                    <label>Valor maximo</label>
+                                                                                                    <input required class="form-control" id="maxvalue3" name="maxvalue" size="66" value="<?php echo $dds['valor_max'];?>" >
                                                                                                 </div><br><br>
-
                                                                                                 <div class="form-group">
                                                                                                     <label>Imagem</label><br>
                                                                                                     <img src="<?php echo base_url($dds['image']);?>" style="width: 120px;object-fit: cover; object-position: center;"><br>
@@ -1375,27 +1348,22 @@ Peso Total do lote
                                                                                                 <br><br>
                                                                                                 <div class="form-group">
                                                                                                     <label>Inicio do leilão</label>
-                                                                                                    <input required name="inicioleilaoed" value="<?php
+                                                                                                    <input required id="datatimeinput3" name="inicioleilaoed" value="<?php
 
-                                                                                                    echo $inileilao;
+                                                                                                    echo $dcin;
 
-                                                                                                    ?>" id="simfimldateed" type="datetime-local"  class="form-control">
+                                                                                                    ?>"  type="text"  class="form-control">
                                                                                                     <p class="help-block">Dia e hora do fim do leilão </p>
                                                                                                 </div>
 
-                                                                                                <div class="form-group">
-                                                                                                    <label>Fim do leilão</label>
-                                                                                                    <input required name="fimleilaoed" value="<?php
 
-                                                                                                    echo $datafim;
-
-                                                                                                    ?>" id="simfimldateed" type="datetime-local"  class="form-control">
-                                                                                                    <p class="help-block">Dia e hora do fim do leilão </p>
-                                                                                                </div>
 
                                                                                                 <br>
                                                                                                 <button type="submit" class="btn btn-default">Alterar dados</button>
                                                                                             </form>
+
+                                                                                            </div><br><br>
+
                                                                                         </div>
 
                                                                                     </div>
@@ -1600,102 +1568,7 @@ Peso Total do lote
 
                                                                                             endif;
                                                                                             ?>
-                                                                                            <form role="form" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/leiloes');?>">
 
-                                                                                                <input type="hidden" name="edit" value="15154">
-                                                                                                <input type="hidden" name="leilao" value="<?php echo $dds['id'];?>">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Titulo</label>
-                                                                                                    <input required class="form-control" name="titulo" size="60" value="<?php echo $dds['titulo']; ?>" >
-                                                                                                    <br>
-                                                                                                
-
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Peso Total do lote:</label>
-                                                                                                        <input required class="form-control" value="<?php echo $dds['peso_lote'];?>" name="pesot" placeholder="
-Peso Total do lote
-" size="66" >
-                                                                                                    </div><br>
-
-
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Classificação:</label>
-                                                                                                        <input required name="class" class="form-control" value="<?php echo $dds['classificacao'];?>" placeholder="Classificação: " size="66" >
-                                                                                                    </div><br>
-
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Peso individual:</label>
-                                                                                                        <input required name="pesoind" class="form-control" value="<?php echo $dds['peso_individual'];?>" placeholder="Peso individual:" size="66" >
-                                                                                                    </div><br>
-
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Característica de processamento:</label>
-                                                                                                        <input required name="cpp" class="form-control" value="<?php echo $dds['caracteristicas_processamento'];?>" placeholder="Característica de processamento:" size="66" >
-                                                                                                    </div><br>
-
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Caracteristicas da embalagem</label>
-                                                                                                        <input required name="ccemb" class="form-control" value="<?php echo $dds['caracteristicas_embalagem'];?>" placeholder="Caracteristicas da embalagem:" size="66" >
-                                                                                                    </div><br>
-
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Condições de pagamento:</label>
-                                                                                                        <input required name="cntpay" class="form-control" value="<?php echo $dds['condicao_pagamento'];?>" placeholder="Condições de pagamento:" size="66" >
-                                                                                                    </div><br>
-
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Localidade de origem:</label>
-                                                                                                        <input required name="lcco" class="form-control" value="<?php echo $dds['localidade_origem'];?>" placeholder="Localidade de origem:" size="66" >
-                                                                                                    </div><br>
-                                                                                                </div><br><br>
-                                                                                                <div style="display:none">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Breve descrição</label>
-                                                                                                    <input required class="form-control" name="brevedescricao" size="66" value="<?php echo $dds['titulo']; ?>" >
-                                                                                                </div><br><br>
-                                                                                            </div>
-                                                                                                <div class="form-group">
-                                                                                                    <label>Descrição</label>
-                                                                                                    <textarea  class="form-control" name="descricao" rows="5"><?php echo $dds['descricao'];?></textarea>
-                                                                                                </div><br><br>
-                                                                                                <div class="form-group">
-                                                                                                    <label>Valor minimo</label>
-                                                                                                    <input required class="form-control" name="minvalue" size="66" value="<?php echo $dds['valor_min'];?>" >
-
-                                                                                                </div><br><br>
-                                                                                                <div class="form-group">
-                                                                                                    <label>Valor maximo</label>
-                                                                                                    <input required class="form-control" name="maxvalue" size="66" value="<?php echo $dds['valor_max'];?>" >
-                                                                                                </div><br><br>
-                                                                                                <div class="form-group">
-                                                                                                    <label>Imagem</label><br>
-                                                                                                    <img src="<?php echo base_url($dds['image']);?>" style="width: 120px;object-fit: cover; object-position: center;"><br>
-                                                                                                    <input name="imageed" type="file">
-                                                                                                </div>
-                                                                                                <br><br>
-                                                                                                <div class="form-group">
-                                                                                                    <label>Inicio do leilão</label>
-                                                                                                    <input required name="inicioleilaoed" value="<?php
-
-                                                                                                    echo $datainicio;
-
-                                                                                                    ?>" id="simfimldateed" type="datetime-local"  class="form-control">
-                                                                                                    <p class="help-block">Dia e hora do fim do leilão </p>
-                                                                                                </div>
-
-                                                                                                <div class="form-group">
-                                                                                                    <label>Fim do leilão</label>
-                                                                                                    <input required name="fimleilaoed" value="<?php
-
-                                                                                                    echo $datafim;
-
-                                                                                                    ?>" id="simfimldateed" type="datetime-local"  class="form-control">
-                                                                                                    <p class="help-block">Dia e hora do fim do leilão </p>
-                                                                                                </div>
-
-                                                                                                <br>
-                                                                                                <button type="submit" class="btn btn-default">Alterar dados</button>
-                                                                                            </form>
                                                                                         </div>
 
                                                                                     </div>
@@ -1731,9 +1604,7 @@ Peso Total do lote
 
                                                             </td>
                                                             <td class="center" style="text-align: center;">
-                                                                <?php if($dds['status'] == 1):?>
-                                                                    <span  data-toggle="tooltip" data-placement="top" title="Editar item">    <i data-toggle="modal" data-target="#leilaoediti<?php echo $dds['id']?>" style="cursor: pointer;" class="fa fa-edit text-info"></i></span>&nbsp;&nbsp;&nbsp;
-                                                                <?php endif;?>
+
                                                                 <span  data-toggle="tooltip" data-placement="top" title="Excluir item">     <i  data-toggle="modal" data-target="#leilaodeletei<?php echo $dds['id']?>"  style="cursor: pointer;" class="fa fa-close text-danger"></i></span></td>
                                                         </tr>
                                                     <?php }
@@ -1781,7 +1652,7 @@ Peso Total do lote
                                                     <th  tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 72px;">ID</th>
                                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 91px;">Titulo</th>
                                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 81px;">Data inicio</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 59px;">Data fim:</th>
+
 
                                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 40px;">Valor inicial</th>
 
@@ -1937,7 +1808,7 @@ echo '<span class="text-info">Aguardando pagamento</span>';
                                                             <td class="sorting_1"><?php echo $dds['id'];?></td>
                                                             <td><?php echo $dds['titulo'];?></td>
                                                             <td><?php echo $diai.'/'.$mesi.'/'.$anoi.' '.$horai.':'.$minutoi.':'.$segundoi;?></td>
-                                                            <td class="center"><?php echo $diaf.'/'.$mesf.'/'.$anof.' '.$horaf.':'.$minutof.':'.$segundof;?></td>
+
                                                             <td class="center">R$ <?php echo number_format($dds['valor_max'],2,'.',',');?></td>
                                                             <td class="center">R$ <?php echo number_format($dds['valor_min'],2,'.',',');?></td>
                                                             <td class="center">
