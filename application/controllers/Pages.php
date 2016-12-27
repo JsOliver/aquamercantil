@@ -601,7 +601,7 @@ $rowcount = $query->num_rows();
         $this->email->message('Sua nova senha e:
         '.$newpass.'.');
 
-        
+
         if($this->email->send()):
             echo 11;
         else:

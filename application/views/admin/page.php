@@ -1962,6 +1962,7 @@ if(isset($_POST['type']) and $_POST['type'] == '4515610'):
                         $this->db->where('tipo',1);
                        $this->db->or_where('tipo',2);
                        $this->db->or_where('tipo',3);
+                       $this->db->or_where('tipo',0);
 
         endif;
                        if(isset($_GET['q']) and !empty($_GET['q'])):
@@ -2172,6 +2173,10 @@ endif;
                                        ?></td>
                                    <td>
                                        <?php
+
+                                       if($dds['tipo'] == 0):
+                                           echo '<b class="text-warning">Todos</b>';
+                                           endif;
 
                                        if($dds['tipo'] == 1):
                                            echo 'Vendedor';
