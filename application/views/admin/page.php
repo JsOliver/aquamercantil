@@ -2607,12 +2607,102 @@ endif;
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Funcionarios</a></li>
-                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Novo</a></li>
+                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Novo funcionario</a></li>
+
+                <li role="presentation"><a href="#patrocinio" aria-controls="profile" role="tab" data-toggle="tab">Patrocinadores</a></li>
+                <li role="presentation"><a href="#newpatrocionio" aria-controls="profile" role="tab" data-toggle="tab">Novo patrocinador</a></li>
 
             </ul>
 
+            <?php if(isset($_POST['type']) and $_POST['type'] == 'a155s154'):
+
+
+                $imagecript = md5(rand(1,20045));
+
+                $destino = 'assets/images/icons/parceiros/'.$imagecript.'.jpg';
+
+                $arquivo_tmp = $_FILES['image']['tmp_name'];
+
+                $move = move_uploaded_file( $arquivo_tmp, $destino  );
+
+                $dados['logo'] = $destino;
+                $dados['site'] = $_POST['site'];
+                $this->db->insert('parceiros',$dados);
+
+
+
+        endif;
+
+        ?>
+
             <!-- Tab panes -->
             <div class="tab-content">
+                <div role="tabpanel" class="tab-pane" id="newpatrocionio">
+
+                    <form enctype="multipart/form-data" method="post" action="<?php echo base_url('admin/templates');?>">
+                        <input type="hidden" name="type" value="a155s154">
+                        <br>
+                        <b>Site</b>
+                        <input type="text" placeholder="www.exemple.com.br" name="site">
+                        <br>
+                        <br>
+                        <b>Imagem</b>
+                        <input type="file" name="image"><br>
+                        <input type="submit" value="Enviar">
+                        </form>
+</div>
+                <div role="tabpanel" class="tab-pane" id="patrocinio">
+
+                    <table class="table table-hover">
+                        <thead> <tr>
+                            <th>id</th>
+                            <th>Imagem</th>
+                            <th>Site</th>
+                            <th>Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+
+                        $this->db->from('parceiros');
+                        $this->db->order_by('id','desc');
+                      $getdb =  $this->db->get();
+                        $rowcountdb = $getdb->num_rows();
+                        $fetchdda = $getdb->result_array();
+if($rowcountdb > 0):
+
+    foreach($fetchdda as $dds) {
+        ?>
+        <tr>
+            <td><?php echo $dds['id'];?></td>
+            <td><img src="<?php echo base_url($dds['logo']);?>" style="width: 100px;"></td>
+            <td><a href="http://<?php echo $dds['site'];?>" target="_blank"><?php echo $dds['site'];?></a></td>
+            <td><a href="<?php echo base_url('pages/deleteparceiro?p='.$dds['id'].'');?>" class="text-danger">Excluir</a></td>
+
+        </tr>
+        <?php
+    }
+else:
+
+
+     ?>
+
+
+    <tr>
+        <td>-- --</td>
+        <td>-- --</td>
+        <td>-- --</td>
+        <td>-- --</td>
+
+    </tr>
+
+    <?php
+endif;?>
+                        </tbody>
+
+</table> </div>
+
+
                 <div role="tabpanel" class="tab-pane active" id="home">
 
                     <table class="table table-hover">

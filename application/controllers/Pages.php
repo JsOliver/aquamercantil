@@ -1667,7 +1667,15 @@ public function approvednewcate(){
 
 
 
+public function deleteparceiro(){
 
+    $this->db->where('id',$_GET['p']);
+    $this->db->delete('parceiros');
+    redirect('admin/templates', 'refresh');
+
+
+
+}
 
 
 

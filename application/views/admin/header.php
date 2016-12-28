@@ -139,7 +139,7 @@
                         <a href="<?php echo base_url('admin/clientes');?>"><i class="fa fa-edit fa-fw"></i> Clientes</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('admin/templates');?>"><i class="fa fa-user fa-fw"></i> Funcionarios</a>
+                        <a href="<?php echo base_url('admin/templates');?>"><i class="fa fa-user fa-fw"></i> Funcionarios / Patrocinio</a>
                     </li>
 
                 </ul>

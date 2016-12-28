@@ -168,7 +168,7 @@ endif;
         //window.location.reload();
     }
 </script>
-<?php if(isset($_SESSION['ID']) and $_SESSION['TYPE'] == 2  or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):?>
+<?php if(@isset($_SESSION['ID']) and @$_SESSION['TYPE'] == 2  or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):?>
     <script>
         function arremate(leilao,user) {
 
@@ -4092,30 +4092,42 @@ if(!isset($_SESSION['ID'])):
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
-            <div class="item active">
+
+            <?php
+
+            $this->db->from('parceiros');
+            $this->db->order_by('id','desc');
+            $getprt = $this->db->get();
+            $rowpar = $getprt->num_rows();
+            $fetchprt = $getprt->result_array();
+
+            $colunas = ceil($rowpar / 3);
+
+            for($p=0;$p<$colunas;$p++):
+
+
+            ?>
+            <div class="item <?php if($p == 0): echo 'active'; endif;?>">
+
+                <?php
+$pagessr = ceil($p * 3);
+                $this->db->from('parceiros');
+                $this->db->order_by('id','desc');
+                $this->db->limit(3,$pagessr);
+                $getprt1 = $this->db->get();
+                $rowpar1 = $getprt1->num_rows();
+                $fetchprt1 = $getprt1->result_array();
+foreach($fetchprt1 as $dds1){
+                ?>
                 <div class="col-xs-4">
-                    <a href="http://manta.eng.br" target="blank"><img class="imgCarrossel" src="<?php echo base_url('assets/images/icons/parceiros/manta.png');?>"></a>
-                </div>
-                <div class="col-xs-4">
-                    <a href="http://racoesprimor.com.br/novo/proacqua.php&#10;" target="blank"><img class="imgCarrossel" src="<?php echo base_url('assets/images/icons/parceiros/primor.png');?>"></a>
-                </div>
-                <div class="col-xs-4">
-                    <a href="http://aquanordeste.com.br" target="blank"><img class="imgCarrossel" src="<?php echo base_url('assets/images/icons/parceiros/aquanordeste.png');?>"></a>
+                    <a href="http://<?php echo $dds1['site']; ?>" target="blank"><img class="imgCarrossel" src="<?php echo base_url($dds1['logo']); ?>" ></a>
                 </div>
 
-            </div>
-            <div class="item ">
-                <div class="col-xs-4">
-                    <a href="http://manta.eng.br" target="blank"><img class="imgCarrossel" src="<?php echo base_url('assets/images/icons/parceiros/manta.png');?>"></a>
-                </div>
-                <div class="col-xs-4">
-                    <a href="http://racoesprimor.com.br/novo/proacqua.php&#10;" target="blank"><img class="imgCarrossel" src="<?php echo base_url('assets/images/icons/parceiros/primor.png');?>"></a>
-                </div>
-                <div class="col-xs-4">
-                    <a href="http://aquanordeste.com.br" target="blank"><img class="imgCarrossel" src="<?php echo base_url('assets/images/icons/parceiros/aquanordeste.png');?>"></a>
-                </div>
+
+                <?php } ;?>
 
             </div>
+          <?php endfor;?>
 
         </div>
 
