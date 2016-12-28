@@ -179,7 +179,7 @@ if(isset($_SESSION['ID'])):
 
                 ?>
                     <li>
-                        <a href="" data-toggle="modal" data-target="#login" class="btn btn-white-fill navbar-btn" style="color: black;">Entrar</a>
+                        <a href="javascript:func();" data-toggle="modal" data-target="#login" class="btn btn-white-fill navbar-btn" style="color: black;">Entrar</a>
                     </li>
                 <?php endif;?>
             </ul>
@@ -213,7 +213,7 @@ if(isset($_SESSION['ID'])):
                             }
                         </style>
 
-                        <a onclick="loguser();" class="btn  btn-sm btn-block btn-info">Entrar</a>
+                        <a href="javascript:func();" onclick="loguser();" class="btn  btn-sm btn-block btn-info">Entrar</a>
 
 
 

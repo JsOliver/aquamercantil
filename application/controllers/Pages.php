@@ -147,12 +147,16 @@ endif;
         $dados['email'] = $_POST['email'];
         $dados['cnpj'] = $_POST['cnpj'];
         $dados['tipo'] = $_POST['type'];
-
-        $dados['razao_social'] = $_POST['1'];
-        $dados['nome_fantasia'] = $_POST['2'];
-        $dados['nome_responsavel'] = $_POST['3'];
+        if($_POST['1'] == null): $p1 = '--'; else: $p1 = $_POST['1']; endif;
+        if($_POST['2'] == null): $p2 = '--'; else: $p2 = $_POST['2']; endif;
+        if($_POST['3'] == null): $p3 = '--'; else: $p3 = $_POST['3']; endif;
+        if($_POST['5'] == null): $p5 = '--'; else: $p5 = $_POST['5']; endif;
+        if($_POST['55'] == null): $p55 = '--'; else: $p55 = $_POST['55']; endif;
+        $dados['razao_social'] = $p1;
+        $dados['nome_fantasia'] = $p2;
+        $dados['nome_responsavel'] = $p3;
         $dados['cargo_responsavel'] = $_POST['4'];
-        $dados['inscricao_estadual'] = $_POST['5'];
+        $dados['inscricao_estadual'] = $p5;
         $dados['endereco'] = $_POST['6'];
         $dados['cidade'] = $_POST['7'];
         $dados['estado'] = $_POST['8'];
@@ -202,7 +206,7 @@ endif;
         $dados['cep_dbe'] = $_POST['52'];
         $dados['telefone_dbe'] = $_POST['53'];
         $dados['celular_dbe'] = $_POST['54'];
-        $dados['data_constituicao'] = $_POST['55'];
+        $dados['data_constituicao'] = $p55;
         $dados['bairro'] = $_POST['56'];
         $dados['numero'] = $_POST['57'];
         $dados['complemento'] = $_POST['58'];
@@ -1416,18 +1420,9 @@ echo 0;
 
         $min = 4;
         $page = $_POST['page'];
+
+        $total = ceil($min * $page - $min);
         if($_POST['user'] == 1):
-
-            $query2 = $this->db->select('leiloes.*,arremates.*')
-                ->from('leiloes')
-                ->join('arremates','leiloes.id = arremates.id_leilao', 'inner')
-                ->where('leiloes.status', 2555)
-                ->where('arremates.id_user', $_SESSION['ID'])
-                ->order_by('arremates.id','desc')
-                ->get();
-
-
-
 
 
             $query = $this->db->select('leiloes.*,arremates.*')
@@ -1436,7 +1431,7 @@ echo 0;
                 ->where('leiloes.status', 2555)
                 ->where('arremates.id_user', $_SESSION['ID'])
                 ->order_by('arremates.id','desc')
-                ->limit($min,$page)
+                ->limit($min,$total)
                 ->get();
             else:
                 $query = $this->db->select('leiloes.*,arremates.*')
@@ -1444,7 +1439,7 @@ echo 0;
                     ->join('arremates','leiloes.id = arremates.id_leilao', 'inner')
                     ->where('leiloes.status', 2555)
                     ->order_by('arremates.id','desc')
-                    ->limit($min,$page)
+                    ->limit($min,$total)
                     ->get();
 
                 endif;
@@ -1466,7 +1461,7 @@ if($rowcountas > 0):
         ?>
 
         <div class="col-xs-6 col-md-3">
-            <a href="<?php echo $dta['url_payment'];?>" target="_blank" style="text-decoration: none;color: black;" class="thumbnail">
+            <a href="<?php if($_POST['user'] == 1): echo $dta['url_payment']; else: echo '#'; endif;?>" target="_blank" style="text-decoration: none;color: black;" class="thumbnail">
                 <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $dta['image']; ?>" alt="..."> <h5 style="text-align: center;font-weight: bold;"><?php echo $dta['titulo']; ?></h5>
                 <?php if($dta['status'] <> 0):?>
                     <h5 style="text-align: center;">Arrematado por: <b>R$<?php echo number_format($dta['valor_arrematado'],2,'.',',');?></b></h5>
@@ -1484,6 +1479,146 @@ endif;
 
 
     }
+
+
+    public function pagination2(){
+
+
+	$limit = 4;
+        $page = $_POST['page'];
+        $total = ceil($limit * $page - $limit);
+	$this->db->from('leiloes');
+	$this->db->where('by',$_SESSION['ID']);
+	$this->db->order_by('id','desc');
+	$query1 = $this->db->get();
+
+
+    $pages = ceil($query1 / $limit);
+
+
+    $this->db->from('leiloes');
+	$this->db->where('by',$_SESSION['ID']);
+	$this->db->order_by('id','desc');
+	$this->db->limit($limit,$total);
+	$query = $this->db->get();
+	if($query->num_rows() > 0):
+
+        $fetch = $query->result_array();
+        foreach($fetch as $dds){
+
+            ?>
+
+
+
+            <div class="col-xs-6 col-md-3">
+                <a target="_blank" style="text-decoration: none;color: black;" class="thumbnail">
+                    <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $dds['image'];?>" alt="...">
+                    <h5 style="text-align: center;font-weight: bold;"><?php echo $dds['titulo'];?></h5>
+
+                </a>
+
+                <?php
+                $inileilao = $dds['data_inicio'];
+                $anoi = substr($inileilao, 0, 4);
+                $mesi = substr($inileilao, 4, 2);
+                $diai = substr($inileilao, 6, 2);
+                $horai = substr($inileilao, 8, 2);
+                $minutoi = substr($inileilao, 10, 2);
+                $segundoi = substr($inileilao, 12, 2);
+
+                ?>
+                <h5 style="text-align: center;"><a onclick="modelnew('<?php echo $dds['titulo']; ?>','<?php echo $dds['nome_cientifico_br']; ?>','<?php echo $dds['peso_lote']; ?>','<?php echo $dds['peso_individual']; ?>','<?php echo $dds['condicao_pagamento']; ?>','<?php echo $dds['localidade_origem']; ?>','<?php echo strip_tags($dds['descricao']); ?>','<?php echo $dds['valor_min']; ?>','<?php echo $dds['valor_max']; ?>','<?php echo $diai."/".$mesi."/".$anoi; ?>','<?php echo $horai.":".$minutoi; ?>','<?php echo $dds['caracteristicas_embalagem'];?>')" class="btn btn-info">Utilizar como modelo</a></h5>
+
+            </div>
+<?php
+
+         }
+
+
+         endif;
+}
+
+public function checkemailcpf(){
+
+
+    if(strlen($_POST['email']) < 1):
+
+        echo 'Informe o Email';
+    else:
+        if(!preg_match('/^[0-9a-z\_\.\-]+\@[0-9a-z\_\.\-]*[0-9a-z\_\-]+\.[a-z]{2,3}$/i',$_POST['email'])):
+
+
+            echo 'Email Invalido';
+
+    else:
+
+        if(strlen($_POST['pass']) < 1):
+
+            echo 'Informe a Senha';
+
+        else:
+            if(strlen($_POST['pass']) < 4):
+                echo 'Senha Invalida, minimo de 4 caracteres.';
+            else:
+
+                if(strlen($_POST['cpf']) < 14 and $_POST['tipo'] == 1):
+
+                    echo 'CPF inválido';
+
+
+                    else:
+
+
+                        if(strlen($_POST['cpf']) < 18 and $_POST['tipo'] == 2):
+
+                            echo 'CNPJ inválido';
+
+                        else:
+
+                $this->db->from('users');
+                $this->db->where('cnpj', $_POST['cpf']);
+                $quera = $this->db->get();
+                $rowcount2 = $quera->num_rows();
+
+
+                if($rowcount2 > 0){
+                    if($_POST['tipo'] == 1):
+                    echo 'CPF já cadastrado';
+
+                        else:
+
+                            echo 'CNPJ já cadastrado';
+
+                    endif;
+                }else{
+
+                    $this->db->from('users');
+                    $this->db->where('email', $_POST['email']);
+                    $quera2 = $this->db->get();
+                    $rowcount3 = $quera2->num_rows();
+                    if($rowcount3 > 0):
+
+                        echo 'Email já cadastrado';
+                        else:
+                            echo 11;
+                            endif;
+
+
+
+                }
+
+
+        endif;
+        endif;
+        endif;
+        endif;
+        endif;
+
+
+        endif;
+
+
+}
 
 
 

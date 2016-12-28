@@ -599,7 +599,11 @@ $this->load->view('fixed_files/leilao/header');
                                     } else {
 
                                         $("#time<?php echo $dds['id']?>").html('<?php echo number_format($resdate,2,'.',',');?>');
-																		$("#arrematebts<?php echo $dds['id'];?>").remove();
+                                        $('#arrematebts<?php echo $dds['id']; ?>').removeClass('btn-success');
+                                        $('#arrematebts<?php echo $dds['id']; ?>').addClass('btn-warning');
+                                        $("#arrematebts<?php echo $dds['id']; ?>").html('Finalizado');
+                                        $('#arrematebts<?php echo $dds['id']; ?>').attr('onclick','');
+                                        $.get( "<?php echo base_url('pages/cron');?>", { Ctype: "1515443" } );
 
                                     }
 
@@ -1118,6 +1122,7 @@ $atual = 0;
                         ->get();
                     $rowcountas1 = $query1->num_rows();
 
+                    $pages = ceil($rowcountas1 / $min);
 
                     $query = $this->db->select('leiloes.*,arremates.*')
                         ->from('leiloes')
@@ -1159,7 +1164,6 @@ echo ' <h2>Arrematados por mim</h2><br>';
 
 
                 $atual = 0;
-                $min = 4;
 
 
 
@@ -1183,7 +1187,7 @@ echo ' <h2>Arrematados por mim</h2><br>';
 
                                 $("#meusarremates").html(ress);
                                 $('#nextmy').attr("lang",""+next2+"");
-                                $('#beforemy').attr("lang",""+before2+"")
+                                $('#beforemy').attr("lang",""+before2+"");
 
                             }
 
@@ -1218,7 +1222,7 @@ echo ' <h2>Arrematados por mim</h2><br>';
                                 var before2 = parseInt(before) - 1;
                                 $("#meusarremates").html(resa);
                                 $('#nextmy').attr("lang",""+next2+"");
-                                $('#beforemy').attr("lang",""+before2+"")
+                                $('#beforemy').attr("lang",""+before2+"");
 
                             }
 
@@ -1229,6 +1233,7 @@ echo ' <h2>Arrematados por mim</h2><br>';
 
                 <?php
 
+if($pages > 1):
 
                 ?>
                 <nav aria-label="...">
@@ -1237,10 +1242,15 @@ echo ' <h2>Arrematados por mim</h2><br>';
                         <li><a href="javascript:func();" id="nextmy" lang="<?php if($pages > 1): echo 2;  else: echo 1; endif; ?>" onclick="nextwin();">Proximo</a></li>
                 </ul>
                 </nav>
+
+                <?php endif;?>
+
+                <?php ?>
 				
                 <div class="row" id="arrematesfim">
 
                     <?php
+
                     $query2 = $this->db->select('*')
                         ->from('leiloes')
                         ->limit(8,0)
@@ -1301,6 +1311,8 @@ echo ' <h2>Leilões finalizados</h2><br>';
 
 
                 <script>
+
+
                     function nextwin2() {
 
                         var next = $('#nextmy2').attr("lang");
@@ -1316,8 +1328,8 @@ echo ' <h2>Leilões finalizados</h2><br>';
                                 var before2 = parseInt(before) + 1;
 
                                 $("#arrematesfim").html(ress);
-                                $('#nextmy').attr("lang",""+next2+"");
-                                $('#beforemy').attr("lang",""+before2+"")
+                                $('#nextmy2').attr("lang",""+next2+"");
+                                $('#beforemy2').attr("lang",""+before2+"");
 
                             }
 
@@ -1339,20 +1351,23 @@ echo ' <h2>Leilões finalizados</h2><br>';
 
                     function beforewin2() {
 
-
                         var next = $('#nextmy2').attr("lang");
                         var before = $('#beforemy2').attr("lang");
-
 
                         $.post('<?php echo base_url('pages/pagination');?>',{page:before,user:0},function (resa) {
                             if(resa){
 
-
                                 var next2 = parseInt(next) - 1;
                                 var before2 = parseInt(before) - 1;
-                                $("#arrematesfim").html(resa);
-                                $('#nextmy').attr("lang",""+next2+"");
-                                $('#beforemy').attr("lang",""+before2+"")
+                                if(before == 0){
+
+                                }else {
+                                    $("#arrematesfim").html(resa);
+                                    $('#nextmy2').attr("lang",""+next2+"");
+                                    $('#beforemy2').attr("lang",""+before2+"");
+                                }
+
+
 
                             }
 
@@ -1360,14 +1375,17 @@ echo ' <h2>Leilões finalizados</h2><br>';
                         });
                     }
                 </script>
+                <?php
 
+                if($pages > 1):
+                ?>
                 <nav aria-label="...">
                     <ul class="pager">
                         <li><a href="javascript:func();" id="beforemy2" lang="1" onclick="beforewin2();">Anterior</a></li>
                         <li><a href="javascript:func();" id="nextmy2" lang="<?php if($pages > 1): echo 2;  else: echo 1; endif; ?>" onclick="nextwin2();">Proximo</a></li>
                     </ul>
                 </nav>
-
+<?php endif;?>
                 <?php
 
                 @session_start();

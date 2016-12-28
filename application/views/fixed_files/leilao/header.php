@@ -62,13 +62,23 @@
     <?php if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 5454):?>
 
     <div role="tabpanel" class="tab-pane active" id="cadast">
-	<div class="row">
+	<div class="row" id="meuscadastros">
 	
 	<?php 
-	
+	$limit = 4;
 	$this->db->from('leiloes');
 	$this->db->where('by',$_SESSION['ID']);
 	$this->db->order_by('id','desc');
+	$query12 = $this->db->get();
+    $query1 = $query12->num_rows();
+
+    $pages1 = ceil($query1 / $limit);
+
+
+    $this->db->from('leiloes');
+	$this->db->where('by',$_SESSION['ID']);
+	$this->db->order_by('id','desc');
+	$this->db->limit($limit,0);
 	$query = $this->db->get();
 	if($query->num_rows() > 0):
 	
@@ -123,12 +133,81 @@ function modelnew(titulo,especie,pesotd,pesoind,condicaopg,localidade,descricao,
 
 }
 	</script>
-                         
+
                                         </div>
-	
+        <script>
+            function mycadsnext() {
+
+                var next = $('#mycadsnext').attr("lang");
+                var before = $('#mycadsbefore').attr("lang");
+
+
+
+
+                $.post('<?php echo base_url('pages/pagination2');?>',{page:next,user:1},function (ress) {
+                    if(ress){
+
+                        var next2 = parseInt(next) + 1;
+                        var before2 = parseInt(before) + 1;
+
+                        $("#meuscadastros").html(ress);
+                        $('#mycadsnext').attr("lang",""+next2+"");
+                        $('#mycadsbefore').attr("lang",""+before2+"");
+
+                    }
+
+
+                });
+
+
+
+
+
+
+            }
+        </script>
+        <script>
+
+
+
+
+
+            function mycadsbefore() {
+
+
+                var next = $('#mycadsnext').attr("lang");
+                var before = $('#mycadsbefore').attr("lang");
+
+
+                $.post('<?php echo base_url('pages/pagination2');?>',{page:before,user:1},function (resa) {
+                    if(resa){
+
+
+                        var next2 = parseInt(next) - 1;
+                        var before2 = parseInt(before) - 1;
+                        $("#meuscadastros").html(resa);
+                        $('#mycadsnext').attr("lang",""+next2+"");
+                        $('#mycadsbefore').attr("lang",""+before2+"");
+
+                    }
+
+
+                });
+            }
+        </script>
+
+        <nav aria-label="...">
+            <ul class="pager">
+                <li><a href="javascript:func();" id="mycadsbefore" lang="1" onclick="mycadsbefore();">Anterior</a></li>
+                <li><a href="javascript:func();" id="mycadsnext" lang="<?php if($pages1 > 1): echo 2;  else: echo 1; endif; ?>" onclick="mycadsnext();">Proximo</a></li>
+            </ul>
+        </nav>
 	</div>
+
 	
-	<?php endif;?>
+	<?php
+
+    endif;?>
     <div role="tabpanel" class="tab-pane <?php if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 3): echo 'active'; endif;?>
 " id="visit">
 	
@@ -143,7 +222,7 @@ $query = $this->db->select('leiloes.*, acesso_leilao.*')
     ->join('acesso_leilao', 'leiloes.id = acesso_leilao.id_leilao', 'inner')
     ->where('acesso_leilao.id_user', $_SESSION['ID'])
     ->order_by('acesso_leilao.id_acesso', 'desc')
-    ->limit(12, 0)
+    ->limit(20, 0)
     ->get();
 
 $rowcount = $query->num_rows();
@@ -232,7 +311,9 @@ $data = $query->result();
                                 <div style="padding-left: 60px; padding-right: 60px; margin-left: -40px;">
                                     <div class="kode-testimonial-des">
 
-                                        <div class="blockquote-2">
+                                        <div class="">
+                                            <br>
+                                            <br>
                                             <p>
                                                 <span id="textoModal">
 
@@ -247,10 +328,26 @@ $data = $query->result();
                                                     ?>
                                                     <b>Nome:</b> <?php echo $results[0]['name']; ?><br>
                                                     <b>Email:</b> <?php echo $results[0]['email']; ?><br>
-                                                    <b>CNPJ:</b><?php echo $results[0]['cnpj']; ?><br>
+                                                    <b>
+                                                        <?php if(strlen($results[0]['cnpj']) == 14):
+                                                        echo 'CPF:';
+                                                        else:
+                                                        echo 'CNPJ:';
+                                                        endif;
+
+                                                        ?>
+                                                        </b><?php echo $results[0]['cnpj']; ?><br>
+                                                   <?php
+                                                 if(strlen($results[0]['cnpj']) > 14):
+                                                   ?>
                                                     <b>Razão social:</b><?php echo $results[0]['razao_social']; ?><br>
+                                                    <?php endif;?>
                                                     <b>Responsavel:</b><?php echo $results[0]['nome_responsavel']; ?><br>
+                                                    <?php
+                                                    if(strlen($results[0]['cnpj']) > 14):
+                                                    ?>
                                                     <b>Inscrição estadual:</b><?php echo $results[0]['inscricao_estadual']; ?><br>
+                                                    <?php endif;?>
                                                     <b>Telefone:</b><?php echo $results[0]['telefone']; ?><br>
 
                                                 </span></p>
@@ -261,10 +358,14 @@ $data = $query->result();
 
                         </div>
                         <div role="tabpanel" class="tab-pane" id="profile">
-                            <br>
+                            <br><br>
 
+                            <div class="row">
+                                <div style="padding-left: 60px; padding-right: 60px; margin-left: -40px;">
+                                    <div class="kode-testimonial-des">
                             <form action="<?php echo base_url('leiloes');?>" method="post">
                                 <input type="hidden" name="type" value="15456a">
+                                <br>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Senha atual</label>
                                     <input type="password" name="atualp" class="form-control" id="exampleInputEmail1" placeholder="*********">
@@ -303,8 +404,11 @@ endif;
 
 ?>
                         </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
 
-                    </div>
 
                 </div>
             </div>
@@ -656,7 +760,7 @@ Aqua Mercantil            </a>
 
 
   <li>
-                    <a href="#"><?php echo $results[0]['name']; ?></a>
+                    <a  href="#" data-toggle="modal" data-target="#account"><?php echo $results[0]['name']; ?></a>
                 </li>
                     <?php
 @session_start();

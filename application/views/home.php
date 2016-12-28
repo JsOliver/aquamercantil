@@ -244,10 +244,13 @@ endif;
                                         <li role="presentation"><a href="#compra" aria-controls="compra" role="tab" data-toggle="tab">Quero comprar</a></li>
                                         <li role="presentation"><a href="#transporte" aria-controls="transporte" role="tab" data-toggle="tab">Quero transportar</a></li>
                                     </ul>
+
+
                                     <script>
 									
 
                                         function caduser() {
+                                            $("#info").html('Aguarde...');
 
 
                                             var name = document.getElementById('namefull').value;
@@ -259,58 +262,86 @@ endif;
                                             if(name.length <= 0 || email.length <= 0 || pass.length <= 0 || cpf.length <= 0){
                                                 $("#info").html('Preencha os campos corretamente.');
                                             }else{
-												
-												
-												
 												if($("#tipoPessoa1").is(':checked')){
+                            var tipo = 1;
+                                                }
 
-												document.getElementById("razao").style.display = "none";
-												document.getElementById("ies").style.display = "none";
-												document.getElementById("nomefan").style.display = "none";
-												document.getElementById("dcn").style.display = "none";
-												document.getElementById("respon").style.display = "none";
-												
-												
-												document.getElementById("razao1").style.display = "none";
-												document.getElementById("ies1").style.display = "none";
-												document.getElementById("nomefan1").style.display = "none";
-												document.getElementById("dcn1").style.display = "none";
-												document.getElementById("respon1").style.display = "none";
+                                                if($("#tipoPessoa2").is(':checked')){
+                                                    var tipo = 2;
 
+                                                }
+												$.post("<?php echo base_url('pages/checkemailcpf');?>",{type:154789,email:email,cpf:cpf,pass:pass,tipo:tipo},function(res){
 
-												
-												document.getElementById("razao2").style.display = "none";
-												document.getElementById("ies2").style.display = "none";
-												document.getElementById("nomefan2").style.display = "none";
-												document.getElementById("dcn2").style.display = "none";
-												document.getElementById("respon2").style.display = "none";
+												    if(res){
+
+                                            if(res == 11){
+                                                if($("#tipoPessoa1").is(':checked')){
 
 
-												}
-												if($("#tipoPessoa2").is(':checked')){
+                                                    $("#razao").remove();
+                                                    $("#ies").remove();
+                                                    $("#nomefan").remove();
+                                                    $("#dcn").remove();
+                                                    $("#respon").remove();
+                                                    $("#razao1").remove();
+                                                    $("#ies1").remove();
+                                                    $("#nomefan1").remove();
+                                                    $("#dcn1").remove();
+                                                    $("#respon1").remove();
+                                                    $("#razao2").remove();
+                                                    $("#ies2").remove();
+                                                    $("#nomefan2").remove();
+                                                    $("#dcn2").remove();
+                                                    $("#respon2").remove();
+
+                                                    /*
+                                                    document.getElementById("razao").style.display = "none";
+                                                    document.getElementById("ies").style.display = "none";
+                                                    document.getElementById("nomefan").style.display = "none";
+                                                    document.getElementById("dcn").style.display = "none";
+                                                    document.getElementById("respon").style.display = "none";
 
 
-												document.getElementById("razao").style.display = "block";
-												document.getElementById("ies").style.display = "block";
-												document.getElementById("nomefan").style.display = "block";
-												document.getElementById("dcn").style.display = "block";
-												document.getElementById("respon").style.display = "block";
-												
-												
-												document.getElementById("razao1").style.display = "block";
-												document.getElementById("ies1").style.display = "block";
-												document.getElementById("nomefan1").style.display = "block";
-												document.getElementById("dcn1").style.display = "block";
-												document.getElementById("respon1").style.display = "block";	
-												
-												document.getElementById("razao2").style.display = "block";
-												document.getElementById("ies2").style.display = "block";
-												document.getElementById("nomefan2").style.display = "block";
-												document.getElementById("dcn2").style.display = "block";
-												document.getElementById("respon2").style.display = "block";
-												}
-												
-												
+                                                    document.getElementById("razao1").style.display = "none";
+                                                    document.getElementById("ies1").style.display = "none";
+                                                    document.getElementById("nomefan1").style.display = "none";
+                                                    document.getElementById("dcn1").style.display = "none";
+                                                    document.getElementById("respon1").style.display = "none";
+
+
+
+                                                    document.getElementById("razao2").style.display = "none";
+                                                    document.getElementById("ies2").style.display = "none";
+                                                    document.getElementById("nomefan2").style.display = "none";
+                                                    document.getElementById("dcn2").style.display = "none";
+                                                    document.getElementById("respon2").style.display = "none";
+*/
+
+                                                }
+                                                if($("#tipoPessoa2").is(':checked')){
+
+
+                                                    document.getElementById("razao").style.display = "block";
+                                                    document.getElementById("ies").style.display = "block";
+                                                    document.getElementById("nomefan").style.display = "block";
+                                                    document.getElementById("dcn").style.display = "block";
+                                                    document.getElementById("respon").style.display = "block";
+
+
+                                                    document.getElementById("razao1").style.display = "block";
+                                                    document.getElementById("ies1").style.display = "block";
+                                                    document.getElementById("nomefan1").style.display = "block";
+                                                    document.getElementById("dcn1").style.display = "block";
+                                                    document.getElementById("respon1").style.display = "block";
+
+                                                    document.getElementById("razao2").style.display = "block";
+                                                    document.getElementById("ies2").style.display = "block";
+                                                    document.getElementById("nomefan2").style.display = "block";
+                                                    document.getElementById("dcn2").style.display = "block";
+                                                    document.getElementById("respon2").style.display = "block";
+                                                }
+
+
                                                 $("#cadastro").modal('show');
 
                                                 $("#emailfim1").val(email);
@@ -327,12 +358,29 @@ endif;
                                                 $("#cpffim3").val(cpf);
 
                                                 $("#info").html('');
+                                            }else{
+                                                $("#info").html(res);
+
+                                            }
+
+                                                    }else{
+
+                                                        $("#info").html('Ocorreu um erro, tente novamente.');
+
+
+                                                    }
+
+
+                                                });
+												
+
 
                                             }
 
                                         }
 
                                     </script>
+
                                     <!-- Tab panes -->
                                     <div class="tab-content">
 
@@ -341,7 +389,7 @@ endif;
 <br>
                                             <div class="row">
                                                 <div class="col-md-11 ">
-                                                    <form enctype="multipart/form-data" method="POST" action="<?php echo base_url('register');?>"  class="form-horizontal" role="form" novalidate>
+                                                    <form enctype="multipart/form-data" method="POST" action="<?php echo base_url('register');?>"  class="form-horizontal" role="form" >
                                                         <fieldset>
                                                             <input type="hidden" name="type"  value="1">
 
@@ -1096,7 +1144,7 @@ endif;
                                         <div role="tabpanel" class="tab-pane" id="compra"><br>
                                             <div class="row">
                                                 <div class="col-md-11 ">
-                                                    <form enctype="multipart/form-data" method="POST" action="<?php echo base_url('register');?>"  class="form-horizontal" role="form" novalidate>
+                                                    <form enctype="multipart/form-data" method="POST" action="<?php echo base_url('register');?>"  class="form-horizontal" role="form" >
                                                         <fieldset>
                                                             <input type="hidden" name="type"  value="2">
 
@@ -1655,7 +1703,7 @@ endif;
                                                                 <label class="control-label" for="textinput">Cartão do CNPJ: (pdf, doc)</label>
                                                                 <br>
                                                                 <small>
-                                                                    Cartão do CNPJ:<br>
+                                                                    Cartão do CNPJ ou CPF:<br>
                                                                     Anexe o arquivo em .pdf ou .doc
                                                                 </small>
 
@@ -1829,7 +1877,7 @@ endif;
                                         <div role="tabpanel" class="tab-pane" id="transporte"><br>
                                             <div class="row">
                                                 <div class="col-md-11 ">
-                                                    <form enctype="multipart/form-data" method="POST" action="<?php echo base_url('register');?>"  class="form-horizontal" role="form" novalidate>
+                                                    <form enctype="multipart/form-data" method="POST" action="<?php echo base_url('register');?>"  class="form-horizontal" role="form" >
                                                         <fieldset>
                                                             <input type="hidden" name="type"  value="3">
 
@@ -2334,9 +2382,10 @@ endif;
                                                                     <input type="text"  name="54" id="54" placeholder="Celular" class="form-control">
                                                                 </div>
                                                             </div>
-                                                            <div>
+                                                            </div>
 
-                                                            <div style="display:none;"><h3 style="text-align: center;">Quadro societário</h3>
+                                                            <div style="display:none;">
+                                                                <h3 style="text-align: center;">Quadro societário</h3>
 
                                                             <div class="form-group">
                                                                 <label class="col-sm-2 control-label" for="textinput">Nome</label>
@@ -2379,10 +2428,15 @@ endif;
                                                                 <div class="col-sm-10">
                                                                     <input type="text"  name="72" id="72" placeholder="% da Participação" class="form-control">
                                                                 </div>
-                                                            </div></div>
+                                                            </div>
+
+                                                            </div>
                                                             <br>
+
+
+
                                                             <div class="form-group">
-                                                                <label class="control-label" for="textinput">Cartão do CNPJ: (pdf, doc)</label>
+                                                                <label class="control-label" for="textinput">Cartão do CNPJ ou CPF: (pdf, doc)</label>
                                                                 <br>
                                                                 <small>
                                                                     Cartão do CNPJ:<br>
@@ -2571,9 +2625,12 @@ endif;
 
                             </div>
 
+
                         </div>
                     </div>
                 </div>
+
+
 
                 <div class="col-md-4 col-md-offset-2 col-sm-5">
                     <form id="precadastro" role="form" action="javascript:func();" class="intro-form">
@@ -3066,6 +3123,8 @@ if($rowcount1as > 0):
                                     $('#arrematebts<?php echo $dds['id']; ?>').removeClass('btn-success');
                                     $('#arrematebts<?php echo $dds['id']; ?>').addClass('btn-warning');
                                     $("#arrematebts<?php echo $dds['id']; ?>").html('Finalizado');
+                                    $('#arrematebts<?php echo $dds['id']; ?>').attr('onclick','');');
+
                                 }
                                 if(res == 0){
                                     $('#arrematebts<?php echo $dds['id']; ?>').removeClass('btn-warning');
@@ -3198,7 +3257,10 @@ if($rowcount1as > 0):
                             } else {
 
                                 $("#time<?php echo $dds['id']?>").html('<?php echo number_format($resdate,2,'.',',');?>');
-								$("#arrematebts").remove();
+                                $('#arrematebts<?php echo $dds['id']; ?>').removeClass('btn-success');
+                                $('#arrematebts<?php echo $dds['id']; ?>').addClass('btn-warning');
+                                $("#arrematebts<?php echo $dds['id']; ?>").html('Finalizado');
+                                $('#arrematebts<?php echo $dds['id']; ?>').attr('onclick','');
                                 $.get( "<?php echo base_url('pages/cron');?>", { Ctype: "1515443" } );
 
 

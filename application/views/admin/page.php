@@ -1775,7 +1775,7 @@ Peso Total do lote
                                                                               echo $dateasu[0]['name'];
                                                                             ?></p>
                                                                         <p><b>Dados do vencedor:</b> <a href="<?php echo base_url('admin/clientes?q=').$dateas[0]['id_user'];?>&uniqueid=1" target="_blank">Fixa do usuario</a></p>
-                                                                        <p><b>Preço:</b> R$<?php echo str_replace('.','',number_format($dateas[0]['valor'],2,'.',','));?></p>
+                                                                        <p><b>Preço:</b> R$<?php echo str_replace('.',',',number_format($dateas[0]['valor'],2,'.',','));?></p>
                                                                         <p><b>Status do pagamento:</b> <?php
 
                                                                             if(empty($dateas[0]['status_payment']) or $dateas[0]['status_payment'] < 3 ):
@@ -2008,115 +2008,126 @@ if(isset($_POST['type']) and $_POST['type'] == '4515610'):
                                                            }
                                                        </style>
                                                           <div class="row">
-                                                           <div  class="col-md-4">
-                                                               <?php
-                                                               echo '<h3>Principais dados</h3>';
+                                                              <div  class="col-md-4">
+                                                                  <?php
+                                                                  echo '<h3>Principais dados</h3>';
 
-                                                               echo '<b>Nome:</b> '.$dds['name'].'<br>';
-                                                               echo '<b>Email:</b> '.$dds['email'].'<br>';
-                                                               echo '<b>Razão Social:</b> '.$dds['razao_social'].'<br>';
-                                                               echo '<b>CPF/CNPJ:</b> '.$dds['cnpj'].'<br>';
-                                                               echo '<b>I.E:</b> '.$dds['inscricao_estadual'].'<br>';
-                                                               echo '<b>Nome Fantasia:</b> '.$dds['nome_fantasia'].'<br>';
-                                                               echo '<b>Data de Constituição:</b> '.$dds['data_constituicao'].'<br>';
-                                                               echo '<b>Nome do Responsável :</b> '.$dds['nome_responsavel'].'<br>';
-                                                               echo '<b>Cargo Ocupado:</b> '.$dds['cargo_responsavel'].'<br>';
-                                                               echo '<b>Endereço:</b> '.$dds['endereco'].'<br>';
-                                                               echo '<b>Bairro:</b> '.$dds['bairro'].'<br>';
-                                                               echo '<b>Numero:</b> '.$dds['numero'].'<br>';
-                                                               echo '<b>Cidade:</b> '.$dds['cidade'].'<br>';
-                                                               echo '<b>CEP:</b> '.$dds['cep'].'<br>';
-                                                               echo '<b>Telefone:</b> '.$dds['telefone'].'<br>';
-                                                               echo '<b>Celular:</b> '.$dds['celular'].'<br>';
-                                                               echo '<b>Categoria:</b> '.$dds['categoria'].'<br>';
+                                                                  echo '<b>Nome:</b> '.$dds['name'].'<br>';
+                                                                  echo '<b>Email:</b> '.$dds['email'].'<br>';
+                                                                  if(strlen($dds['cnpj']) > 14):
+                                                                      echo '<b>Razão Social:</b> '.$dds['razao_social'].'<br>';
+                                                                  endif;
+                                                                  if(strlen($dds['cnpj']) > 14):
+                                                                      echo '<b>CNPJ:</b> ';
 
-                                                               echo '<b>FAX:</b> '.$dds['fax'].'<br>';
-                                                               echo '<b>Televendas:</b> '.$dds['televendas'].'<br>';
+                                                                  else:
 
-                                                               echo '<b>Nº de funcionários:</b> '.$dds['n_funcionarios'].'<br>';
+                                                                      echo '<b>CPF:</b> ';
+                                                                  endif;
+                                                                  echo $dds['cnpj'].'<br>';
+                                                                  if(strlen($dds['cnpj']) > 14):
+                                                                      echo '<b>I.E:</b> '.$dds['inscricao_estadual'].'<br>';
+                                                                      echo '<b>Nome Fantasia:</b> '.$dds['nome_fantasia'].'<br>';
+                                                                      echo '<b>Data de Constituição:</b> '.$dds['data_constituicao'].'<br>';
 
-                                                               echo '<b>Faturamento médio mensal:</b> '.$dds['faturamento_m_mensal'].'<br>';
+                                                                  endif;
+                                                                  echo '<b>Nome do Responsável :</b> '.$dds['nome_responsavel'].'<br>';
+                                                                  echo '<b>Cargo Ocupado:</b> '.$dds['cargo_responsavel'].'<br>';
+                                                                  echo '<b>Endereço:</b> '.$dds['endereco'].'<br>';
+                                                                  echo '<b>Bairro:</b> '.$dds['bairro'].'<br>';
+                                                                  echo '<b>Numero:</b> '.$dds['numero'].'<br>';
+                                                                  echo '<b>Cidade:</b> '.$dds['cidade'].'<br>';
+                                                                  echo '<b>CEP:</b> '.$dds['cep'].'<br>';
+                                                                  echo '<b>Telefone:</b> '.$dds['telefone'].'<br>';
+                                                                  echo '<b>Celular:</b> '.$dds['celular'].'<br>';
+                                                                  echo '<b>Categoria:</b> '.$dds['categoria'].'<br>';
 
-                                                    if($dds['tipo'] == 1):
-                                                               echo '<b>Registro de Aquicultor:</b> '.$dds['registro_agricultor'].'<br>';
-endif;
-
-                                                               echo '<b>Site:</b> '.$dds['site'].'<br>';
-															   
-															
-
-
-
-                                                               ?>
-                                                           </div>
-                                                           <div  class="col-md-4">
-                                                               <?php
-
-                                                                  
-															   
-                                                               echo '<h3>Referências Comerciais</h3>';
-                                                               echo '<b>Empresa:</b> '.$dds['empresa_fornecedor_1'].'<br>';
-                                                               echo '<b>Ramo de atividade:</b> '.$dds['ramo_fornecedor_1'].'<br>';
-                                                               echo '<b>Telefone:</b> '.$dds['telefone_fornecedor_1'].'<br>';
-                                                               echo '<b>Contato:</b> '.$dds['contato_fonecedor_1'].'<br>';
-                                   echo '<br>';
-                                                               echo '<b>Empresa:</b> '.$dds['empresa_fornecedor_2'].'<br>';
-                                                               echo '<b>Ramo de atividade:</b> '.$dds['ramo_fornecedor_2'].'<br>';
-                                                               echo '<b>Telefone:</b> '.$dds['telefone_fornecedor_2'].'<br>';
-                                                               echo '<b>Contato:</b> '.$dds['contato_fonecedor_2'].'<br>';
-                                                               echo '<br>';
-                                                              
-                                                               echo '<h3>Dados bancarios</h3>';
-                                                               echo '<b>Nome do banco:</b> '.$dds['nome_banco_1'].'<br>';
-                                                               echo '<b>Agência:</b> '.$dds['agencia_banco_1'].'<br>';
-                                                               echo '<b>Conta:</b> '.$dds['cc_banco_1'].'<br>';
-                                                               echo '<b>Contato:</b> '.$dds['contatocbn1'].'<br>';
-                                                               echo '<b>Telefone:</b> '.$dds['telefonecbn1'].'<br>';
-                                                               echo '<br>';
-                                                               
-
-
-                                                         
-                                                               echo '<h3>Documentos</h3>';
-
-                                                               if($dds['tipo'] == 1):
-
-                                                                   echo '<b>Relatório de Produção:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
-                                                                   echo '<b>Registro de Aquicultor:</b> <a href="'.base_url($dds['doc_anexo2']).'"  target="_blank" download>Baixar</a><br>';
+                                                                  echo '<b>FAX:</b> '.$dds['fax'].'<br>';
+                                                                  echo '<b>Televendas:</b> '.$dds['televendas'].'<br>';
 
 
 
-                                                                   echo '<b>Cartão do CNPJ ou CPF:</b> <a href="'.base_url($dds['doc_anexo3']).'"  target="_blank" download>Baixar</a><br>';
+                                                                  if($dds['tipo'] == 1):
+                                                                      echo '<b>Registro de Aquicultor:</b> '.$dds['registro_agricultor'].'<br>';
+                                                                  endif;
 
-                                                                   echo '<b>Comprovante de Endereço:</b> <a href="'.base_url($dds['doc_anexo4']).'"  target="_blank" download>Baixar</a><br>';
-                                                               endif;
-
-
-
-                                                               if($dds['tipo'] == 2):
-                                                                   echo '<b>Cartão do CNPJ:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
-
-                                                                   echo '<b>Comprovante de endereço:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
-                                                               endif;
+                                                                  echo '<b>Site:</b> '.$dds['site'].'<br>';
 
 
-                                                               if($dds['tipo'] == 3):
-                                                                   echo '<b>Cartão do CNPJ:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
-
-                                                               echo '<b>Comprovante de Endereço:</b> <a href="'.base_url($dds['doc_anexo2']).'"  target="_blank" download>Baixar</a><br>';
-
-                                                               echo '<b>Registro ANTT:</b> <a href="'.base_url($dds['doc_anexo3']).'"  target="_blank" download>Baixar</a><br>';
-                                                               endif;
-
-                                                               ?>
-
-                                                               <div>
 
 
-                                                                   
-                                                       </div>
 
-                                                       </div>
+                                                                  ?>
+                                                              </div>
+                                                              <div  class="col-md-4">
+                                                                  <?php
+
+
+
+                                                                  echo '<h3>Referências Comerciais</h3>';
+                                                                  echo '<b>Empresa:</b> '.$dds['empresa_fornecedor_1'].'<br>';
+                                                                  echo '<b>Ramo de atividade:</b> '.$dds['ramo_fornecedor_1'].'<br>';
+                                                                  echo '<b>Telefone:</b> '.$dds['telefone_fornecedor_1'].'<br>';
+                                                                  echo '<b>Contato:</b> '.$dds['contato_fonecedor_1'].'<br>';
+                                                                  echo '<br>';
+                                                                  echo '<b>Empresa:</b> '.$dds['empresa_fornecedor_2'].'<br>';
+                                                                  echo '<b>Ramo de atividade:</b> '.$dds['ramo_fornecedor_2'].'<br>';
+                                                                  echo '<b>Telefone:</b> '.$dds['telefone_fornecedor_2'].'<br>';
+                                                                  echo '<b>Contato:</b> '.$dds['contato_fonecedor_2'].'<br>';
+                                                                  echo '<br>';
+
+                                                                  echo '<h3>Dados bancarios</h3>';
+                                                                  echo '<b>Nome do banco:</b> '.$dds['nome_banco_1'].'<br>';
+                                                                  echo '<b>Agência:</b> '.$dds['agencia_banco_1'].'<br>';
+                                                                  echo '<b>Conta:</b> '.$dds['cc_banco_1'].'<br>';
+                                                                  echo '<b>Contato:</b> '.$dds['contatocbn1'].'<br>';
+                                                                  echo '<b>Telefone:</b> '.$dds['telefonecbn1'].'<br>';
+                                                                  echo '<br>';
+
+
+
+
+                                                                  echo '<h3>Documentos</h3>';
+
+                                                                  if($dds['tipo'] == 1):
+
+                                                                      echo '<b>Relatório de Produção:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
+                                                                      echo '<b>Registro de Aquicultor:</b> <a href="'.base_url($dds['doc_anexo2']).'"  target="_blank" download>Baixar</a><br>';
+
+
+
+                                                                      echo '<b>Cartão do CNPJ ou CPF:</b> <a href="'.base_url($dds['doc_anexo3']).'"  target="_blank" download>Baixar</a><br>';
+
+                                                                      echo '<b>Comprovante de Endereço:</b> <a href="'.base_url($dds['doc_anexo4']).'"  target="_blank" download>Baixar</a><br>';
+                                                                  endif;
+
+
+
+                                                                  if($dds['tipo'] == 2):
+                                                                      echo '<b>Cartão do CNPJ ou CPF:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
+
+                                                                      echo '<b>Comprovante de endereço:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
+                                                                  endif;
+
+
+                                                                  if($dds['tipo'] == 3):
+
+                                                                      echo '<b>Cartão do CNPJ ou CPF:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
+
+                                                                      echo '<b>Comprovante de Endereço:</b> <a href="'.base_url($dds['doc_anexo2']).'"  target="_blank" download>Baixar</a><br>';
+
+                                                                      echo '<b>Registro ANTT:</b> <a href="'.base_url($dds['doc_anexo3']).'"  target="_blank" download>Baixar</a><br>';
+                                                                  endif;
+
+                                                                  ?>
+
+                                                                  <div>
+
+
+
+                                                                  </div>
+
+                                                              </div>
                                                    </div>
                                                    </div>
 
@@ -2229,6 +2240,7 @@ endif;
                             <th>Email</th>
                             <th>Telefone</th>
                             <th>CNPJ</th>
+                            <th>Tipo</th>
                             <th>Ficha</th>
                         </tr>
                         </thead>
@@ -2349,17 +2361,17 @@ if(res){
 endif;
 
                                                                echo '<b>Site:</b> '.$dds['site'].'<br>';
-															   
-															   
-															  
+
+
+
 
 
                                                                ?>
                                                            </div>
                                                            <div  class="col-md-4">
-														   
+
                                                                <?php
- 
+
                                                                echo '<h3>Referências Comerciais</h3>';
                                                                echo '<b>Empresa:</b> '.$dds['empresa_fornecedor_1'].'<br>';
                                                                echo '<b>Ramo de atividade:</b> '.$dds['ramo_fornecedor_1'].'<br>';
@@ -2371,9 +2383,9 @@ endif;
                                                                echo '<b>Telefone:</b> '.$dds['telefone_fornecedor_2'].'<br>';
                                                                echo '<b>Contato:</b> '.$dds['contato_fonecedor_2'].'<br>';
                                                                echo '<br>';
-                                                              
 
-                                                               
+
+
                                                                echo '<h3>Dados bancarios</h3>';
                                                                echo '<b>Nome do banco:</b> '.$dds['nome_banco_1'].'<br>';
                                                                echo '<b>Agência:</b> '.$dds['agencia_banco_1'].'<br>';
@@ -2385,7 +2397,7 @@ endif;
 
 
 
-                                                         
+
                                                                echo '<h3>Documentos</h3>';
 
                                                                if($dds['tipo'] == 1):
@@ -2422,7 +2434,7 @@ endif;
                                                                <div>
 
 
-                                                                   
+
                                                        </div>
 
                                                        </div>
@@ -2447,7 +2459,31 @@ endif;
                                     <td><?php echo $dds['email'];?></td>
                                     <td><?php echo $dds['telefone'];?></td>
                                     <td><?php echo $dds['cnpj'];?></td>
+                                    <td>
+                                        <?php
 
+                                        if($dds['tipo'] == 0):
+                                            echo '<b class="text-warning">Todos</b>';
+                                        endif;
+
+                                        if($dds['tipo'] == 1):
+                                            echo 'Vendedor';
+                                        endif;
+
+                                        if($dds['tipo'] == 2):
+                                            echo 'Comprador';
+                                        endif;
+
+                                        if($dds['tipo'] == 3):
+                                            echo 'Transportador';
+                                        endif;
+
+                                        if($dds['tipo'] == 5454):
+                                            echo '<b class="text-info">Administrador</b>';
+                                        endif;
+                                        ?>
+
+                                    </td>
                                     <td>
                                         <i data-toggle="modal" data-target="#fixauserpre<?php echo $dds['id'];?>" class="fa fa-eye text-info" style="cursor: pointer;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
