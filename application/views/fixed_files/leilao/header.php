@@ -48,10 +48,10 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
-  <?php if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 5454):?>
+  <?php if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 5454  or $_SESSION['TYPE'] == 0):?>
     <li role="presentation" class="active"><a href="#cadast" aria-controls="home" role="tab" data-toggle="tab">Cadastrados</a></li>
 	<?php endif;?>
-    <li role="presentation" <?php if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 3): echo 'class="active"'; endif;?>><a href="#visit" aria-controls="profile" role="tab" data-toggle="tab">Visitados</a></li>
+    <li role="presentation" <?php if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 3 ): echo 'class="active"'; endif;?>><a href="#visit" aria-controls="profile" role="tab" data-toggle="tab">Visitados</a></li>
  
   </ul>
   <br>
@@ -59,7 +59,7 @@
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <?php if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 5454):?>
+    <?php if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):?>
 
     <div role="tabpanel" class="tab-pane active" id="cadast">
 	<div class="row" id="meuscadastros">
@@ -211,7 +211,6 @@ function modelnew(titulo,especie,pesotd,pesoind,condicaopg,localidade,descricao,
     <div role="tabpanel" class="tab-pane <?php if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 3): echo 'active'; endif;?>
 " id="visit">
 	
-		<div class="container">
 
 	<div class="row">
 <?php
@@ -238,7 +237,7 @@ $data = $query->result();
 	
 	
 
-                            <div class="col-xs-6 col-md-2">
+                            <div class="col-xs-6 col-md-3">
                                 <a target="_blank" style="text-decoration: none;color: black;" class="thumbnail">
                                     <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $dds->image;?>" alt="...">
 									<h5 style="text-align: center;font-weight: bold;"><?php echo $dds->titulo;?></h5>
@@ -268,8 +267,7 @@ $data = $query->result();
                          
 							
                                         </div>
-                                        </div>
-	
+
 	
 	
 	</div>
@@ -668,12 +666,12 @@ Peso Total do lote
 					
 				
                     <div class="form-group">
-                        <label>Valor minimo</label>
+                        <label>Valor minimo <cite>(Por Kg)</cite></label>
                         <input  required="required" class="form-control" name="minvalue" placeholder="0.00"  id="minvalue">
 
                     </div><br>
                     <div class="form-group">
-                        <label>Valor maximo</label>
+                        <label>Valor maximo <cite>(Por Kg)</cite></label>
                         <input  required="required" class="form-control" name="maxvalue" size="66" placeholder="0.00"  id="maxvalue">
                     </div><br>
                     <div class="form-group">
@@ -682,7 +680,7 @@ Peso Total do lote
                     </div>
                     <br>
                     <div class="form-group">
-                        <label>Inicio do leilão</label>
+                        <label>Inicio do leilão </label>
                         <input required="required" name="inicioleilaoed" id="simfimldateed" type="text" placeholder="00/00/0000"  class="form-control">
                         
                     </div>
@@ -760,7 +758,7 @@ Aqua Mercantil            </a>
 
 
   <li>
-                    <a  href="#" data-toggle="modal" data-target="#account"><?php echo $results[0]['name']; ?></a>
+                    <a  href="#" data-toggle="modal" data-target="#account"><i class="fa fa-user"></i> <?php echo $results[0]['name']; ?></a>
                 </li>
                     <?php
 @session_start();
@@ -780,7 +778,7 @@ Aqua Mercantil            </a>
                         
                         
                         <li>
-                            <a href="#"  data-toggle="modal" data-target="#deleteaccount">Cadastrar leilão</a>
+                            <a href="#"  data-toggle="modal" data-target="#deleteaccount"><i class="fa fa-plus"></i> Cadastrar leilão</a>
                         </li>
 
                         <?php endif;?>
@@ -982,6 +980,20 @@ Aqua Mercantil            </a>
                             <li>
                     <a style="outline: none;" href="#" data-toggle="modal" data-target="#account">Meus Dados</a>
                 </li>
+                        <?php
+                        $this->db->from('privilegio');
+                        $this->db->where('id_user',$_SESSION['ID']);
+                        $quernt1 = $this->db->get();
+$rowpr = $quernt1->num_rows();
+                        if( $rowpr == 0 and $_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 2):
+                        ?>
+
+                        <li id="newprivile">
+                    <a style="outline: none;" href="#" onclick="privilegio();$('.alert').show();$('#newprivile').remove();">Privilégio de <?php if($_SESSION['TYPE'] == 1): echo 'Comprador'; else: echo 'Vendedor'; endif;?> </a>
+                </li>
+
+
+                        <?php endif;?>
 
                         <li>
                             <a href="<?php echo base_url('pages/logout');?>"> Sair</a>
@@ -990,11 +1002,17 @@ Aqua Mercantil            </a>
                 </li>
             </ul>
         </div>
+
 		
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container -->
 </nav>
+                    <script>
+                        function privilegio() {
+                            $.post("<?php echo base_url('pages/privile');?>",{type:541510});
+                        }
+                        </script>
 
 <!-- Header Carousel -->
 <header id="myCarousel" class="carousel slide">
@@ -1024,3 +1042,7 @@ Aqua Mercantil            </a>
     </a>  -->
 </header>
 
+                    <div class="alert alert-info" style="display: none">
+                        <a class="close" onclick="$('.alert').hide()">×</a>
+                        Você solicitou o privilégio duplo <b>comprador/vendedor</b>, em breve você receberá uma notificação do status de sua solicitação.
+                    </div>

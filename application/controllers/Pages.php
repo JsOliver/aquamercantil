@@ -1466,6 +1466,8 @@ if($rowcountas > 0):
                 <?php if($dta['status'] <> 0):?>
                     <h5 style="text-align: center;">Arrematado por: <b>R$<?php echo number_format($dta['valor_arrematado'],2,'.',',');?></b></h5>
                 <?php endif;?>
+                <h6 style="text-align: center;">Lote: <b><?php echo $dta['id'];?></b></h6>
+
             </a>
 
         </div>
@@ -1616,6 +1618,49 @@ public function checkemailcpf(){
 
 
         endif;
+
+
+}
+
+public function privile(){
+
+    if(isset($_POST['type']) and $_POST['type'] == 541510 and isset($_SESSION['ID'])):
+
+        if($_SESSION['TYPE'] <> 0 and $_SESSION['TYPE'] <> 3 and $_SESSION['TYPE'] <> 5454):
+
+            $dados['id_user'] = $_SESSION['ID'];
+        $this->db->insert('privilegio',$dados);
+
+        endif;
+        endif;
+}
+
+public function approvednewcate(){
+
+    if(isset($_GET['user']) and isset($_SESSION['ID']) and $_SESSION['TYPE'] == 5454):
+
+        $dados['tipo'] = 0;
+    $this->db->where('id',$_GET['user']);
+    $this->db->update('users',$dados);
+
+    $this->db->where('id_user',$_GET['user']);
+    $this->db->delete('privilegio');
+
+        $daten['id_user'] = $_GET['user'];
+        $daten['titulo'] = 'Novo privilégio.';
+        $daten['imagem'] = 'http://downloadicons.net/sites/default/files/plus-icon-27951.png';
+        $daten['texto'] = 'Parabéns, sua solicitação para novos privilégios  aprovada com sucesso. Agora você pode <b>comprar e vender</b> no Aqua Mercantil.';
+        $daten['url'] = '#';
+        $this->db->insert('notify', $daten);
+        $lastn = $this->db->insert_id();
+
+        $datenv['id_user'] = $_GET['user'];
+        $datenv['id_notify'] = $lastn;
+        $this->db->insert('notify_read', $datenv);
+
+        redirect('admin/clientes', 'refresh');
+
+    endif;
 
 
 }

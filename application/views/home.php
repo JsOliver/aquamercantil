@@ -3090,6 +3090,17 @@ if($rowcount1as > 0):
                     <br>
 
                     <div style="font-size: 15pt;text-decoration: none;float: left;margin-top: -2%;"><b><?php echo $dds['titulo']; ?></b></div>
+                    <?php 
+                    if(!$_SESSION['ID']):
+                    ?><br>
+                        <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>Especie: </b><?php echo $dds['nome_cientifico_br']; ?> &nbsp;&nbsp;&nbsp;</div>
+                        <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>Classificação: </b><?php echo $dds['classificacao']; ?></div><br>
+                        <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>Peso total: </b><?php echo $dds['peso_lote']; ?> Kg &nbsp;&nbsp;&nbsp;</div>
+                        <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>
+
+                                <?php if($dds['classificacao'] == 'Processado Congelado' or $dds['classificacao'] == 'Processado Fresco'): echo 'Peso individual:' ; else:  echo 'Peso Médio:'; endif;?> </b> <?php echo $dds['peso_individual']; ?> Kg</div>
+
+                    <?php endif;?>
                     <script>
 
 
@@ -3309,7 +3320,6 @@ if($rowcount1as > 0):
                             <a <?php
                             if(isset($_SESSION['ID'])):
 
-                                
 
                                 echo 'onclick="arremate('.$dds["id"].','.$_SESSION["ID"].');"';
 
@@ -3319,15 +3329,23 @@ if($rowcount1as > 0):
                                     endif;
                             ?>
                                   class="btn btn-success" id="arrematebts<?php echo $dds['id'];?>" style="float: right;margin-top: -4.5%;margin-right: 1%;margin-left: 1%;">
-                                
-                                Arrematar
+                                <?php
+                                if(isset($_SESSION['ID'])):
+
+                                    echo 'Arrematar';
+                                    else:
+                                        echo 'Participar';
+
+                                endif;
+                                ?>
+
                     </a>
 
                         <?php  endif;?>
                         <?php  endif;?>
                         <?php  endif;?>
 </span>
-
+<?php if($_SESSION['ID'] and $_SESSION['TYPE'] <> 3):?>
                     <a href="#" onclick="acesso(<?php echo $dds['id'];?>,<?php echo $_SESSION['ID'];?>);" data-toggle="modal" data-target="#nextasa<?php echo $dds['id'];?>" class="btn btn-info" style="float: right;margin-top: -4.5%;">
                         <?php if($dds['type'] == 1):
                             echo 'Ver detalhes';
@@ -3335,7 +3353,9 @@ if($rowcount1as > 0):
                             echo 'Ver detalhes';
                         endif;
                         ?>
-                    </a><br>
+                    </a>
+                    <?php endif;?>
+                    <br>
                     <br>
 
 
@@ -3779,6 +3799,17 @@ $(document).ready(function(){
                         $horab = substr($beggsdate, 8, 2);
                         $minutob = substr($beggsdate, 10, 2);
                         $segundob = substr($beggsdate, 12, 2);?>
+
+                        <?php
+                        if(!$_SESSION['ID']):
+                            ?><br>
+                            <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>Especie: </b><?php echo $dds['nome_cientifico_br']; ?> &nbsp;&nbsp;&nbsp;</div>
+                            <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>Classificação: </b><?php echo $dds['classificacao']; ?></div><br>
+                            <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>Peso total: </b><?php echo $dds['peso_lote']; ?> Kg &nbsp;&nbsp;&nbsp;</div>
+                            <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>
+
+                                    <?php if($dds['classificacao'] == 'Processado Congelado' or $dds['classificacao'] == 'Processado Fresco'): echo 'Peso individual:' ; else:  echo 'Peso Médio:'; endif;?> </b> <?php echo $dds['peso_individual']; ?> Kg</div>
+                        <?php endif;?>
                         <script type="text/javascript">
                             $("#getting-started<?php echo $dds['id'];?>")
                                 .countdown("<?php echo $anob;?>/<?php echo $mesb;?>/<?php echo $diab;?> <?php echo $horap?>:<?php echo $minutob?>:<?php echo $segundob;?> <?php echo $dsp;?>", function(event) {
@@ -3793,7 +3824,7 @@ $(document).ready(function(){
                         <?php
 
                     if(!isset($_SESSION['ID'])):
-                        echo 'onclick="loguser();"';
+                        echo 'data-toggle="modal" data-target="#login""';
                         ?>
                         <?php else: echo 'onclick="acesso('.$dds['id'].','.$_SESSION['ID'].');" data-toggle="modal" data-target="#next'.$dds['id'].'"'; endif;?> class="btn btn-info" style="float: right;margin-top: -2.5%;">
                             <?php

@@ -643,7 +643,7 @@ if( $_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 545
 
                         <?php endif;?>
 </span>
-
+<?php if($_SESSION['TYPE'] <> 3):?>
                             <a href="#" onclick="acesso(<?php echo $dds['id'];?>,<?php echo $_SESSION['ID'];?>)" data-toggle="modal" data-target="#nextasa<?php echo $dds['id'];?>" class="btn btn-info" style="float: right;margin-top: -4.5%;">
                                 <?php if($dds['type'] == 1):
                                     echo 'Ver detalhes';
@@ -651,8 +651,8 @@ if( $_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 545
                                     echo 'Ver detalhes';
                                 endif;
                                 ?>
-                            </a><br>
-                            <br>
+                            </a><?php endif;?>
+                            <br><br>
 
 
                         </div>
@@ -966,25 +966,32 @@ if( $_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 545
                                                                     <script>
                                                                         function runScript<?php echo $dds['id'];?>(e) {
 
-                                                                            var userTp = '<?php echo $_SESSION['TYPE'];?>';
-                                                                            if (e.keyCode == 13) {
-                                                                                var tb = document.getElementById("lancepre<?php echo $dds['id'];?>").value;
-                                                                               
-	 
-                                                                      
-                                                                        if(userTp == 1 || userTp == 3){
-                                                                            $("#infolance<?php echo $dds['id'];?>").html('Você não tem permissão para participar de leilões.');
-                                                                        }
-                                                                        
-															if(userTp == 2 || userTp == 5454){
-                                                                            
-                                                                            $.post("<?php echo base_url('pages/insert');?>",{type:'012',id:'<?php echo $_SESSION['ID']?>',leilao:'<?php echo $dds['id'];?>',valor:tb},function (res) {
-																				
-																				$("#infolance<?php echo $dds['id'];?>").html(res);
-                                                                                $("#lancebefore<?php echo $dds['id'];?>").remove();
+                                                                            var userTp = '<?php
+                                                                                if(isset($_SESSION['TYPE'])):
+                                                                                    echo  $_SESSION['TYPE'];
+                                                                                else:
+                                                                                    echo 0;
+                                                                                endif;
+                                                                                ?>';
 
-                                                             });
-                                                                        }
+                                                                            if (e.keyCode == 13) {
+                                                                                var tb = $("#lancepre<?php echo $dds['id'];?>").val();
+
+                                                                                $.post("<?php echo base_url('pages/insert');?>",{type:'012',id:'<?php echo $_SESSION['ID']?>',leilao:'<?php echo $dds['id'];?>',valor:tb},function (res) {
+
+
+                                                                                    if(res == 11){
+                                                                                        $("#infolance<?php echo $dds['id'];?>").html('Lance antecipado salvo com sucesso.');
+
+                                                                                        $("#lancebefore<?php echo $dds['id'];?>").remove();
+                                                                                    }else
+                                                                                    {
+                                                                                        $("#infolance<?php echo $dds['id'];?>").html(res);
+
+                                                                                    }
+
+
+                                                                                });
 
 
                                                                                 return false;
@@ -992,6 +999,13 @@ if( $_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 545
                                                                         }
                                                                     </script>
 
+                                                                    <script>
+                                                                        $(document).ready(function(){
+
+                                                                            $('#lancepre<?php echo $dds['id']; ?>').mask("###0.00", {reverse: true});
+
+                                                                        });
+                                                                    </script>
 
 
 
@@ -1148,6 +1162,8 @@ echo ' <h2>Arrematados por mim</h2><br>';
                                     <?php if($dta['status'] <> 0):?>
                                     <h5 style="text-align: center;">Arrematado por: <b>R$<?php echo number_format($dta['valor_arrematado'],2,'.',',');?></b></h5>
                                 <?php endif;?>
+                                    <h6 style="text-align: center;">Lote: <b><?php echo $dta['id'];?></b></h6>
+
                                 </a>
 
                             </div>
@@ -1298,8 +1314,10 @@ echo ' <h2>Leilões finalizados</h2><br>';
                                         <?php
 
                                     endif;?>
-                                </a>
 
+                                    <h6 style="text-align: center;">Lote: <b><?php echo $dta['id'];?></b></h6>
+
+                                </a>
                             </div>
                         <?php }
 

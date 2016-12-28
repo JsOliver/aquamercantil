@@ -622,7 +622,7 @@ $ddpup['nome_cientifico_br'] = $dds['nome_cientifico_br'];
                                                                                                 $daten['id_user'] = $_POST['ID'];
                                                                                                 $daten['titulo'] = 'Leilão aprovado.';
                                                                                                 $daten['imagem'] = 'http://www.iconarchive.com/download/i86039/graphicloads/100-flat-2/check-1.ico';
-                                                                                                $daten['texto'] = 'Sei leilão foi cadastrado com sucesso, as informações de datas podem ter sido alteradas, confira os detalhes na timeline dos leilões.';
+                                                                                                $daten['texto'] = 'Seu leilão foi cadastrado com sucesso, as informações de datas podem ter sido alteradas, confira os detalhes na timeline dos leilões.';
                                                                                                 $daten['url'] = '#';
                                                                                                 $this->db->insert('notify', $daten);
                                                                                                 $lastn = $this->db->insert_id();
@@ -2207,8 +2207,22 @@ if(isset($_POST['type']) and $_POST['type'] == '4515610'):
 
                                    </td>
                                    <td>
+<?php
+
+$this->db->from('privilegio');
+$this->db->where('id_user',$dds['id']);
+$qrssi = $this->db->get();
+$rowssi = $qrssi->num_rows();
+if($rowssi > 0):
+?>
+                                       <a href="<?php echo base_url();?>pages/approvednewcate?user=<?php echo $dds['id']?>" class="fa fa-plus-circle" aria-hidden="true"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <?php endif;?>
+
                                        <i data-toggle="modal" data-target="#fixauser<?php echo $dds['id'];?>" class="fa fa-edit text-info" style="cursor: pointer;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                        <i data-toggle="modal" data-target="#fixauserdeleapp<?php echo $dds['id'];?>" class="fa fa-close text-danger" style="cursor: pointer;"></i>
+
+
 
                                    </td>
 
