@@ -8,8 +8,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
-    <meta name="author" content="Coderthemes">
+    <meta name="description" content="Somos a primeira empresa especializada na comercialização de pescados no Brasil. Baseados no sistema adotado pela cooperativa de Holambra criamos a Aquamercantil. Uma ferramenta para facilitar o comércio de pescados e aproximar o produtor do mercado.">
+    <meta name="keywords" content="Leilão de pescado,Leilão de pescados, Pescado, Pescados, Compra de camarão,Venda de camarão,Compra de tilápia,Venda de tilápia,Compra de Tambaqui,Venda de Tambaqui,Compra de Tambacu,Venda de Tambacu,Compra de Pirarucu,Venda de Pirarucu,Compra de Linguado,Venda de Linguado,Compra de Lagosta,Venda de Lagosta,Filé de pescado,Filé de peixe,Compra de Salmão,Venda de Salmão,Fazenda de camarão,Despesca,Compra de Atum,Venda de Atum,Compra de Pintado,Venda de Pintado,Compra de Panga,Venda de Panga,Compra de Camarão rosa,Venda de Camarão rosa,Bolsa de pescado,Preço de pescado,Preço de camarão">
+
+    <meta name="author" content="Aquamercantil">
 
     <link rel="shortcut icon" href="images/favicon.ico">
 
