@@ -1103,20 +1103,29 @@ if( $_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 545
 
 
 				
-				    <div class="row">
+				    <div class="row" id="meusarremates">
 
                     <?php
-					
-					
-			
-					
+
+$atual = 0;
+                    $min = 4;
+                    $query1 = $this->db->select('leiloes.*,arremates.*')
+                        ->from('leiloes')
+                        ->join('arremates','leiloes.id = arremates.id_leilao', 'inner')
+                        ->where('leiloes.status', 2555)
+                        ->where('arremates.id_user', $_SESSION['ID'])
+                        ->order_by('arremates.id','desc')
+                        ->get();
+                    $rowcountas1 = $query1->num_rows();
+
+
                     $query = $this->db->select('leiloes.*,arremates.*')
                         ->from('leiloes')
 						->join('arremates','leiloes.id = arremates.id_leilao', 'inner')
 						 ->where('leiloes.status', 2555)
 						 ->where('arremates.id_user', $_SESSION['ID'])
 						->order_by('arremates.id','desc')
-                        ->limit(16,0)
+                        ->limit($min,$atual)
                         ->get();
 
                     $rowcountas = $query->num_rows();
@@ -1143,18 +1152,118 @@ echo ' <h2>Arrematados por mim</h2><br>';
                     endif;
 
                     ?>
+
                 </div>
+
+                <?php
+
+
+                $atual = 0;
+                $min = 4;
+
+
+
+
+                ?>
+
+                <script>
+                    function nextwin() {
+
+                        var next = $('#nextmy').attr("lang");
+                        var before = $('#beforemy').attr("lang");
+
+
+
+
+                        $.post('<?php echo base_url('pages/pagination');?>',{page:next,user:1},function (ress) {
+                            if(ress){
+
+                                var next2 = parseInt(next) + 1;
+                                var before2 = parseInt(before) + 1;
+
+                                $("#meusarremates").html(ress);
+                                $('#nextmy').attr("lang",""+next2+"");
+                                $('#beforemy').attr("lang",""+before2+"")
+
+                            }
+
+
+                        });
+
+
+
+
+
+
+                    }
+                    </script>
+                <script>
+                    
+
+
+
+
+                    function beforewin() {
+
+
+                        var next = $('#nextmy').attr("lang");
+                        var before = $('#beforemy').attr("lang");
+
+
+                        $.post('<?php echo base_url('pages/pagination');?>',{page:before,user:1},function (resa) {
+                            if(resa){
+
+
+                                var next2 = parseInt(next) - 1;
+                                var before2 = parseInt(before) - 1;
+                                $("#meusarremates").html(resa);
+                                $('#nextmy').attr("lang",""+next2+"");
+                                $('#beforemy').attr("lang",""+before2+"")
+
+                            }
+
+
+                    });
+                    }
+                </script>
+
+                <?php
+
+
+                ?>
+                <nav aria-label="...">
+                    <ul class="pager">
+                        <li><a href="javascript:func();" id="beforemy" lang="1" onclick="beforewin();">Anterior</a></li>
+                        <li><a href="javascript:func();" id="nextmy" lang="<?php if($pages > 1): echo 2;  else: echo 1; endif; ?>" onclick="nextwin();">Proximo</a></li>
+                </ul>
+                </nav>
 				
-				
-                <div class="row">
+                <div class="row" id="arrematesfim">
 
                     <?php
+                    $query2 = $this->db->select('*')
+                        ->from('leiloes')
+                        ->limit(8,0)
+                        ->order_by('id','desc')
+                        ->where('status', 2555)
+                        ->or_where('status', 0)
+                        ->get();
+
+                    $rowcountas2 = $query2->num_rows();
+
+
+                    $pages = ceil($rowcountas2 / $min);
+
+
+
+
                     $query = $this->db->select('*')
                         ->from('leiloes')
                         ->limit(8,0)
                         ->order_by('id','desc')
                         ->where('status', 2555)
                         ->or_where('status', 0)
+                        ->limit($min, $atual)
                         ->get();
 
                     $rowcountas = $query->num_rows();
@@ -1189,6 +1298,75 @@ echo ' <h2>Leilões finalizados</h2><br>';
 
                     ?>
                 </div>
+
+
+                <script>
+                    function nextwin2() {
+
+                        var next = $('#nextmy2').attr("lang");
+                        var before = $('#beforemy2').attr("lang");
+
+
+
+
+                        $.post('<?php echo base_url('pages/pagination');?>',{page:next,user:0},function (ress) {
+                            if(ress){
+
+                                var next2 = parseInt(next) + 1;
+                                var before2 = parseInt(before) + 1;
+
+                                $("#arrematesfim").html(ress);
+                                $('#nextmy').attr("lang",""+next2+"");
+                                $('#beforemy').attr("lang",""+before2+"")
+
+                            }
+
+
+                        });
+
+
+
+
+
+
+                    }
+                </script>
+                <script>
+
+
+
+
+
+                    function beforewin2() {
+
+
+                        var next = $('#nextmy2').attr("lang");
+                        var before = $('#beforemy2').attr("lang");
+
+
+                        $.post('<?php echo base_url('pages/pagination');?>',{page:before,user:0},function (resa) {
+                            if(resa){
+
+
+                                var next2 = parseInt(next) - 1;
+                                var before2 = parseInt(before) - 1;
+                                $("#arrematesfim").html(resa);
+                                $('#nextmy').attr("lang",""+next2+"");
+                                $('#beforemy').attr("lang",""+before2+"")
+
+                            }
+
+
+                        });
+                    }
+                </script>
+
+                <nav aria-label="...">
+                    <ul class="pager">
+                        <li><a href="javascript:func();" id="beforemy2" lang="1" onclick="beforewin2();">Anterior</a></li>
+                        <li><a href="javascript:func();" id="nextmy2" lang="<?php if($pages > 1): echo 2;  else: echo 1; endif; ?>" onclick="nextwin2();">Proximo</a></li>
+                    </ul>
+                </nav>
 
                 <?php
 

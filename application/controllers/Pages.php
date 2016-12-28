@@ -601,7 +601,6 @@ $rowcount = $query->num_rows();
         $this->email->message('Sua nova senha e:
         '.$newpass.'.');
 
-
         if($this->email->send()):
             echo 11;
         else:
@@ -1366,7 +1365,9 @@ if($rowcount2 > 0):
     $datea = $querya->result_array();
 
     if($rowcount > 0):
-        $resdate = str_replace (',','',$datea[0]['valor']);
+        $resdate = $datea2[0]['valor_min'];
+
+    //$resdate = str_replace (',','',$datea[0]['valor']);
     else:
 
         $resdate = $datea2[0]['valor_min'];
@@ -1410,6 +1411,84 @@ echo 0;
 
             endif;
     }
+
+    public function pagination(){
+
+        $min = 4;
+        $page = $_POST['page'];
+        if($_POST['user'] == 1):
+
+            $query2 = $this->db->select('leiloes.*,arremates.*')
+                ->from('leiloes')
+                ->join('arremates','leiloes.id = arremates.id_leilao', 'inner')
+                ->where('leiloes.status', 2555)
+                ->where('arremates.id_user', $_SESSION['ID'])
+                ->order_by('arremates.id','desc')
+                ->get();
+
+
+
+
+
+            $query = $this->db->select('leiloes.*,arremates.*')
+                ->from('leiloes')
+                ->join('arremates','leiloes.id = arremates.id_leilao', 'inner')
+                ->where('leiloes.status', 2555)
+                ->where('arremates.id_user', $_SESSION['ID'])
+                ->order_by('arremates.id','desc')
+                ->limit($min,$page)
+                ->get();
+            else:
+                $query = $this->db->select('leiloes.*,arremates.*')
+                    ->from('leiloes')
+                    ->join('arremates','leiloes.id = arremates.id_leilao', 'inner')
+                    ->where('leiloes.status', 2555)
+                    ->order_by('arremates.id','desc')
+                    ->limit($min,$page)
+                    ->get();
+
+                endif;
+
+
+$rowcountas = $query->num_rows();
+$dateas = $query->result_array();
+if($rowcountas > 0):
+
+    if($_POST['user'] == 1):
+    echo ' <h2>Arrematados por mim</h2><br>';
+        else:
+            echo  ' <h2>Leilões finalizados</h2><br>';
+
+    endif;
+    foreach ($dateas as $dta){
+
+
+        ?>
+
+        <div class="col-xs-6 col-md-3">
+            <a href="<?php echo $dta['url_payment'];?>" target="_blank" style="text-decoration: none;color: black;" class="thumbnail">
+                <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $dta['image']; ?>" alt="..."> <h5 style="text-align: center;font-weight: bold;"><?php echo $dta['titulo']; ?></h5>
+                <?php if($dta['status'] <> 0):?>
+                    <h5 style="text-align: center;">Arrematado por: <b>R$<?php echo number_format($dta['valor_arrematado'],2,'.',',');?></b></h5>
+                <?php endif;?>
+            </a>
+
+        </div>
+    <?php }
+
+
+endif;
+
+
+
+
+
+    }
+
+
+
+
+
 
 
 }

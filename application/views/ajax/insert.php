@@ -1,20 +1,74 @@
 <?php
 @session_start();
-if(isset($_POST['type']) and $_POST['type'] == '012' and $_SESSION['TYPE'] == 2 or isset($_POST['type']) and $_POST['type'] == '012' and $_SESSION['TYPE'] == 5454):
-    $dados['id_usuario'] = $_POST['id'];
-    $dados['id_leilao'] = $_POST['leilao'];
+if(isset($_POST['type']) and $_POST['type'] == '012' ):
 
-    $valor = str_replace("." , "" , $_POST['valor']); 
-	$valor = str_replace("," , "" , $_POST['valor']); 
-    
-    $dados['valor'] = $_POST['valor'];
-	
-	//$this->db->from('');
-	
-	
-    $this->db->insert('lances_antecipados', $dados);
-//echo $this->db->insert_id();
-//echo 'Lance programado indisponivel, no momento.';
+
+   if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
+
+
+
+       $this->db->from('leiloes');
+       $this->db->where('id',$_POST['leilao']);
+       $query = $this->db->get();
+       $rowcountids = $query->num_rows();
+       $fetch = $query->result_array();
+       if($rowcountids > 0):
+           $count = strlen($_POST['valor']);
+
+           if ($count <= 2):
+               $valor = $_POST['valor'] . '.00';
+           else:
+
+               $valor = $_POST['valor'];
+           endif;
+$min = str_replace('.','',$fetch[0]['valor_min']);
+$max = str_replace('.','',$fetch[0]['valor_max']);
+$vreplace = str_replace('.','',$valor);
+
+           if($vreplace < $min){
+
+               echo 'O lance não pode ser menor que R$ '.$fetch[0]['valor_min'].'';
+
+           }elseif ($vreplace > $max){
+
+             echo 'O lance não pode ser maior que R$ '.$fetch[0]['valor_max'].'';
+           }
+
+               else{
+
+
+
+
+
+
+                       $dados['id_usuario'] = $_POST['id'];
+                       $dados['id_leilao'] = $_POST['leilao'];
+
+
+                       $dados['valor'] = $valor;
+
+
+                       $this->db->insert('lances_antecipados', $dados);
+                       $cout2 = $this->db->insert_id();
+
+                       if ($cout2 > 0):
+
+                           echo 11;
+
+                       else:
+                           echo 'Erro ao inserir lance antecipado, tente mais tarde.';
+                       endif;
+
+               }
+                   else:
+                       echo 'Ocorreu um erro, tente mais tarde.';
+
+                   endif;
+
+                   endif;
+
+
+
 endif;
 
 ?>

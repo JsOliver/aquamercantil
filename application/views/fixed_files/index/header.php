@@ -67,10 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         ga('send', 'pageview');
 
     </script>
-    <script src="<?php echo base_url('assets/');?>js/jquery-2.1.4.min.js"></script>
 
-    <!-- Jquery easing -->
-    <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.mask.js');?>"></script>
 </head>
 
 
@@ -193,7 +190,7 @@ if(isset($_SESSION['ID'])):
     <!-- end container -->
 </div>
 
-<!-- End navbar-custom -->
+
 <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content " style="background: none;border:none;" >

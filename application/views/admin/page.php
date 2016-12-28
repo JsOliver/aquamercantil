@@ -1869,7 +1869,6 @@ echo '<span class="text-info">Aguardando pagamento</span>';
                                                         <td class="center">-- --</td>
                                                         <td class="center">-- --</td>
                                                         <td class="center">-- --</td>
-                                                        <td class="center">-- --</td>
                                                     </tr>
                                                 <?php endif;
                                                 ?>

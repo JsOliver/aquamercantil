@@ -3647,23 +3647,21 @@ if($rowcount1as > 0):
                                                                     if (e.keyCode == 13) {
                                                                         var tb = $("#lancepre<?php echo $dds['id'];?>").val();
 
-
-
-                                                                        if(userTp == 1 || userTp == 3){
-                                                                            $("#infolance<?php echo $dds['id'];?>").html('Você não tem permissão para participar de leilões.');
-                                                                        }
-
-															if(userTp == 2 || userTp == 5454){
-
                                                                             $.post("<?php echo base_url('pages/insert');?>",{type:'012',id:'<?php echo $_SESSION['ID']?>',leilao:'<?php echo $dds['id'];?>',valor:tb},function (res) {
 
-																				$("#infolance<?php echo $dds['id'];?>").html(res);
-                                                                                $("#lancebefore<?php echo $dds['id'];?>").remove();
+
+                                                                                if(res == 11){
+                                                                                    $("#infolance<?php echo $dds['id'];?>").html('Lance antecipado salvo com sucesso.');
+
+                                                                                    $("#lancebefore<?php echo $dds['id'];?>").remove();
+                                                                                }else
+                                                                                {
+                                                                                    $("#infolance<?php echo $dds['id'];?>").html(res);
+
+                                                                                }
+
 
                                                              });
-                                                                        }
-
-
 
 
                                                                         return false;
@@ -3676,22 +3674,20 @@ if($rowcount1as > 0):
 <script>
 $(document).ready(function(){
 
-  $('#lancepre<?php echo $dds['id']; ?>').mask("###0.00");
+  $('#lancepre<?php echo $dds['id']; ?>').mask("###0.00", {reverse: true});
 
 });
 </script>
-                                                            
-                                                            <script>
-                                                                $('.money2').mask("#.##0,00", {reverse: true});
 
-                                                            </script>
-                                                            <b class="text-info" style="text-align: center;margin: 0 0 0 20%;" id="infolance<?php echo $dds['id'];?>"></b>
 
+                                                        <br><b class="text-info" style="text-align: center;margin: 0 0 0 20%;" id="infolance<?php echo $dds['id'];?>"></b>
                                                             <div class="input-group" id="lancebefore<?php echo $dds['id'];?>">
                                                                 <span class="input-group-addon">R$</span>
 
 							<input onkeypress="return runScript<?php echo $dds['id'];?>(event)" class="form-control" placeholder="Meu lance" id="lancepre<?php echo $dds['id'];?>" aria-label="Amount (to the nearest dollar)"> <span class="input-group-addon">.00</span> </div>
-                                                            <br><?php
+                                                            <br>
+                                                        
+                                                    <?php
 
 
                                                         endif;
