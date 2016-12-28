@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8b95f0b-2a31-4478-bd12-c9c88f10e398" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/Pages.php" afterPath="$PROJECT_DIR$/application/controllers/Pages.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/admin/page.php" afterPath="$PROJECT_DIR$/application/views/admin/page.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/fixed_files/leilao/header.php" afterPath="$PROJECT_DIR$/application/views/fixed_files/leilao/header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/home.php" afterPath="$PROJECT_DIR$/application/views/home.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/leilao.php" afterPath="$PROJECT_DIR$/application/views/leilao.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
     </list>
     <ignored path="aquamercantil.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -128,11 +124,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Pages.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Pages.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/controllers/Pages.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="421">
-              <caret line="1656" column="34" selection-start-line="1656" selection-start-column="34" selection-end-line="1656" selection-end-column="34" />
+            <state relative-caret-position="234">
+              <caret line="1423" column="22" selection-start-line="1423" selection-start-column="22" selection-end-line="1423" selection-end-column="41" />
               <folding>
                 <element signature="e#51802#51829#0#HTML" expanded="true" />
                 <marker date="1482943112156" expanded="true" signature="18165:19050" ph="..." />
@@ -153,30 +149,36 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="page.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="page.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/views/admin/page.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="624" column="118" selection-start-line="624" selection-start-column="118" selection-end-line="624" selection-end-column="118" />
+            <state relative-caret-position="246">
+              <caret line="1784" column="120" selection-start-line="1784" selection-start-column="120" selection-end-line="1784" selection-end-column="120" />
               <folding>
-                <element signature="e#115777#121999#0#PHP" expanded="false" />
-                <element signature="e#149808#153567#0#HTML" expanded="false" />
-                <element signature="e#153630#158414#0#HTML" expanded="false" />
-                <element signature="e#162717#162723#0#HTML" expanded="true" />
-                <element signature="e#162723#162729#0#HTML" expanded="true" />
-                <element signature="e#162729#162735#0#HTML" expanded="true" />
-                <element signature="e#162735#162741#0#HTML" expanded="true" />
-                <element signature="e#162931#162937#0#HTML" expanded="true" />
-                <element signature="e#162937#162943#0#HTML" expanded="true" />
-                <element signature="e#162943#162949#0#HTML" expanded="true" />
-                <element signature="e#162949#162955#0#HTML" expanded="true" />
-                <element signature="e#162955#162961#0#HTML" expanded="true" />
-                <element signature="e#162961#162967#0#HTML" expanded="true" />
-                <element signature="e#163912#179404#0#HTML" expanded="false" />
-                <element signature="e#171468#176137#0#HTML" expanded="false" />
-                <marker date="1482942594423" expanded="true" signature="81864:81917" ph="SELECT * FRO... leiloes" />
-                <marker date="1482942594423" expanded="true" signature="112594:112648" ph="SELECT * FRO... leiloes" />
-                <marker date="1482942594423" expanded="true" signature="129539:129593" ph="SELECT * FRO... leiloes" />
+                <element signature="e#23860#56367#0#HTML" expanded="false" />
+                <element signature="e#56384#81228#0#HTML" expanded="false" />
+                <element signature="e#81247#111968#0#HTML" expanded="false" />
+                <element signature="e#112009#127800#0#HTML" expanded="false" />
+                <element signature="e#118176#124398#0#PHP" expanded="false" />
+                <element signature="e#152219#155978#0#HTML" expanded="false" />
+                <element signature="e#156041#160825#0#HTML" expanded="false" />
+                <element signature="e#165128#165134#0#HTML" expanded="true" />
+                <element signature="e#165134#165140#0#HTML" expanded="true" />
+                <element signature="e#165140#165146#0#HTML" expanded="true" />
+                <element signature="e#165146#165152#0#HTML" expanded="true" />
+                <element signature="e#165342#165348#0#HTML" expanded="true" />
+                <element signature="e#165348#165354#0#HTML" expanded="true" />
+                <element signature="e#165354#165360#0#HTML" expanded="true" />
+                <element signature="e#165360#165366#0#HTML" expanded="true" />
+                <element signature="e#165366#165372#0#HTML" expanded="true" />
+                <element signature="e#165372#165378#0#HTML" expanded="true" />
+                <element signature="e#166323#181815#0#HTML" expanded="false" />
+                <element signature="e#173879#178548#0#HTML" expanded="false" />
+                <marker date="1482944904464" expanded="true" signature="84239:84292" ph="SELECT * FRO... leiloes" />
+                <marker date="1482944904464" expanded="true" signature="84239:84303" ph="SELECT * FRO... leiloes" />
+                <marker date="1482944904464" expanded="true" signature="114981:115035" ph="SELECT * FRO... leiloes" />
+                <marker date="1482944904464" expanded="true" signature="114981:115046" ph="SELECT * FRO... leiloes" />
+                <marker date="1482944904464" expanded="true" signature="131938:131992" ph="SELECT * FRO... leiloes" />
               </folding>
             </state>
           </provider>
@@ -186,7 +188,7 @@
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="69" column="35" selection-start-line="69" selection-start-column="34" selection-end-line="69" selection-end-column="35" />
+              <caret line="69" column="35" selection-start-line="69" selection-start-column="35" selection-end-line="69" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -251,13 +253,13 @@
         <option value="$PROJECT_DIR$/application/views/admin/header.php" />
         <option value="$PROJECT_DIR$/application/views/fixed_files/index/footer.php" />
         <option value="$PROJECT_DIR$/application/views/ajax/insert.php" />
-        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/application/views/fixed_files/index/header.php" />
         <option value="$PROJECT_DIR$/application/views/home.php" />
         <option value="$PROJECT_DIR$/application/views/fixed_files/leilao/header.php" />
-        <option value="$PROJECT_DIR$/application/views/admin/page.php" />
         <option value="$PROJECT_DIR$/application/views/leilao.php" />
         <option value="$PROJECT_DIR$/application/controllers/Pages.php" />
+        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/page.php" />
       </list>
     </option>
   </component>
@@ -515,12 +517,12 @@
       <workItem from="1482782044054" duration="30000" />
       <workItem from="1482785040212" duration="4749000" />
       <workItem from="1482841636477" duration="35743000" />
-      <workItem from="1482922450386" duration="18718000" />
+      <workItem from="1482922450386" duration="20263000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="222930000" />
+    <option name="totallyTimeSpent" value="224475000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -853,41 +855,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="69" column="35" selection-start-line="69" selection-start-column="34" selection-end-line="69" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/admin/page.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="624" column="118" selection-start-line="624" selection-start-column="118" selection-end-line="624" selection-end-column="118" />
-          <folding>
-            <element signature="e#115777#121999#0#PHP" expanded="false" />
-            <element signature="e#149808#153567#0#HTML" expanded="false" />
-            <element signature="e#153630#158414#0#HTML" expanded="false" />
-            <element signature="e#162717#162723#0#HTML" expanded="true" />
-            <element signature="e#162723#162729#0#HTML" expanded="true" />
-            <element signature="e#162729#162735#0#HTML" expanded="true" />
-            <element signature="e#162735#162741#0#HTML" expanded="true" />
-            <element signature="e#162931#162937#0#HTML" expanded="true" />
-            <element signature="e#162937#162943#0#HTML" expanded="true" />
-            <element signature="e#162943#162949#0#HTML" expanded="true" />
-            <element signature="e#162949#162955#0#HTML" expanded="true" />
-            <element signature="e#162955#162961#0#HTML" expanded="true" />
-            <element signature="e#162961#162967#0#HTML" expanded="true" />
-            <element signature="e#163912#179404#0#HTML" expanded="false" />
-            <element signature="e#171468#176137#0#HTML" expanded="false" />
-            <marker date="1482942594423" expanded="true" signature="81864:81917" ph="SELECT * FRO... leiloes" />
-            <marker date="1482942594423" expanded="true" signature="112594:112648" ph="SELECT * FRO... leiloes" />
-            <marker date="1482942594423" expanded="true" signature="129539:129593" ph="SELECT * FRO... leiloes" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/views/fixed_files/index/header.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2420">
@@ -982,24 +949,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/leilao.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="868">
-          <caret line="1004" column="88" selection-start-line="1004" selection-start-column="80" selection-end-line="1004" selection-end-column="88" />
-          <folding>
-            <element signature="n#style#0;n#h6#0;n#a#0;n#div#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h5#2;n#a#0;n#div#0;n#div#2;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h6#0;n#a#0;n#div#0;n#div#2;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <marker date="1482942959013" expanded="true" signature="1931:2021" ph="SELECT * FRO... leiloes" />
-            <marker date="1482942959013" expanded="true" signature="29779:29867" ph="SELECT * FRO... leiloes" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/Pages.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="1656" column="34" selection-start-line="1656" selection-start-column="34" selection-end-line="1656" selection-end-column="34" />
+        <state relative-caret-position="234">
+          <caret line="1423" column="22" selection-start-line="1423" selection-start-column="22" selection-end-line="1423" selection-end-column="41" />
           <folding>
             <element signature="e#51802#51829#0#HTML" expanded="true" />
             <marker date="1482943112156" expanded="true" signature="18165:19050" ph="..." />
@@ -1015,6 +968,61 @@
             <marker date="1482943112156" expanded="true" signature="18625:18785" ph="{...}" />
             <marker date="1482943112156" expanded="true" signature="18842:18962" ph="{...}" />
             <marker date="1482943112156" expanded="true" signature="51153:51216" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/leilao.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="868">
+          <caret line="1004" column="88" selection-start-line="1004" selection-start-column="80" selection-end-line="1004" selection-end-column="88" />
+          <folding>
+            <element signature="n#style#0;n#h6#0;n#a#0;n#div#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h5#2;n#a#0;n#div#0;n#div#2;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h6#0;n#a#0;n#div#0;n#div#2;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <marker date="1482942959013" expanded="true" signature="1931:2021" ph="SELECT * FRO... leiloes" />
+            <marker date="1482942959013" expanded="true" signature="29779:29867" ph="SELECT * FRO... leiloes" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="69" column="35" selection-start-line="69" selection-start-column="35" selection-end-line="69" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/admin/page.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="1784" column="120" selection-start-line="1784" selection-start-column="120" selection-end-line="1784" selection-end-column="120" />
+          <folding>
+            <element signature="e#23860#56367#0#HTML" expanded="false" />
+            <element signature="e#56384#81228#0#HTML" expanded="false" />
+            <element signature="e#81247#111968#0#HTML" expanded="false" />
+            <element signature="e#112009#127800#0#HTML" expanded="false" />
+            <element signature="e#118176#124398#0#PHP" expanded="false" />
+            <element signature="e#152219#155978#0#HTML" expanded="false" />
+            <element signature="e#156041#160825#0#HTML" expanded="false" />
+            <element signature="e#165128#165134#0#HTML" expanded="true" />
+            <element signature="e#165134#165140#0#HTML" expanded="true" />
+            <element signature="e#165140#165146#0#HTML" expanded="true" />
+            <element signature="e#165146#165152#0#HTML" expanded="true" />
+            <element signature="e#165342#165348#0#HTML" expanded="true" />
+            <element signature="e#165348#165354#0#HTML" expanded="true" />
+            <element signature="e#165354#165360#0#HTML" expanded="true" />
+            <element signature="e#165360#165366#0#HTML" expanded="true" />
+            <element signature="e#165366#165372#0#HTML" expanded="true" />
+            <element signature="e#165372#165378#0#HTML" expanded="true" />
+            <element signature="e#166323#181815#0#HTML" expanded="false" />
+            <element signature="e#173879#178548#0#HTML" expanded="false" />
+            <marker date="1482944904464" expanded="true" signature="84239:84292" ph="SELECT * FRO... leiloes" />
+            <marker date="1482944904464" expanded="true" signature="84239:84303" ph="SELECT * FRO... leiloes" />
+            <marker date="1482944904464" expanded="true" signature="114981:115035" ph="SELECT * FRO... leiloes" />
+            <marker date="1482944904464" expanded="true" signature="114981:115046" ph="SELECT * FRO... leiloes" />
+            <marker date="1482944904464" expanded="true" signature="131938:131992" ph="SELECT * FRO... leiloes" />
           </folding>
         </state>
       </provider>

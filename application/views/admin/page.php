@@ -484,7 +484,7 @@ Peso Total do lote
                                                 ?>
                                                 <?php
 
-                                                $query = $this->db->select('*')->from('leiloes_pendentes')->order_by('id', 'desc')->get();
+                                                $query = $this->db->select('*')->from('leiloes_pendentes')->order_by('id', 'desc')->limit(40,0)->get();
 
                                                 $rowcount = $query->num_rows();
                                                 $dates1 = $query->result_array();
@@ -834,8 +834,17 @@ Peso Total do lote
                                                 </thead>
                                                 <tbody>
 <?php
+$maxall = 20;
+if(!isset($_GET['pg'])):
+    $atualall = 0;
+    else:
+        $atualall = ceil($maxall * $_GET['pg'] - $maxall);
+        endif;
+$query1414 = $this->db->select('*')->from('leiloes')->order_by('id', 'desc')->get();
 
-$query = $this->db->select('*')->from('leiloes')->order_by('id', 'desc')->get();
+$rowcount1414 = $query1414->num_rows();
+
+$query = $this->db->select('*')->from('leiloes')->order_by('id', 'desc')->limit($maxall,$atualall)->get();
 
 $rowcount = $query->num_rows();
 $dates1 = $query->result_array();
@@ -1131,7 +1140,66 @@ else:
     <?php endif;
 ?>
 </tbody>
-                                            </table></div></div>
+
+                                            </table>
+
+
+                                            <?php
+
+
+                                            $pages = ceil($rowcount1414 / $maxall);
+
+                                            if(!isset($_GET['pg'])){
+                                                $previous = 1;
+
+                                                if($pages > 1):
+
+                                                    $next = 2;
+
+                                                else:
+                                                    $next = 1;
+
+                                                endif;
+
+
+
+                                            }else{
+
+                                                if($_GET['pg'] <=1):
+                                                    $previous = 1;
+
+                                                else:
+                                                    $previous = $_GET['pg'] - 1;
+
+                                                endif;
+
+                                                if($_GET['pg'] == $pages):
+
+                                                    $next = $_GET['pg'];
+
+                                                else:
+
+                                                    $next = $_GET['pg'] + 1;
+
+
+
+                                            endif;
+                                            }
+
+
+
+
+
+
+
+        ?>
+                                            <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate"><ul class="pagination"><li class="paginate_button previous " aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="<?php echo base_url('admin/leiloes?pg='.$previous); ?>">Anterior</a></li>
+
+
+                                                    <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
+
+                                                        <a href="<?php echo base_url('admin/leiloes?pg='.$next); ?>">Proximo</a></li></ul></div>
+                                        </div></div>
 
 
                                     <!--<div class="row"><div class="col-sm-6"><div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-6"><div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate"><ul class="pagination"><li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#">Previous</a></li><li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#">1</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">2</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">3</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">4</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">5</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">6</a></li><li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">Next</a></li></ul></div></div></div></div>
@@ -1184,7 +1252,7 @@ else:
                                                 <tbody>
                                                 <?php
 
-                                                $sql = "SELECT * FROM leiloes WHERE status=? ORDER BY id DESC";
+                                                $sql = "SELECT * FROM leiloes WHERE status=? ORDER BY id DESC LIMIT 0,40 ";
                                                 $query =  $this->db->query($sql, array(1));
 
                                                 $rowcount = $query->num_rows();
@@ -1497,7 +1565,7 @@ Peso Total do lote
                                                 <tbody>
                                                 <?php
 
-                                                $sql = "SELECT * FROM leiloes WHERE status=?  ORDER BY id DESC";
+                                                $sql = "SELECT * FROM leiloes WHERE status=?  ORDER BY id DESC LIMIT 0,40 ";
                                                 $query =  $this->db->query($sql, array(0));
 
                                                 $rowcount = $query->num_rows();
@@ -1714,7 +1782,7 @@ Peso Total do lote
                                                 ?>
                                                 <?php
 
-                                                $sql = "SELECT * FROM leiloes WHERE  status=? ORDER BY id DESC";
+                                                $sql = "SELECT * FROM leiloes WHERE  status=? ORDER BY id DESC LIMIT 0,80 ";
                                                 $query =  $this->db->query($sql, array(2555));
 
                                                 $rowcount = $query->num_rows();
