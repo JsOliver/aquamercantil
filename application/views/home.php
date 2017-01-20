@@ -293,6 +293,8 @@ endif;
                                                     $("#nomefan2").remove();
                                                     $("#dcn2").remove();
                                                     $("#respon2").remove();
+                                                    $("#registroa1").remove();
+                                                    $("#regagtc").remove();
 
                                                     /*
                                                     document.getElementById("razao").style.display = "none";
@@ -569,7 +571,7 @@ endif;
                                                                     <input type="text"  name="61" id="61" placeholder="Faturamento médio mensal" class="form-control">
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group">
+                                                            <div class="form-group" id="registroa1">
                                                                 <label class="col-sm-2 control-label" for="textinput">Registro de Agricultor<b class="text-danger">*</b> </label>
                                                                 <div class="col-sm-10">
                                                                     <input type="text" required  name="62" id="62" placeholder="Registro de Agricultor" class="form-control">
@@ -940,20 +942,9 @@ endif;
 
 
                                                             <br>
-                                                            <div class="form-group">
-                                                                <label class="control-label" for="textinput">Relatório de Produção: (pdf, doc)</label>
-                                                                <br>
-                                                                <small>
-                                                                    Relatório de Produção:<br>
-                                                                    Anexe o arquivo em .pdf ou .doc
-                                                                </small>
 
-                                                                <div class="col-sm-10">
-                                                                    <input type="file"  name="73" id="73" placeholder="Documentos" class="form-control">
-                                                                </div>
-                                                            </div>
 
-                                                            <div class="form-group">
+                                                            <div class="form-group" id="regagtc">
                                                                 <label class="control-label" for="textinput">Registro de agricultor: (pdf, doc)</label>
                                                                 <br>
                                                                 <small>
@@ -1326,12 +1317,6 @@ endif;
                                                             </div>
                                                             <input type="hidden" name="62" value="-- --">
 
-                                                           <!--<div class="form-group">
-                                                                <label class="col-sm-2 control-label" for="textinput">Registro de Agricultor<b class="text-danger">*</b> </label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" required  name="62" id="62" placeholder="Registro de Agricultor" class="form-control">
-                                                                </div>
-                                                            </div> -->
 
                                                             <hr>
 
@@ -3970,7 +3955,7 @@ if(!isset($_SESSION['ID'])):
                             </div>
 
                             <div class="text-center">
-                                <a href="#" class="btn btn-sm btn-custom">SIM</a>
+                                <a href="#" class="btn btn-sm btn-custom" style="text-shadow: 1px 1px 5px #141f3d; ">SIM</a>
                             </div>
                         </div>
                     </article>
@@ -3991,14 +3976,14 @@ if(!isset($_SESSION['ID'])):
                             <div class="text-inner-explication" style="height:320px;margin-top: -10%">
                                 <h4>Quer Vender?</h4>
                                 <p>Temos carteira de clientes pronta para adquirir seus produtos de maneira frequente e com segurança financeira. 
-                                    Viabilizamos a comercializão dos seus produtos para o mercado nacional e internacional.    
+                                    Viabilizamos a a comercialização dos seus produtos para o mercado nacional e internacional.
 
                                 </p>
 
                             </div>
 
                             <div class="text-center">
-                                <a href="#" class="btn btn-sm btn-custom">SIM</a>
+                                <a href="#" class="btn btn-sm btn-custom" style="text-shadow: 1px 1px 5px #141f3d; ">SIM</a>
                             </div>
                         </div>
                     </article>
@@ -4044,7 +4029,7 @@ if(!isset($_SESSION['ID'])):
                             </div>
 
                             <div class="text-center">
-                                <a href="#" class="btn btn-sm btn-custom nav-link">SIM</a>
+                                <a href="#" class="btn btn-sm btn-custom nav-link" style="text-shadow: 1px 1px 2px #141f3d; ">SIM</a>
                             </div>
                         </div>
                     </article>

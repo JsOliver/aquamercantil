@@ -2166,32 +2166,37 @@ if(isset($_POST['type']) and $_POST['type'] == '4515610'):
 
                                                                   if($dds['tipo'] == 1):
 
-                                                                      echo '<b>Relatório de Produção:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
-                                                                      echo '<b>Registro de Aquicultor:</b> <a href="'.base_url($dds['doc_anexo2']).'"  target="_blank" download>Baixar</a><br>';
+
+                                                                      if(!empty($dds['doc_anexo'])): echo '<b>Registro de Aquicultor:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>'; endif;
 
 
 
-                                                                      echo '<b>Cartão do CNPJ ou CPF:</b> <a href="'.base_url($dds['doc_anexo3']).'"  target="_blank" download>Baixar</a><br>';
+                                                                      if(!empty($dds['doc_anexo2'])):  echo '<b>Cartão do CNPJ ou CPF:</b> <a href="'.base_url($dds['doc_anexo2']).'"  target="_blank" download>Baixar</a><br>';endif;
 
-                                                                      echo '<b>Comprovante de Endereço:</b> <a href="'.base_url($dds['doc_anexo4']).'"  target="_blank" download>Baixar</a><br>';
+                                                                          if(!empty($dds['doc_anexo3'])): echo '<b>Comprovante de Endereço:</b> <a href="'.base_url($dds['doc_anexo3']).'"  target="_blank" download>Baixar</a><br>';endif;
                                                                   endif;
 
 
 
                                                                   if($dds['tipo'] == 2):
-                                                                      echo '<b>Cartão do CNPJ ou CPF:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
+                                                                      if(!empty($dds['doc_anexo'])):
+                                                                      echo '<b>Cartão do CNPJ ou CPF:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>'; endif;
 
-                                                                      echo '<b>Comprovante de endereço:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
+
+                                                                          if(!empty($dds['doc_anexo2'])):
+                                                                              echo '<b>Comprovante de endereço:</b> <a href="'.base_url($dds['doc_anexo2']).'"  target="_blank" download>Baixar</a><br>'; endif;
                                                                   endif;
 
 
                                                                   if($dds['tipo'] == 3):
+                                                                      if(!empty($dds['doc_anexo'])):
+                                                                      echo '<b>Cartão do CNPJ ou CPF:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';endif;
 
-                                                                      echo '<b>Cartão do CNPJ ou CPF:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
+                                                                          if(!empty($dds['doc_anexo2'])):
+                                                                      echo '<b>Comprovante de Endereço:</b> <a href="'.base_url($dds['doc_anexo2']).'"  target="_blank" download>Baixar</a><br>';endif;
 
-                                                                      echo '<b>Comprovante de Endereço:</b> <a href="'.base_url($dds['doc_anexo2']).'"  target="_blank" download>Baixar</a><br>';
-
-                                                                      echo '<b>Registro ANTT:</b> <a href="'.base_url($dds['doc_anexo3']).'"  target="_blank" download>Baixar</a><br>';
+                                                                              if(!empty($dds['doc_anexo3'])):
+                                                                      echo '<b>Registro ANTT:</b> <a href="'.base_url($dds['doc_anexo3']).'"  target="_blank" download>Baixar</a><br>';endif;
                                                                   endif;
 
                                                                   ?>
@@ -2487,35 +2492,42 @@ endif;
 
 
 
+
                                                                echo '<h3>Documentos</h3>';
 
                                                                if($dds['tipo'] == 1):
 
-                                                                   echo '<b>Relatório de Produção:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
-                                                                   echo '<b>Registro de Aquicultor:</b> <a href="'.base_url($dds['doc_anexo2']).'"  target="_blank" download>Baixar</a><br>';
+
+                                                                   if(!empty($dds['doc_anexo'])): echo '<b>Registro de Aquicultor:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>'; endif;
 
 
 
-                                                                   echo '<b>Cartão do CNPJ ou CPF:</b> <a href="'.base_url($dds['doc_anexo3']).'"  target="_blank" download>Baixar</a><br>';
+                                                                   if(!empty($dds['doc_anexo2'])):  echo '<b>Cartão do CNPJ ou CPF:</b> <a href="'.base_url($dds['doc_anexo2']).'"  target="_blank" download>Baixar</a><br>';endif;
 
-                                                                   echo '<b>Comprovante de Endereço:</b> <a href="'.base_url($dds['doc_anexo4']).'"  target="_blank" download>Baixar</a><br>';
+                                                                   if(!empty($dds['doc_anexo3'])): echo '<b>Comprovante de Endereço:</b> <a href="'.base_url($dds['doc_anexo3']).'"  target="_blank" download>Baixar</a><br>';endif;
                                                                endif;
 
 
 
                                                                if($dds['tipo'] == 2):
-                                                                   echo '<b>Cartão do CNPJ:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
+                                                                   if(!empty($dds['doc_anexo'])):
+                                                                       echo '<b>Cartão do CNPJ ou CPF:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>'; endif;
 
-                                                                   echo '<b>Comprovante de endereço:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
+
+                                                                   if(!empty($dds['doc_anexo2'])):
+                                                                       echo '<b>Comprovante de endereço:</b> <a href="'.base_url($dds['doc_anexo2']).'"  target="_blank" download>Baixar</a><br>'; endif;
                                                                endif;
 
 
                                                                if($dds['tipo'] == 3):
-                                                                   echo '<b>Cartão do CNPJ:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';
+                                                                   if(!empty($dds['doc_anexo'])):
+                                                                       echo '<b>Cartão do CNPJ ou CPF:</b> <a href="'.base_url($dds['doc_anexo']).'"  target="_blank" download>Baixar</a><br>';endif;
 
-                                                               echo '<b>Comprovante de Endereço:</b> <a href="'.base_url($dds['doc_anexo2']).'"  target="_blank" download>Baixar</a><br>';
+                                                                   if(!empty($dds['doc_anexo2'])):
+                                                                       echo '<b>Comprovante de Endereço:</b> <a href="'.base_url($dds['doc_anexo2']).'"  target="_blank" download>Baixar</a><br>';endif;
 
-                                                               echo '<b>Registro ANTT:</b> <a href="'.base_url($dds['doc_anexo3']).'"  target="_blank" download>Baixar</a><br>';
+                                                                   if(!empty($dds['doc_anexo3'])):
+                                                                       echo '<b>Registro ANTT:</b> <a href="'.base_url($dds['doc_anexo3']).'"  target="_blank" download>Baixar</a><br>';endif;
                                                                endif;
 
                                                                ?>

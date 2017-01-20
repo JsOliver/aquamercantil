@@ -152,6 +152,7 @@ endif;
         if($_POST['3'] == null): $p3 = '--'; else: $p3 = $_POST['3']; endif;
         if($_POST['5'] == null): $p5 = '--'; else: $p5 = $_POST['5']; endif;
         if($_POST['55'] == null): $p55 = '--'; else: $p55 = $_POST['55']; endif;
+        if($_POST['62'] == null): $p62 = '--'; else: $p62 = $_POST['62']; endif;
         $dados['razao_social'] = $p1;
         $dados['nome_fantasia'] = $p2;
         $dados['nome_responsavel'] = $p3;
@@ -213,7 +214,7 @@ endif;
         $dados['n_funcionarios'] = $_POST['59'];
         $dados['site'] = $_POST['60'];
         $dados['faturamento_m_mensal'] = $_POST['61'];
-        $dados['registro_agricultor'] = $_POST['62'];
+        $dados['registro_agricultor'] = $p62;
         $dados['contatocbn1'] = $_POST['63'];
         $dados['telefonecbn1'] = $_POST['64'];
         $dados['contatocbn2'] = $_POST['65'];
@@ -230,16 +231,6 @@ endif;
         mkdir("assets/files/docs/users/".$imagecript, 0777);
      
 
-	  
-	  	if(!empty($_FILES['73']['name'])):
-			
-		$extension = pathinfo($_FILES['73']['name'], PATHINFO_EXTENSION);
-            $extension = strtolower($extension);
-                $arquivo_tmp = $_FILES['73']['tmp_name'];
-                @$destino = 'assets/files/docs/users/'.$imagecript.'/1.'.$extension.'';
-                @$dados['doc_anexo'] = 'assets/files/docs/users/'.$imagecript.'/1.'.$extension.'';
-				move_uploaded_file($arquivo_tmp, $destino);
-				endif;
 				
 
             if($_POST['type'] == 1):
@@ -250,8 +241,8 @@ endif;
 			$extension2 = pathinfo($_FILES['74']['name'], PATHINFO_EXTENSION);
             $extension2 = strtolower($extension2);
                 $arquivo_tmp2 = $_FILES['74']['tmp_name'];
-                @$destino2 = 'assets/files/docs/users/'.$imagecript.'/2.'.$extension2.'';
-                @$dados['doc_anexo2'] = 'assets/files/docs/users/'.$imagecript.'/2.'.$extension2.'';
+                @$destino2 = 'assets/files/docs/users/'.$imagecript.'/1.'.$extension2.'';
+                @$dados['doc_anexo'] = 'assets/files/docs/users/'.$imagecript.'/1.'.$extension2.'';
 				move_uploaded_file($arquivo_tmp2, $destino2);
 				endif;
 				
@@ -260,8 +251,8 @@ endif;
 			$extension3 = pathinfo($_FILES['75']['name'], PATHINFO_EXTENSION);
             $extension3 = strtolower($extension3);
                 $arquivo_tmp3 = $_FILES['75']['tmp_name'];
-                @$destino3 = 'assets/files/docs/users/'.$imagecript.'/3.'.$extension3.'';
-                @$dados['doc_anexo3'] = 'assets/files/docs/users/'.$imagecript.'/3.'.$extension3.'';
+                @$destino3 = 'assets/files/docs/users/'.$imagecript.'/2.'.$extension3.'';
+                @$dados['doc_anexo2'] = 'assets/files/docs/users/'.$imagecript.'/2.'.$extension3.'';
 				move_uploaded_file($arquivo_tmp3, $destino3);
 				endif;
 
@@ -271,8 +262,8 @@ endif;
 			$extension4 = pathinfo($_FILES['76']['name'], PATHINFO_EXTENSION);
             $extension4 = strtolower($extension4);
                 $arquivo_tmp4 = $_FILES['76']['tmp_name'];
-                @$destino4 = 'assets/files/docs/users/'.$imagecript.'/4.'.$extension4.'';
-                @$dados['doc_anexo4'] = 'assets/files/docs/users/'.$imagecript.'/4.'.$extension4.'';
+                @$destino4 = 'assets/files/docs/users/'.$imagecript.'/3.'.$extension4.'';
+                @$dados['doc_anexo3'] = 'assets/files/docs/users/'.$imagecript.'/3.'.$extension4.'';
 				move_uploaded_file($arquivo_tmp4, $destino4);
 				endif;
 
@@ -285,8 +276,17 @@ endif;
 		 if($_POST['type'] == 2):
 			
 			
-			if(!empty($_FILES['74']['name'])):
+			if(!empty($_FILES['73']['name'])):
 			
+			$extension = pathinfo($_FILES['73']['name'], PATHINFO_EXTENSION);
+            $extension = strtolower($extension);
+                $arquivo_tmp = $_FILES['73']['tmp_name'];
+                @$destino = 'assets/files/docs/users/'.$imagecript.'/1.'.$extension.'';
+                @$dados['doc_anexo'] = 'assets/files/docs/users/'.$imagecript.'/1.'.$extension.'';
+				move_uploaded_file($arquivo_tmp, $destino);
+				endif;
+
+             if(!empty($_FILES['74']['name'])):
 			$extension2 = pathinfo($_FILES['74']['name'], PATHINFO_EXTENSION);
             $extension2 = strtolower($extension2);
                 $arquivo_tmp2 = $_FILES['74']['tmp_name'];
@@ -294,7 +294,7 @@ endif;
                 @$dados['doc_anexo2'] = 'assets/files/docs/users/'.$imagecript.'/2.'.$extension2.'';
 				move_uploaded_file($arquivo_tmp2, $destino2);
 				endif;
-				
+
 	
 
                 endif;
@@ -303,17 +303,27 @@ endif;
 				 if($_POST['type'] == 3):
 			
 			
-			if(!empty($_FILES['74']['name'])):
+			if(!empty($_FILES['73']['name'])):
 			
-			$extension2 = pathinfo($_FILES['74']['name'], PATHINFO_EXTENSION);
-            $extension2 = strtolower($extension2);
-                $arquivo_tmp2 = $_FILES['74']['tmp_name'];
-                @$destino2 = 'assets/files/docs/users/'.$imagecript.'/2.'.$extension2.'';
-                @$dados['doc_anexo2'] = 'assets/files/docs/users/'.$imagecript.'/2.'.$extension2.'';
-				move_uploaded_file($arquivo_tmp2, $destino2);
+			$extension = pathinfo($_FILES['73']['name'], PATHINFO_EXTENSION);
+            $extension = strtolower($extension);
+                $arquivo_tmp = $_FILES['73']['tmp_name'];
+                @$destino = 'assets/files/docs/users/'.$imagecript.'/1.'.$extension.'';
+                @$dados['doc_anexo'] = 'assets/files/docs/users/'.$imagecript.'/1.'.$extension.'';
+				move_uploaded_file($arquivo_tmp, $destino);
 				endif;
 				
-				if(!empty($_FILES['75']['name'])):
+				if(!empty($_FILES['74']['name'])):
+                    $extension2 = pathinfo($_FILES['74']['name'], PATHINFO_EXTENSION);
+                    $extension2 = strtolower($extension2);
+                    $arquivo_tmp2 = $_FILES['74']['tmp_name'];
+                    @$destino2 = 'assets/files/docs/users/'.$imagecript.'/2.'.$extension2.'';
+                    @$dados['doc_anexo2'] = 'assets/files/docs/users/'.$imagecript.'/2.'.$extension2.'';
+                    move_uploaded_file($arquivo_tmp2, $destino2);
+				endif;
+
+
+							if(!empty($_FILES['75']['name'])):
 			$extension3 = pathinfo($_FILES['75']['name'], PATHINFO_EXTENSION);
             $extension3 = strtolower($extension3);
                 $arquivo_tmp3 = $_FILES['75']['tmp_name'];
@@ -321,7 +331,7 @@ endif;
                 @$dados['doc_anexo3'] = 'assets/files/docs/users/'.$imagecript.'/3.'.$extension3.'';
 				move_uploaded_file($arquivo_tmp3, $destino3);
 				endif;
-				
+
 	
 
                 endif;
