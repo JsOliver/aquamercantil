@@ -57,7 +57,7 @@ $this->load->view('fixed_files/leilao/header');
         function acesso(leilao,user) {
              $.post("<?php echo base_url('pages/acesso');?>",{type:'acesso',id_leilao:leilao,id_user:user});
         }
-                     
+
         </script>
 
 
@@ -244,11 +244,6 @@ $this->load->view('fixed_files/leilao/header');
                         $centavos =  str_replace (',','',$dds['valor_max']) * 100;
 
 
-                        $segundos_diferenca =  $data_hora_final -  $data_hora_inicial;
-
-                        $valor = $centavos - $segundos_diferenca;
-
-                        $real = $valor;
 
 
                         if($horaat >= '10' and $horaat <= '23'):
@@ -372,7 +367,10 @@ $this->load->view('fixed_files/leilao/header');
                                                                     Previsão de entrega: <b><?php  echo $dds['previsao']; ?></b><br>
                                                                 <?php endif;?>
                                                                 Titulo: <b><?php  echo $dds['titulo']; ?></b><br>
-                                                             
+
+
+
+                                                                Espécie/Nome: <b><?php echo $dds['nome_cientifico_br']; ?></b><br>
                                                                 Peso Total do lote: <b><?php echo $dds['peso_lote']; ?></b> Kg<br>
                                                                 Classificação: <b><?php echo $dds['classificacao']; ?></b><br>
                                                                 Peso individual: <b><?php echo $dds['peso_individual']; ?></b> Kg<br>
@@ -517,25 +515,25 @@ $this->load->view('fixed_files/leilao/header');
 
 
 					if($horaat >= '10' and $horaat <= '23'):
-					
+
 					$htta = $horaat;
-					
+
 					else:
 					$htta = substr($horaat,1,1);
-					
+
 					endif;
-					
+
 					if(date('H') >= '10' and date('H') <= '23'):
-					
+
 					$datehsrt = date('H');
-					
+
 					else:
 					$datehsrt = substr(date('H'),1,1);
-					
+
 					endif;
 
 
-                    
+
                     $data_hora_inicial = mktime($htta, $minutoat, $segundoat, $mesat, $diaat, $anoat); // 04/12/2015 10:20:00
                     $data_hora_final = mktime($datehsrt, date('i'), date('s'), date('m'), date('d'), date('Y')); // 04/12/2015 14:45:00
 
@@ -543,7 +541,7 @@ $this->load->view('fixed_files/leilao/header');
                     $segundos_diferenca =  $data_hora_final -  $data_hora_inicial;
 
                     $valor = $centavos - $segundos_diferenca;
-					
+
 					                        $real = $valor;
 
 
@@ -1120,7 +1118,7 @@ if( $_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 545
                 <?php endif;?>
 
 
-				
+
 				    <div class="row" id="meusarremates">
 
                     <?php
@@ -1218,7 +1216,7 @@ echo ' <h2>Arrematados por mim</h2><br>';
                     }
                     </script>
                 <script>
-                    
+
 
 
 
@@ -1262,7 +1260,7 @@ if($pages > 1):
                 <?php endif;?>
 
                 <?php ?>
-				
+
                 <div class="row" id="arrematesfim">
 
                     <?php

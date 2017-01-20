@@ -232,6 +232,7 @@ if(isset($_SESSION['ID']) and isset($_SESSION['TYPE']) and $_SESSION['TYPE'] == 
 
                                           $move = move_uploaded_file( $arquivo_tmp, $destino  );
 
+                                            $ddpup['nome_cientifico_br'] = $_POST['nome_cientifico_br'];
                                             $ddpup['peso_lote'] = $_POST['pesot'];
                                             $ddpup['classificacao'] = $_POST['class'];
                                             $ddpup['peso_individual'] = $_POST['pesoind'];
@@ -299,7 +300,13 @@ if(isset($_SESSION['ID']) and isset($_SESSION['TYPE']) and $_SESSION['TYPE'] == 
 
                                                 </div>
 
-                                            </div>
+                                            </div><br>
+                                            <div class="form-group">
+                                                <label>Espécie/Nome ou Nome da Espécie</label>
+                                                <input required class="form-control" name="nome_cientifico_br" size="60" >
+                                            </div><br>
+
+
                                             <div class="form-group">
                                                 <label>Titulo</label>
                                                 <input required class="form-control" name="titulo" size="60" >

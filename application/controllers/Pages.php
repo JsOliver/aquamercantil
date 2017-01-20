@@ -590,25 +590,32 @@ $rowcount = $query->num_rows();
         $this->db->where('email', $_POST['email']);
         $this->db->update('users',$dataup);
 
+
         //Inicia o processo de configuração para o envio do email
         $config['protocol'] = 'mail'; // define o protocolo utilizado
         $config['wordwrap'] = TRUE; // define se haverá quebra de palavra no texto
         $config['validate'] = TRUE; // define se haverá validação dos endereços de email
         $config['mailtype'] = 'html';
+        $this->load->library('email');
 
 
         // Define remetente e destinatário
-        $this->email->from('contato@aquamercantil.com.br', 'Item arrematado'); // Remetente
-        $this->email->to($_POST['email'],'Recuperação de senha'); // Destinatário
+        $this->email->from('contato@aquamercantil.com.br','Cadatro aprovado'); // Remetente
+        $this->email->to($_POST['email']); // Destinatário
 
         $this->email->subject('Aqua Mercantil - Recuperação de senha.');
         $this->email->message('Sua nova senha e:
         '.$newpass.'.');
 
         if($this->email->send()):
-            echo 11;
+
+
+
+            echo '11';
         else:
-            echo 0;
+
+            echo '0';
+
         endif;
 
 
