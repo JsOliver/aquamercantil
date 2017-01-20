@@ -549,8 +549,8 @@ Peso Total do lote
 " size="66" >
 
 <div class="form-group">
-                        <label>Peso individual po kg:</label>
-                        <input required="required" name="pesoind" id="pesoind" class="form-control" placeholder="Peso individual:" size="66" >
+                        <label>Peso individual po kg ou g:</label>
+                        <input required="required" name="pesoind"  class="form-control" placeholder="Peso individual:" size="66" >
                     </div><br>
                     </div><br>
 

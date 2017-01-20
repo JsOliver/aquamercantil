@@ -322,8 +322,8 @@ Peso Total do lote
 " size="66" >
                                             </div><br>
 <div class="form-group">
-                                                <label>Peso Médio Individual em Kg:</label>
-                                                <input required name="pesoind" id="minkinput" class="form-control" placeholder="Peso individual:" size="66" >
+                                                <label>Peso Médio Individual em Kg ou g:</label>
+                                                <input required name="pesoind"  class="form-control" placeholder="Peso individual:" size="66" >
                                             </div><br>
 
                                              <div class="form-group">

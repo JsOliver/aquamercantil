@@ -369,8 +369,6 @@ $this->load->view('fixed_files/leilao/header');
                                                                 Titulo: <b><?php  echo $dds['titulo']; ?></b><br>
 
 
-
-                                                                Espécie/Nome: <b><?php echo $dds['nome_cientifico_br']; ?></b><br>
                                                                 Peso Total do lote: <b><?php echo $dds['peso_lote']; ?></b> Kg<br>
                                                                 Classificação: <b><?php echo $dds['classificacao']; ?></b><br>
                                                                 Peso individual: <b><?php echo $dds['peso_individual']; ?></b> Kg<br>
@@ -1024,7 +1022,7 @@ if( $_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 545
                                     <img style="object-fit: cover; object-position: center;width: 100%;max-width: 100%; height: 300px;" class="img-responsive img-portfolio img-hover" src="<?php echo $dds['image'];?>" alt="">
 
                                 </a>
-                                <div style="font-size: 15pt;text-decoration: none;float: left;margin-top: -2%;" id="getting-started<?php echo $dds['id'];?>"></div>      <?php
+                                <?php
                                 $beggsdate = $dds['data_inicio'];
                                 $anob = substr($beggsdate, 0, 4);
                                 $mesb = substr($beggsdate, 4, 2);
@@ -1032,13 +1030,15 @@ if( $_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 545
                                 $horab = substr($beggsdate, 8, 2);
                                 $minutob = substr($beggsdate, 10, 2);
                                 $segundob = substr($beggsdate, 12, 2);?>
+                                <div style="font-size: 15pt;text-decoration: none;float: left;margin-top: -2%;" ><b>Começa:</b> <?php echo $diab.'/'.$mesb.'/'.$anob.' as '.$horab.':'.$minutob.':'.$segundob;?></div>
+
                                 <script type="text/javascript">
-                                    $("#getting-started<?php echo $dds['id'];?>")
-                                        .countdown("<?php echo $anob;?>/<?php echo $mesb;?>/<?php echo $diab;?> <?php echo $horap?>:<?php echo $minutob?>:<?php echo $segundob;?> <?php echo $dsp;?>", function(event) {
-                                            $(this).html(
-                                                event.strftime('<b>Começa em:</b> %D dias %H:%M:%S')
-                                            );
-                                        });
+                                    /*  $("#getting-started<?php echo $dds['id'];?>")
+                                     .countdown("<?php echo $anob;?>/<?php echo $mesb;?>/<?php echo $diab;?> <?php echo $horap?>:<?php echo $minutob?>:<?php echo $segundob;?> <?php echo $dsp;?>", function(event) {
+                                     $(this).html(
+                                     event.strftime('<b>Começa em:</b> %D dias %H:%M:%S')
+                                     );
+                                     }); */
                                 </script>
 
                                 <a onclick="acesso(<?php echo $dds['id'];?>,<?php echo $_SESSION['ID'];?>);" href="#" data-toggle="modal" data-target="#next<?php echo $dds['id'];?>" class="btn btn-info" style="float: right;margin-top: -2.5%;">
