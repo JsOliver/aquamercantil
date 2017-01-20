@@ -376,8 +376,8 @@ $this->load->view('fixed_files/leilao/header');
                                                                 Características de embalagem: <b><?php echo $dds['caracteristicas_embalagem']; ?></b><br>
                                                                 Condição de pagamento: <b><?php echo $dds['condicao_pagamento']; ?></b><br>
                                                                 Localidade de origem: <b><?php echo $dds['localidade_origem']; ?></b><br>
-                                                                Produtor: <b><?php echo $dds['produtor_name']; ?></b><br><br>
-                                                                <span  style="text-align: center; ">Valor inicial: <b>R$<?php echo number_format($dds['valor_max'],2,'.',',');?></b>&nbsp;&nbsp;&nbsp;Valor final: <b>R$<?php echo number_format($dds['valor_min'],2,'.',',');?></b>   <br><br>Data do inicio: <b><?php
+                                                                Produtor: <b><?php echo $dds['produtor_name']; ?></b><br>
+                                                                Data do inicio: <b><?php
 
    $iniciodatas = $dds['data_inicio'];
                         $ano = substr($iniciodatas, 0, 4);
@@ -465,7 +465,7 @@ $this->load->view('fixed_files/leilao/header');
 
 
 
-                           <br><b>Preço final por KG:</b> <span class="text-info"> R$ <span id="precofinal<?php echo $dds['id'];?>">0.00</span></span> <b>/</b>
+                           <br>
                             <b>Preço atual por KG:</b> <span class="text-info"> R$ <span id="time<?php echo $dds['id']?>" onclick="">00</span></span>
 
                             <br>
@@ -995,20 +995,23 @@ if( $_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 545
                                                                         }
                                                                     </script>
 
+
+
+
                                                                     <script>
                                                                         $(document).ready(function(){
 
-                                                                            $('#lancepre<?php echo $dds['id']; ?>').mask("###0.00", {reverse: true});
+                                                                            $('#lancepre<?php echo $dds['id']; ?>').mask("#,##0.00", {reverse: true});
 
                                                                         });
                                                                     </script>
 
 
-
-                                                                    <b class="text-info" style="text-align: center;margin: 0 0 0 20%;" id="infolance<?php echo $dds['id'];?>"></b>
-
+                                                                    <br><b class="text-info" style="text-align: center;margin: 0 0 0 20%;" id="infolance<?php echo $dds['id'];?>"></b>
                                                                     <div class="input-group" id="lancebefore<?php echo $dds['id'];?>">
-                                                                        <span class="input-group-addon">R$</span> <input onkeypress="return runScript<?php echo $dds['id'];?>(event)" class="form-control" placeholder="Meu lance" id="lancepre<?php echo $dds['id'];?>" aria-label="Amount (to the nearest dollar)"> <span class="input-group-addon">.00</span> </div>
+                                                                        <span class="input-group-addon">R$</span>
+
+                                                                        <input onkeypress="return runScript<?php echo $dds['id'];?>(event)" class="form-control" placeholder="Meu lance" id="lancepre<?php echo $dds['id'];?>" aria-label="Amount (to the nearest dollar)"> <span class="input-group-addon">.00</span> </div>
                                                                     <br><?php endif;?><?php endif;?>
                                                             </div>
                                                         </div>

@@ -3047,8 +3047,8 @@ if($rowcount1as > 0):
                                                                 Características de embalagem: <b><?php echo $dds['caracteristicas_embalagem']; ?></b><br>
                                                                 Condição de pagamento: <b><?php echo $dds['condicao_pagamento']; ?></b><br>
                                                                 Localidade de origem: <b><?php echo $dds['localidade_origem']; ?></b><br>
-                                                                Produtor: <b><?php echo $dds['produtor_name']; ?></b><br><br>
-                                                                <span  style="text-align: center; ">Valor inicial: <b>R$<?php echo number_format($dds['valor_max'],2,'.',',');?></b>&nbsp;&nbsp;&nbsp;Valor final: <b>R$<?php echo number_format($dds['valor_min'],2,'.',',');?></b>   <br><br>Data do inicio: <b><?php
+                                                                Produtor: <b><?php echo $dds['produtor_name']; ?></b>
+                                                               <br>Data do inicio: <b><?php
 
    $iniciodatas = $dds['data_inicio'];
                         $ano = substr($iniciodatas, 0, 4);
@@ -3148,7 +3148,7 @@ if($rowcount1as > 0):
 
                     </script>
                     <?php if(isset($_SESSION['ID'])):?>
-                    <br><b>Preço final por KG:</b> <span class="text-info"> R$ <span id="precofinal<?php echo $dds['id']; ?>">0.00</span></span> <b>/</b>
+                    <br
 					<b>Preço atual por KG:</b> <span class="text-info"> R$ <span id="time<?php echo $dds['id']?>" onclick="">00</span></span>
 
                     <br>
@@ -3711,60 +3711,60 @@ if($rowcount1as > 0):
 
 
                                                             ?>
-                                                            <script>
-                                                                function runScript<?php echo $dds['id'];?>(e) {
+                                                        <script>
+                                                            function runScript<?php echo $dds['id'];?>(e) {
 
-                                                                    var userTp = '<?php
-                                                                        if(isset($_SESSION['TYPE'])):
-                                                                          echo  $_SESSION['TYPE'];
-                                                                        else:
-                                                                      echo 0;
-                                                                        endif;
-                                                                       ?>';
+                                                                var userTp = '<?php
+                                                                    if(isset($_SESSION['TYPE'])):
+                                                                        echo  $_SESSION['TYPE'];
+                                                                    else:
+                                                                        echo 0;
+                                                                    endif;
+                                                                    ?>';
 
-                                                                    if (e.keyCode == 13) {
-                                                                        var tb = $("#lancepre<?php echo $dds['id'];?>").val();
+                                                                if (e.keyCode == 13) {
+                                                                    var tb = $("#lancepre<?php echo $dds['id'];?>").val();
 
-                                                                            $.post("<?php echo base_url('pages/insert');?>",{type:'012',id:'<?php echo $_SESSION['ID']?>',leilao:'<?php echo $dds['id'];?>',valor:tb},function (res) {
-
-
-                                                                                if(res == 11){
-                                                                                    $("#infolance<?php echo $dds['id'];?>").html('Lance antecipado salvo com sucesso.');
-
-                                                                                    $("#lancebefore<?php echo $dds['id'];?>").remove();
-                                                                                }else
-                                                                                {
-                                                                                    $("#infolance<?php echo $dds['id'];?>").html(res);
-
-                                                                                }
+                                                                    $.post("<?php echo base_url('pages/insert');?>",{type:'012',id:'<?php echo $_SESSION['ID']?>',leilao:'<?php echo $dds['id'];?>',valor:tb},function (res) {
 
 
-                                                             });
+                                                                        if(res == 11){
+                                                                            $("#infolance<?php echo $dds['id'];?>").html('Lance antecipado salvo com sucesso.');
+
+                                                                            $("#lancebefore<?php echo $dds['id'];?>").remove();
+                                                                        }else
+                                                                        {
+                                                                            $("#infolance<?php echo $dds['id'];?>").html(res);
+
+                                                                        }
 
 
-                                                                        return false;
-                                                                    }
+                                                                    });
+
+
+                                                                    return false;
                                                                 }
-                                                            </script>
+                                                            }
+                                                        </script>
 
 
 
-<script>
-$(document).ready(function(){
 
-  $('#lancepre<?php echo $dds['id']; ?>').mask("###0.00", {reverse: true});
+                                                        <script>
+                                                            $(document).ready(function(){
 
-});
-</script>
+                                                                $('#lancepre<?php echo $dds['id']; ?>').mask("#,##0.00", {reverse: true});
+
+                                                            });
+                                                        </script>
 
 
-                                                        <br><b class="text-info" style="text-align: center;margin: 0 0 0 20%;" id="infolance<?php echo $dds['id'];?>"></b>
-                                                            <div class="input-group" id="lancebefore<?php echo $dds['id'];?>">
-                                                                <span class="input-group-addon">R$</span>
+                                                    <br><b class="text-info" style="text-align: center;margin: 0 0 0 20%;" id="infolance<?php echo $dds['id'];?>"></b>
+                                                        <div class="input-group" id="lancebefore<?php echo $dds['id'];?>">
+                                                            <span class="input-group-addon">R$</span>
 
-							<input onkeypress="return runScript<?php echo $dds['id'];?>(event)" class="form-control" placeholder="Meu lance" id="lancepre<?php echo $dds['id'];?>" aria-label="Amount (to the nearest dollar)"> <span class="input-group-addon">.00</span> </div>
-                                                            <br>
-                                                        
+                                                            <input onkeypress="return runScript<?php echo $dds['id'];?>(event)" class="form-control" placeholder="Meu lance" id="lancepre<?php echo $dds['id'];?>" aria-label="Amount (to the nearest dollar)"> <span class="input-group-addon">.00</span> </div>
+                                                    <br>
                                                     <?php
 
 
