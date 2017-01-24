@@ -3912,9 +3912,97 @@ if($rowcount1as > 0):
 </div>
 </div>
 
-<?php endif; ?>
+<?php endif;
+
+$atual = 0;
+$min = 4;
+?>
+<section class="section" id="finalizados">
+    <div class="container">
+<div class="row" id="arrematesfim">
+
+    <?php
+
+    $query2 = $this->db->select('*')
+        ->from('leiloes')
+        ->limit(8,0)
+        ->order_by('id','desc')
+        ->where('status', 2555)
+        ->or_where('status', 0)
+        ->get();
+
+    $rowcountas2 = $query2->num_rows();
 
 
+    $pages = ceil($rowcountas2 / $min);
+
+
+
+
+    $query = $this->db->select('*')
+        ->from('leiloes')
+        ->limit(8,0)
+        ->order_by('id','desc')
+        ->where('status', 2555)
+        ->or_where('status', 0)
+        ->limit($min, $atual)
+        ->get();
+
+    $rowcountas = $query->num_rows();
+    $dateas = $query->result_array();
+    if($rowcountas > 0):
+        echo ' <div class="col-sm-12 text-center">
+                <h3 class="title">Leilões finalizados</h3>
+
+            </div><br><br><br>';
+        foreach ($dateas as $dta){
+
+
+            ?>
+
+            <div class="col-xs-6 col-md-3">
+                <a href="#" style="text-decoration: none;color: black;" class="thumbnail">
+                    <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $dta['image']; ?>" alt="..."> <h5 style="text-align: center;font-weight: bold;"><?php echo $dta['titulo']; ?></h5>
+                    <h6 style="text-align: center;font-weight: bold;"><?php echo $dta['nome_cientifico_br'];?></h6>
+                    <?php if($dta['status'] <> 0):?>
+                        <h5 style="text-align: center;">Arrematado por: <b>R$<?php echo number_format($dta['valor_arrematado'],2,'.',',');?></b></h5>
+                        <?php
+
+                    else:
+                        ?>
+                        <h5 style="text-align: center;">Leilão finalizado</h5>
+                        <?php
+
+                    endif;?>
+
+                    <h6 style="text-align: center;font-weight: bold;">Peso total <?php echo $dta['peso_lote'];?> kg / Peso individual <?php echo $dta['peso_individual'];?> g</h6>
+
+                    <h6 style="text-align: center;">Lote: <b><?php echo $dta['id'];?></b></h6>
+
+                </a>
+            </div>
+        <?php }
+
+
+    endif;
+
+    ?>
+</div>
+
+
+<?php
+
+if($pages > 1):
+    ?>
+    <nav aria-label="...">
+        <ul class="pager">
+            <li><a href="<?php echo base_url('leiloes');?>">Anterior</a></li>
+            <li><a href="<?php echo base_url('leiloes');?>">Proximo</a></li>
+        </ul>
+    </nav>
+<?php endif;?>
+        </div>
+</section>
 <?php
 if(!isset($_SESSION['ID'])):
 ?>

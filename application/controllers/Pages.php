@@ -1437,8 +1437,14 @@ echo 0;
 
         $min = 4;
         $page = $_POST['page'];
+if($page <= 1){
+    $total = 0;
 
-        $total = ceil($min * $page - $min);
+}else{
+    $total = ceil($min * $page - $min);
+
+
+}
         if($_POST['user'] == 1):
 
 
@@ -1477,13 +1483,16 @@ if($rowcountas > 0):
 
         ?>
 
+
         <div class="col-xs-6 col-md-3">
             <a href="<?php if($_POST['user'] == 1): echo $dta['url_payment']; else: echo '#'; endif;?>" target="_blank" style="text-decoration: none;color: black;" class="thumbnail">
                 <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $dta['image']; ?>" alt="..."> <h5 style="text-align: center;font-weight: bold;"><?php echo $dta['titulo']; ?></h5>
+                <h6 style="text-align: center;font-weight: bold;"><?php echo $dta['nome_cientifico_br'];?></h6>
                 <?php if($dta['status'] <> 0):?>
                     <h5 style="text-align: center;">Arrematado por: <b>R$<?php echo number_format($dta['valor_arrematado'],2,'.',',');?></b></h5>
                 <?php endif;?>
-                <h6 style="text-align: center;">Lote: <b><?php echo $dta['id'];?></b></h6>
+                <h6 style="text-align: center;font-weight: bold;">Peso total <?php echo $dta['peso_lote'];?> kg / Peso individual <?php echo $dta['peso_individual'];?> g</h6>
+                <h6 style="text-align: center;">Lote: <b><?php if($_POST['user'] == 1): echo $dta['id_leilao']; else: echo $dta['id']; endif; ?></b></h6>
 
             </a>
 
@@ -1512,7 +1521,7 @@ endif;
 	$query1 = $this->db->get();
 
 
-    $pages = ceil($query1 / $limit);
+    $pages = ceil($query1->num_rows() / $limit);
 
 
     $this->db->from('leiloes');

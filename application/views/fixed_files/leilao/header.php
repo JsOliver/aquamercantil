@@ -15,6 +15,8 @@
 
     <title>Aqua Mercantil</title>
 
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url('assets/css/bootstrap.min.css');?>" rel="stylesheet">
 
@@ -120,7 +122,6 @@ function modelnew(titulo,especie,pesotd,pesoind,condicaopg,localidade,descricao,
     document.getElementById("titulolei").value = titulo;
     document.getElementById("especie").value = especie;
     document.getElementById("pesot").value = pesotd;
-    document.getElementById("pesoind").value = pesoind;
     document.getElementById("caracteremba").value = caracteristicae;
     document.getElementById("condicoespaga").value = condicaopg;
     document.getElementById("localidadeorigem").value = localidade;
@@ -529,7 +530,7 @@ if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454
                         <label>Nome da Espécie
 
 </label>
-                        <input required="required" class="form-control" id="especie"  name="cnpt" placeholder="Espécie/Nome ou Nome da Espécie
+                        <input required="required" class="form-control" id="especie"  name="cnpt" placeholder=" Nome da Espécie
 " size="66" >
                     </div><br>
  <div style="display:none;">
@@ -549,7 +550,7 @@ Peso Total do lote
 " size="66" >
 
 <div class="form-group">
-                        <label>Peso individual po kg ou g:</label>
+                        <label>Peso individual em g:</label>
                         <input required="required" name="pesoind"  class="form-control" placeholder="Peso individual:" size="66" >
                     </div><br>
                     </div><br>
@@ -748,9 +749,9 @@ window.location.reload();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo base_url('home');?>">
+            <a class="navbar-brand" style="font-family: 'Libre Baskerville', serif;" href="<?php echo base_url('home');?>">
 
-Aqua Mercantil            </a>
+AQUA MERCANTIL          </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

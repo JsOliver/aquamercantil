@@ -92,7 +92,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             <!-- LOGO -->
             <a class="navbar-brand logo" href="<?php echo base_url('home');?>">
-              <span style="font-size: 13pt;"> Aqua Mercantil</span>
+              <span style="font-size: 12pt;"> AQUA MERCANTIL</span>
             </a>
 
         </div>

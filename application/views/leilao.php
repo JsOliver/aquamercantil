@@ -1176,7 +1176,7 @@ echo ' <h2>Arrematados por mim</h2><br>';
                                     <?php if($dta['status'] <> 0):?>
                                     <h5 style="text-align: center;">Arrematado por: <b>R$<?php echo number_format($dta['valor_arrematado'],2,'.',',');?></b></h5>
                                 <?php endif;?>
-                                    <h6 style="text-align: center;">Lote: <b><?php echo $dta['id'];?></b></h6>
+                                    <h6 style="text-align: center;">Lote: <b><?php echo $dta['id_leilao'];?></b></h6>
 
                                 </a>
 
@@ -1318,6 +1318,7 @@ echo ' <h2>Leilões finalizados</h2><br>';
                             <div class="col-xs-6 col-md-3">
                                 <a href="#" style="text-decoration: none;color: black;" class="thumbnail">
                                     <img style="height: 180px;object-fit: cover; object-position: center;" src="<?php echo $dta['image']; ?>" alt="..."> <h5 style="text-align: center;font-weight: bold;"><?php echo $dta['titulo']; ?></h5>
+                                    <h6 style="text-align: center;font-weight: bold;"><?php echo $dta['nome_cientifico_br'];?></h6>
                                     <?php if($dta['status'] <> 0):?>
                                     <h5 style="text-align: center;">Arrematado por: <b>R$<?php echo number_format($dta['valor_arrematado'],2,'.',',');?></b></h5>
                                 <?php
@@ -1328,6 +1329,8 @@ echo ' <h2>Leilões finalizados</h2><br>';
                                         <?php
 
                                     endif;?>
+
+                                    <h6 style="text-align: center;font-weight: bold;">Peso total <?php echo $dta['peso_lote'];?> g / Peso individual <?php echo $dta['peso_individual'];?> g</h6>
 
                                     <h6 style="text-align: center;">Lote: <b><?php echo $dta['id'];?></b></h6>
 
