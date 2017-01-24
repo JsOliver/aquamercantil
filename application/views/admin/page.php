@@ -302,7 +302,7 @@ if(isset($_SESSION['ID']) and isset($_SESSION['TYPE']) and $_SESSION['TYPE'] == 
 
                                             </div><br>
                                             <div class="form-group">
-                                                <label>Espécie/Nome ou Nome da Espécie</label>
+                                                <label>Nome da Espécie</label>
                                                 <input required class="form-control" name="nome_cientifico_br" size="60" >
                                             </div><br>
 

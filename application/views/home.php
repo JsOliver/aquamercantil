@@ -3202,7 +3202,7 @@ if($rowcount1as > 0):
 
                     $this->db->from('lances_antecipados');
                     $this->db->where('id_leilao', $dds['id']);
-                    $this->db->order_by("valor","desc");
+                    $this->db->order_by("valor","Max");
                     $querya = $this->db->get();
                     $rowcount = $querya->num_rows();
                     $datea = $querya->result_array();
@@ -3656,18 +3656,16 @@ if($rowcount1as > 0):
                                                         ?>
                                                         <span style="text-align: center;">
                                                             Nome científico: <b><?php  echo $dds['nome_cientifico_br']; ?></b><br>
-                                                            Inglês: <b><?php  echo $dds['nome_cientifico_en']; ?></b><br>
-                                                            Español: <b><?php  echo $dds['nome_cientifico_es']; ?></b><br>
-                                                            French: <b><?php echo $dds['nome_cientifico_fr'];?></b><br>
-                                                            Peso Total do lote: <b><?php echo $dds['peso_lote']; ?></b><br>
+
+                                                            Peso Total do lote: <b><?php echo $dds['peso_lote']; ?> Kg</b> <br>
                                                             Classificação: <b><?php echo $dds['classificacao']; ?></b><br>
-                                                            Peso individual: <b><?php echo $dds['peso_individual']; ?></b><br>
+                                                            Peso individual: <b><?php echo $dds['peso_individual']; ?> g</b> <br>
                                                          Característica de processamento: <b><?php echo $dds['caracteristicas_processamento']; ?></b><br>
                                                          Características de embalagem: <b><?php echo $dds['caracteristicas_embalagem']; ?></b><br>
                                                          Condição de pagamento: <b><?php echo $dds['condicao_pagamento']; ?></b><br>
                                                          Localidade de origem: <b><?php echo $dds['localidade_origem']; ?></b><br>
                                                          Produtor: <b><?php echo $dds['produtor_name']; ?></b><br><br>
-                                                            Valor inicial: <b>R$<?php echo number_format($dds['valor_max'],2,'.',',');?></b>&nbsp;&nbsp;&nbsp;Valor final: <b>R$<?php echo number_format($dds['valor_min'],2,'.',',');?></b>   <br><br> Data do inicio: <b><?php echo $diai.'/'.$mesi.'/'.$anoi.' '.$horai.':'.$minutoi.':'.$segundoi;?></b>&nbsp;&nbsp;
+                                                            Valor inicial: <b>R$<?php echo number_format($dds['valor_max'],2,'.',',');?></b><br> Data do inicio: <b><?php echo $diai.'/'.$mesi.'/'.$anoi.' '.$horai.':'.$minutoi.':'.$segundoi;?></b>&nbsp;&nbsp;
 
                                                             <?php
                                                             if(!empty($dds['descricao'])):
@@ -3780,16 +3778,14 @@ if($rowcount1as > 0):
                         $segundob = substr($beggsdate, 12, 2);?>
                         <div style="font-size: 15pt;text-decoration: none;float: left;margin-top: -2%;" ><b>Começa:</b> <?php echo $diab.'/'.$mesb.'/'.$anob.' as '.$horab.':'.$minutob.':'.$segundob;?></div>
 
-                        <?php
-                        if(!isset($_SESSION['ID'])):
-                            ?><br>
+                    <br>
                             <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>Especie: </b><?php echo $dds['nome_cientifico_br']; ?> &nbsp;&nbsp;&nbsp;</div>
                             <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>Classificação: </b><?php echo $dds['classificacao']; ?></div><br>
                             <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>Peso total: </b><?php echo $dds['peso_lote']; ?> Kg &nbsp;&nbsp;&nbsp;</div>
                             <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>
 
-                                    <?php if($dds['classificacao'] == 'Processado Congelado' or $dds['classificacao'] == 'Processado Fresco'): echo 'Peso individual:' ; else:  echo 'Peso Médio:'; endif;?> </b> <?php echo $dds['peso_individual']; ?> Kg</div>
-                        <?php endif;?>
+                                    <?php if($dds['classificacao'] == 'Processado Congelado' or $dds['classificacao'] == 'Processado Fresco'): echo 'Peso individual:' ; else:  echo 'Peso Médio:'; endif;?> </b> <?php echo $dds['peso_individual']; ?> g</div>
+
                         <script type="text/javascript">
                             /*  $("#getting-started<?php echo $dds['id'];?>")
                              .countdown("<?php echo $anob;?>/<?php echo $mesb;?>/<?php echo $diab;?> <?php echo $horap?>:<?php echo $minutob?>:<?php echo $segundob;?> <?php echo $dsp;?>", function(event) {
@@ -3812,8 +3808,14 @@ if($rowcount1as > 0):
                                 echo 'Participar';
 
                             elseif(isset($_SESSION['ID']) and $_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
-                                
-                                echo 'Lance antecipado';
+                                if($dds['type'] == 1 and $rowcount == 0):
+
+                                    echo 'Lance antecipado';
+
+                                else:
+                                    echo 'Ver detalhes';
+
+                                endif;
 
 
 
@@ -4041,12 +4043,15 @@ if(!isset($_SESSION['ID'])):
 </section>
 </section>
 <?php endif;?>
+<?php if(!isset($_SESSION['ID'])):?>
 
 <div class="col-sm-12 text-center">
     <h3 class="title">Garantia de Qualidade</h3>
 
 </div>
-<section class="section" id="gqualidade">
+<?php endif;?>
+
+<section class="section" id="gqualidade" style="padding-bottom: 0px; <?php if(isset($_SESSION['ID'])): echo ' padding-top: 0px;'; endif;?>">
 
     <div class="row wide-img-showcase-row"  >
         <div class="col-sm-6 no-padding img" style="background-image: url(http://www.anda.jor.br/wp-content/uploads/2011/02/a14.jpg)">
@@ -4110,8 +4115,7 @@ if(!isset($_SESSION['ID'])):
                         <div class="col-sm-8 col-sm-offset-2">
 
                             <div class="feat-description text-center">
-                                <h4 class="text-light">Os produtos ofertados nos leilões da Aquamercantil, antes de serem enviados ao comprador, são avaliados por engenheiros de pesca que atestam a qualidade, a sanidade e as características do produto. É realizada a biometria do produto, garantindo dessa forma que não haja risco de envio de produtos que não estejam de acordo com as características especificadas.
-                                    Neste caso, a liberação dos pagamentos e o envio do produto só ocorre após a emissão do laudo pela Aquamercantil, isso garante o sucesso do negócio para todos.
+                                <h4 class="text-light">Os produtos ofertados nos leilões da Aqua Mercantil, antes de serem enviados ao comprador, são avaliados por Técnicos Especializados que atestam a qualidade e as características do produto. É realizada a biometria do produto, garantindo dessa forma que não haja risco de envio de produtos que não estejam de acordo com as características especificadas. Neste caso, a liberação dos pagamentos e o envio do produto só ocorre após a emissão da Declaração de Conformidade pela Aqua Mercantil, isso garante o sucesso do negócio para todos.
                                 </h4>
 
                             </div><!-- Features Description -->

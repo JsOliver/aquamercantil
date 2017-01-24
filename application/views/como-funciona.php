@@ -26,14 +26,14 @@ $this->load->view('fixed_files/index/header');
                 <!-- Question/Answer -->
                 <div>
                     <h4 class="question"></h4>
-                    <p class="answer text-muted" style="color: white;">1. O sistema de compra e venda através do leilão eletrônico funciona por meio de lances e ofertas virtuais, através do site www.aquamercantil.com.br.
+                    <p class="answer text-muted" style="color: white;">1. O sistema de compra e venda através do leilão eletrônico funciona por meio de lances e ofertas virtuais, através do site www.Aqua Mercantil.com.br.
 </p>
                 </div>
 
                 <!-- Question/Answer -->
                 <div>
                     <h4 class="question"></h4>
-                    <p class="answer text-muted" style="color: white;">2. Para participar você deve primeiro fazer o cadastro, no site www.aquamercantil.com.br, enviar seus documentos para avaliação e aguardar a aprovação de seu cadastro e a liberação de seu login e senha;
+                    <p class="answer text-muted" style="color: white;">2. Para participar você deve primeiro fazer o cadastro, no site www.Aqua Mercantil.com.br, enviar seus documentos para avaliação e aguardar a aprovação de seu cadastro e a liberação de seu login e senha;
 </p>
                 </div>
 
@@ -48,7 +48,7 @@ $this->load->view('fixed_files/index/header');
                 <!-- Question/Answer -->
                 <div>
                     <h4 class="question"></h4>
-                    <p class="answer text-muted" style="color: white;">4. O leilão da AquaMercantil é REVERSO, ou seja, o leilão inicia em maior valor e vai se reduzindo ao longo do tempo automaticamente, se não houver arremate pelo valor mínimo o leilão é suspenso sem que haja comprador;
+                    <p class="answer text-muted" style="color: white;">4. O leilão da Aqua Mercantil é REVERSO, ou seja, o leilão inicia em maior valor e vai se reduzindo ao longo do tempo automaticamente, se não houver arremate pelo valor mínimo o leilão é suspenso sem que haja comprador;
 </p>
                 </div>
 
@@ -80,16 +80,17 @@ $this->load->view('fixed_files/index/header');
                 <!-- Question/Answer -->
                 <div>
                     <h4 class="question"></h4>
-                    <p class="answer text-muted" style="color: white;">8. Cabe o pagamento da comissão do Leiloeiro, no importe de 3% (três por cento) sobre o lance ofertado pelo lote pelo arrematante e 2% pelo vendedor</p>
+                    <p class="answer text-muted" style="color: white;">8. Cabe o pagamento da comissão do Leiloeiro, no importe de 3% (três por cento) sobre o lance ofertado pelo lote pelo arrematante e 2% (dois por cento) pelo vendedor.</p>
                 </div>
 
 
                 <!-- Question/Answer -->
                 <div>
                     <h4 class="question"></h4>
-                    <p class="answer text-muted" style="color: white;">9. Existem 2 modalidades de leilão:<br>                    
-                    - Antecipado: Onde o produto será entregue somente após a data prevista para despesca ou processamento;
-                    - Imediato: com os produtos já disponíveis para entrega imediata após o leilão;
+                    <p class="answer text-muted" style="color: white;">9. Existem 2 opções de leilão:<br><br>
+                        - <b>Antecipado</b>: Onde o produto será entregue somente após a data prevista para despesca ou processamento;
+                        - <b>Imediato</b>: com os produtos já disponíveis para entrega imediata após o leilão;
+
 
                     </p>
                 </div>
@@ -98,7 +99,7 @@ $this->load->view('fixed_files/index/header');
                 <!-- Question/Answer -->
                 <div>
                     <h4 class="question"></h4>
-                    <p class="answer text-muted" style="color: white;">10. O frete NUNCA está incluso no valor do produto e é de responsabilidade do comprador, por isso, faça uma cotação de seu frete antes de dar seu lance;
+                    <p class="answer text-muted" style="color: white;">10. O frete <b>NUNCA</b> está incluso no valor do produto e é de responsabilidade do comprador, por isso, faça uma cotação do frete antes de dar seu lance;
 </p>
                 </div>
 
@@ -114,15 +115,16 @@ $this->load->view('fixed_files/index/header');
                 <!-- Question/Answer -->
                 <div>
                     <h4 class="question"></h4>
-                    <p class="answer text-muted" style="color: white;">12. Os pagamentos realizados através do PagSeguro terão taxa de 4,99% cobrada pela operadora sobre o valor da operação;
+                    <p class="answer text-muted" style="color: white;">12. As transações feitas por meio do leilão serão sempre efetivadas via PagSeguro para que haja maior segurança nas negociações;
 </p>
                 </div>
 
 
                 <div>
                     <h4 class="question"></h4>
-                    <p class="answer text-muted" style="color: white;">13. As transações feitas por meio do leilão serão sempre efetivadas via PagSeguro para que haja maior segurança nas negociações;
-</p>
+                    <p class="answer text-muted" style="color: white;">13. Os pagamentos são realizados através do PagSeguro e terão taxa de 4,99% cobrada pela operadora sobre o valor da operação;
+
+                    </p>
                 </div>
 
 

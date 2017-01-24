@@ -550,7 +550,7 @@ $this->load->view('fixed_files/leilao/header');
 
                             $this->db->from('lances_antecipados');
                             $this->db->where('id_leilao', $dds['id']);
-                            $this->db->order_by("valor","desc");
+                            $this->db->order_by("valor","Max");
                             $querya = $this->db->get();
                             $rowcount = $querya->num_rows();
                             $datea = $querya->result_array();
@@ -926,20 +926,18 @@ if( $_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 545
 
                                                                     <br>
                                                                     Nome científico: <b><?php  echo $dds['nome_cientifico_br']; ?></b><br>
-                                                                    Inglês: <b><?php  echo $dds['nome_cientifico_en']; ?></b><br>
-                                                                    Español: <b><?php  echo $dds['nome_cientifico_es']; ?></b><br>
-                                                                    French: <b><?php echo $dds['nome_cientifico_fr'];?></b><br>
-                                                                    Peso Total do lote: <b><?php echo $dds['peso_lote']; ?></b><br>
+
+                                                                    Peso Total do lote: <b><?php echo $dds['peso_lote']; ?> Kg</b><br>
                                                                     Classificação: <b><?php echo $dds['classificacao']; ?></b><br>
-                                                                    Peso individual: <b><?php echo $dds['peso_individual']; ?></b><br>
+                                                                    Peso individual: <b><?php echo $dds['peso_individual']; ?> g</b><br>
                                                                     Característica de processamento: <b><?php echo $dds['caracteristicas_processamento']; ?></b><br>
                                                                     Características de embalagem: <b><?php echo $dds['caracteristicas_embalagem']; ?></b><br>
                                                                     Condição de pagamento: <b><?php echo $dds['condicao_pagamento']; ?></b><br>
                                                                     Localidade de origem: <b><?php echo $dds['localidade_origem']; ?></b><br>
                                                                     Produtor: <b><?php echo $dds['produtor_name']; ?></b><br><br>
-                                                                    <span  style="text-align: center; ">Valor inicial: <b>R$<?php echo number_format($dds['valor_max'],2,'.',',');?></b>&nbsp;&nbsp;&nbsp;Valor final: <b>R$<?php echo number_format($dds['valor_min'],2,'.',',');?></b>   <br><br>Data do inicio: <b><?php echo $dia.'/'.$mes.'/'.$ano.' '.$hora.':'.$minuto.':'.$segundo;?></b>
+                                                                    <span  style="text-align: center; ">Valor inicial: <b>R$<?php echo number_format($dds['valor_max'],2,'.',',');?></b>   <br>Data do inicio: <b><?php echo $dia.'/'.$mes.'/'.$ano.' '.$hora.':'.$minuto.':'.$segundo;?></b>
 
-    <br>
+
                                                                     <span id="textoModal"><?php echo $dds['descricao'];?></span>
 
 
@@ -1034,6 +1032,14 @@ if( $_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 545
                                 $minutob = substr($beggsdate, 10, 2);
                                 $segundob = substr($beggsdate, 12, 2);?>
                                 <div style="font-size: 15pt;text-decoration: none;float: left;margin-top: -2%;" ><b>Começa:</b> <?php echo $diab.'/'.$mesb.'/'.$anob.' as '.$horab.':'.$minutob.':'.$segundob;?></div>
+                                <br><br>
+                                <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>Especie: </b><?php echo $dds['nome_cientifico_br']; ?> &nbsp;&nbsp;&nbsp;</div>
+                                <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>Classificação: </b><?php echo $dds['classificacao']; ?></div><br>
+                                <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>Peso total: </b><?php echo $dds['peso_lote']; ?> Kg &nbsp;&nbsp;&nbsp;</div>
+                                <div style="font-size: 10pt;text-decoration: none;float: left;margin-top: -2%;"><b>
+
+                                        <?php if($dds['classificacao'] == 'Processado Congelado' or $dds['classificacao'] == 'Processado Fresco'): echo 'Peso individual:' ; else:  echo 'Peso Médio:'; endif;?> </b> <?php echo $dds['peso_individual']; ?> g</div>
+
 
                                 <script type="text/javascript">
                                     /*  $("#getting-started<?php echo $dds['id'];?>")
@@ -1046,7 +1052,14 @@ if( $_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 545
 
                                 <a onclick="acesso(<?php echo $dds['id'];?>,<?php echo $_SESSION['ID'];?>);" href="#" data-toggle="modal" data-target="#next<?php echo $dds['id'];?>" class="btn btn-info" style="float: right;margin-top: -2.5%;">
                                     <?php if($_SESSION['TYPE'] == 2 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454):
-                                        echo 'Lance antecipado';
+                                        if($dds['type'] == 1 and $rowcount == 0):
+
+                                            echo 'Lance antecipado';
+
+                                        else:
+                                            echo 'Ver detalhes';
+
+                                        endif;
 
                                     else:
                                         echo 'Ver detalhes';

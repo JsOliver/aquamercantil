@@ -526,7 +526,7 @@ if($_SESSION['TYPE'] == 1 or $_SESSION['TYPE'] == 0 or $_SESSION['TYPE'] == 5454
                     </div><br>
                    
                     <div class="form-group">
-                        <label>Espécie/Nome ou Nome da Espécie
+                        <label>Nome da Espécie
 
 </label>
                         <input required="required" class="form-control" id="especie"  name="cnpt" placeholder="Espécie/Nome ou Nome da Espécie

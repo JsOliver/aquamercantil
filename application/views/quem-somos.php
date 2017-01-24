@@ -13,7 +13,7 @@ $this->load->view('fixed_files/index/header');
                 <div class="text-center">
                     <div class="title-box-icon title-about text-white">
                         <i class="pe-7s-medal"></i>
-                        <h3 class="title">Quem somos nós</h3>
+                        <h3 class="title">Quem somos</h3>
                     </div>
                 </div>
             </div>
@@ -22,8 +22,7 @@ $this->load->view('fixed_files/index/header');
         <div class="row" >
             <div class="col-sm-8 col-sm-offset-2">
                 <div class="feat-description text-center"><br>
-                    <h4 class="text-light">Somos a primeira empresa especializada na comercialização de pescados no Brasil. Baseados no sistema adotado pela cooperativa de Holambra criamos a Aquamercantil. Uma ferramenta para facilitar o comércio de pescados e aproximar o produtor do mercado.
-                        Adotamos o sistema de leilão reverso onde o preço parte sempre do maior para o menor preço, e o primeiro lance dado sempre é o vencedor, isso beneficia vendedores e compradores com:
+                    <h4 class="text-light">Somos a primeira empresa especializada na comercialização de pescado por meio de leilão no Brasil. Com base no sistema adotado pelas cooperativas de produtores de flores em Holambra - VEILING® HOLAMBRA, criamos a Aqua Mercantil um sistema de Leilão Reverso On Line. Uma ferramenta para facilitar o comércio de pescados e aproximar o seu produto do mercado.
                     </h4>
 
                 </div>
@@ -95,8 +94,7 @@ $this->load->view('fixed_files/index/header');
                     <div class="col-sm-8 col-sm-offset-2">
 
                         <div class="feat-description text-center">
-                            <h4 class="text-light">Os produtos ofertados nos leilões da Aquamercantil, antes de serem enviados ao comprador, são avaliados por engenheiros de pesca que atestam a qualidade, a sanidade e as características do produto. É realizada a biometria do produto, garantindo dessa forma que não haja risco de envio de produtos que não estejam de acordo com as características especificadas.
-                                Neste caso, a liberação dos pagamentos e o envio do produto só ocorre após a emissão do laudo pela Aquamercantil, isso garante o sucesso do negócio para todos.
+                            <h4 class="text-light">Os produtos ofertados nos leilões da Aqua Mercantil, antes de serem enviados ao comprador, são avaliados por Técnicos Especializados que atestam a qualidade e as características do produto. É realizada a biometria do produto, garantindo dessa forma que não haja risco de envio de produtos que não estejam de acordo com as características especificadas. Neste caso, a liberação dos pagamentos e o envio do produto só ocorre após a emissão da Declaração de Conformidade pela Aqua Mercantil, isso garante o sucesso do negócio para todos.
                             </h4>
 
                         </div><!-- Features Description -->
